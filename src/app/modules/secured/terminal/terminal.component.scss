@@ -16,5 +16,5 @@
 }
 
 :host ::ng-deep .p-terminal{
-    @apply bg-slate-700 text-slate-200 whitespace-pre font-semibold max-w-full
+    @apply bg-slate-700 text-slate-200 whitespace-pre-line font-semibold max-w-full
 }
