@@ -5,17 +5,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { PrimeComponentsModule } from 'src/app/prime-components.module';
 import { TerminalService } from 'primeng/terminal';
 import { UserTerminalService } from 'src/app/project/services/terminal.service';
+import { OverlayTerminalComponent } from './components/overlay-terminal/overlay-terminal.component';
 
 const routes: Routes = [
   {
     path: "",
-    component: TerminalComponent
+    component: OverlayTerminalComponent
   }
 ];
 
 @NgModule({
   declarations: [
-    TerminalComponent
+    TerminalComponent,
+    OverlayTerminalComponent
   ],
   imports: [
     CommonModule,
