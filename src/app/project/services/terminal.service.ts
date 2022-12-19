@@ -38,6 +38,10 @@ export class UserTerminalService {
       name: "register",
       desc: "Registrarse"
     },
+    {
+      name: "exit",
+      desc: "Salir de la terminal"
+    }
   ];
 
   commandHistory: string[] = [];
@@ -118,6 +122,10 @@ export class UserTerminalService {
 
   }
 
+  exitCommand(){
+
+  }
+
   handleCommand(command: string){
     if(this.interactiveCommandRunning){return;}
     this.commandHistory.push(command);
@@ -139,6 +147,10 @@ export class UserTerminalService {
           break;
         case "register":
           this.registerCommand();
+          break;
+        case "exit":
+          this.exitCommand();
+          break;
       }
     }else{
       this.terminal.terminalService.sendResponse(`${command}: comando no encontrado`);
