@@ -43,9 +43,10 @@ export class TerminalComponent implements OnInit, OnDestroy, AfterViewInit {
   onPressKeyUp(key: string){
     if(key === "ArrowDown"){
       this.userTerminalService.nextCommand();
-      
     }else if(key === "ArrowUp"){
       this.userTerminalService.prevCommand();
+    }else if(key === "Enter"){
+      this.userTerminalService.stylePrompts();
     }
   }
 
