@@ -16,5 +16,9 @@
 }
 
 :host ::ng-deep .p-terminal{
-    @apply bg-slate-700 text-slate-200 whitespace-pre-line font-semibold max-w-full
+    @apply bg-slate-700 text-slate-200 whitespace-pre-line font-semibold min-h-full border-blue-400 rounded-lg
+}
+
+:host ::ng-deep .p-terminal-prompt-container{
+    @apply flex flex-wrap
 }
