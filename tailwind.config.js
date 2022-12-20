@@ -4,7 +4,11 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "mi-foto": "url('assets/images/yo.jpg')"
+      }
+    },
   },
   plugins: [],
   darkMode: 'class',
