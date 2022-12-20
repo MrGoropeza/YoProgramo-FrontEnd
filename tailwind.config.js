@@ -6,7 +6,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "mi-foto": "url('assets/images/yo.jpg')"
+        "mi-foto": "url('assets/images/yo.jpg')",
+        "siltium": "url('assets/images/siltium.jpg')",
+        "ucasal": "url('assets/images/ucasal.png')",
       }
     },
   },
