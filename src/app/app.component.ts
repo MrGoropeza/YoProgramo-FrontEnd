@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { PrimeNGConfig } from 'primeng/api';
 import { esLanguage } from 'src/core/consts/esLanguage';
+import { ThemeService } from 'src/core/services/theme.service';
 
 
 @Component({
@@ -11,11 +12,15 @@ import { esLanguage } from 'src/core/consts/esLanguage';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private themeService: ThemeService,
+  ) {}
 
-    ngOnInit() {
-        this.primengConfig.ripple = true;
-        this.primengConfig.setTranslation(esLanguage);
-    }
+  ngOnInit() {
+    this.primengConfig.ripple = true;
+    this.primengConfig.setTranslation(esLanguage);
+    this.themeService.setOSTheme();
+  }
   
 }
