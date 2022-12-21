@@ -4,6 +4,7 @@ import { PageLandingComponent } from './page-landing.component';
 import { RouterModule, Routes } from '@angular/router';
 import { TerminalModule } from '../../secured/terminal/terminal.module';
 import { HeroComponent } from './components/hero/hero.component';
+import { HeaderComponent } from './components/header/header.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
   declarations: [
     PageLandingComponent,
     HeroComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
