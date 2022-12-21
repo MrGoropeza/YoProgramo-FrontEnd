@@ -9,6 +9,7 @@ module.exports = {
         "mi-foto": "url('assets/images/yo.jpg')",
         "siltium": "url('assets/images/siltium.jpg')",
         "ucasal": "url('assets/images/ucasal.png')",
+        "yo-programo": "url('assets/images/yoprogramo-logo.png')",
       }
     },
   },
