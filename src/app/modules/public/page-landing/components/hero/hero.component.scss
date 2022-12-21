@@ -1,0 +1,7 @@
+.name-hover{
+    @apply transition-all duration-700 hover:cursor-pointer hover:text-5xl
+}
+
+.place-hover{
+    @apply transition-all duration-700 hover:cursor-pointer hover:text-3xl
+}

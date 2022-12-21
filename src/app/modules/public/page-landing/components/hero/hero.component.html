@@ -10,10 +10,7 @@
     >
       <p class="w-full text-center text-4xl md:text-start">
         Hola, soy
-        <span
-          class="font-bold transition-all duration-700 hover:cursor-pointer hover:text-5xl"
-          >Gonzalo Oropeza</span
-        >
+        <span class="name-hover font-bold" (click)="goToPersonalPage()">Gonzalo Oropeza</span>
       </p>
       <div
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
@@ -22,7 +19,8 @@
           class="aspect-square w-20 rounded-full bg-siltium bg-cover bg-center bg-no-repeat"
         ></div>
         <p class="max-w-min text-2xl md:max-w-max">
-          Trabajando en <span class="whitespace-nowrap font-bold">Siltium</span>
+          Trabajando en
+          <span class="place-hover whitespace-nowrap font-bold" (click)="goToWork()">Siltium</span>
         </p>
       </div>
       <div
@@ -33,7 +31,9 @@
         ></div>
         <p class="max-w-min text-2xl md:max-w-max">
           Estudiando
-          <span class="whitespace-nowrap font-bold">Ing. en Informática</span>
+          <span class="place-hover whitespace-nowrap font-bold" (click)="goToCareer()"
+            >Ing. en Informática</span
+          >
         </p>
       </div>
     </div>
