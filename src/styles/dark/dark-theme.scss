@@ -1,0 +1,19 @@
+.dark{
+    body{
+        @apply bg-gradient-to-br from-blue-800 to-gray-900;
+    }
+
+    .p-dialog .p-dialog-content,
+    .p-dialog .p-dialog-header,
+    .p-dialog .p-dialog-header .p-dialog-header-icon{
+        @apply bg-slate-800 text-slate-200
+    }
+    
+    .p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover{
+        @apply bg-blue-300
+    }
+    
+    .p-button-primary{
+        @apply bg-blue-700
+    }
+}
