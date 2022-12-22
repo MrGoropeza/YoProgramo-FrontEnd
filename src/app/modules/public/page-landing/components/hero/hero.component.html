@@ -6,11 +6,14 @@
     class="m-2 h-72 w-1/2 rounded-md bg-sky-600 pl-32 transition-all duration-700 dark:bg-slate-800 sm:m-6 md:m-0 md:w-4/5 md:rounded-none"
   >
     <div
-      class="absolute left-0 flex w-full translate-y-80 flex-col gap-3 rounded-2xl bg-sky-500 transition-all duration-700 dark:bg-slate-900 md:static md:h-full md:translate-y-0 md:items-center md:justify-center md:bg-transparent dark:md:bg-transparent"
+      class="absolute left-0 flex w-full items-center translate-y-80 flex-col gap-3 rounded-2xl bg-sky-500 transition-all duration-700 dark:bg-slate-900 md:static md:h-full md:translate-y-0 md:items-start md:justify-center md:bg-transparent dark:md:bg-transparent"
     >
-      <p class="w-full text-center text-4xl md:text-start">
-        Hola, soy
-        <span class="name-hover font-bold" (click)="goToPersonalPage()">Gonzalo Oropeza</span>
+      <p class="mt-2 px-4 flex flex-col max-w-max text-center text-4xl md:text-start">
+        <span>
+          Hola, soy
+          <span class="name-hover font-bold" (click)="goToPersonalPage()">Gonzalo Oropeza</span>
+        </span>
+        <span class="text-xl italic md:self-end">Full Stack Developer Jr</span>
       </p>
       <div
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
