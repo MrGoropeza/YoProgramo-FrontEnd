@@ -2,3 +2,6 @@ body{
     @apply min-h-screen bg-gradient-to-br from-slate-300 to-blue-500;
 }
 
+.p-button-primary{
+    @apply bg-blue-700
+}
