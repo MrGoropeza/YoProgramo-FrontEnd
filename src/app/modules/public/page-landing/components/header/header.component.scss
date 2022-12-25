@@ -1,0 +1,35 @@
+.dark :host ::ng-deep{
+    .p-tabmenu .p-tabmenu-nav{
+        @apply bg-transparent border-transparent gap-2 
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+        @apply bg-transparent text-slate-200 border-yellow-500
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link{
+        @apply bg-blue-800 text-slate-200 border-yellow-500
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link{
+        @apply border-slate-500 bg-blue-900
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link:not(.p-disabled):focus{
+        box-shadow: inset 0 0 0 1px #ffffff;
+    }
+}
+
+:host ::ng-deep{
+    .p-tabmenu .p-tabmenu-nav{
+        @apply bg-transparent border-transparent gap-2
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+        @apply bg-transparent text-slate-900 border-yellow-500
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link{
+        @apply bg-blue-400 text-slate-900 border-yellow-500
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link{
+        @apply border-slate-500 bg-blue-500
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link:not(.p-disabled):focus{
+        box-shadow: inset 0 0 0 1px #ffffff;
+    }
+}
