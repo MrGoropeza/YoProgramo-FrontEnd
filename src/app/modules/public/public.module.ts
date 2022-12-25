@@ -11,10 +11,13 @@ const routes: Routes = [
     children: [
       {
         path: "",
+        pathMatch: "full",
+        title: "Inicio",
         loadChildren: () => import('./page-landing/page-landing.module').then(m => m.PageLandingModule),
       },
       {
         path: "experiencia",
+        title: "Experiencia",
         loadChildren: () => import('./experiencia/experiencia.module').then(m => m.ExperienciaModule),
       },
     ]
