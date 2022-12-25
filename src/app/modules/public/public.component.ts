@@ -11,7 +11,7 @@ export class PublicComponent implements OnInit {
   menuItems: MenuItem[] = [
     {
       label: "Inicio",
-      routerLink: ["/"],
+      routerLink: ["/inicio"],
     },
     {
       label: "Experiencia",
