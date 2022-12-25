@@ -1,0 +1,8 @@
+<div class="flex flex-none items-center bg-gray-200 dark:bg-slate-500 rounded-md p-2 gap-2 min-h-full">
+    <i class="pi pi-sun text-yellow-500" style="font-size: 2rem;" *ngIf="!isOnDarkTheme"></i>
+    <i class="pi pi-moon text-gray-300" style="font-size: 2rem;" *ngIf="isOnDarkTheme"></i>
+
+    <p-inputSwitch (onChange)="themeSwitchClick($event)" [(ngModel)]="isOnDarkTheme" class="flex">
+    </p-inputSwitch>
+
+</div>
