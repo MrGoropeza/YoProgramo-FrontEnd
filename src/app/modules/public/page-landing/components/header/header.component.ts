@@ -11,18 +11,23 @@ export class HeaderComponent implements OnInit {
   menuItems: MenuItem[] = [
     {
       label: "Inicio",
+      routerLink: ["/"],
     },
     {
       label: "Experiencia",
+      routerLink: ["/experiencia"],
     },
     {
       label: "Educación",
+      routerLink: ["/educacion"],
     },
     {
       label: "Habilidades",
+      routerLink: ["/habilidades"],
     },
     {
       label: "Proyectos",
+      routerLink: ["/proyectos"],
     },
   ];
 
