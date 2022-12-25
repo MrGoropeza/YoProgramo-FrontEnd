@@ -14,15 +14,33 @@ module.exports = {
       keyframes: {
         float: {
           "0%, 100%": {
-		        transform: "translatey(0px)"
+            transform: "translatey(0px)"
           },
           "50%": {
-		        transform: "translatey(-20px)"
+            transform: "translatey(-20px)"
           },
+        },
+        "rotative-coin": {
+          "0%": {
+            transform: "none"
+          },
+          "25%": {
+              transform: "rotateY(90deg)"
+          },
+          "50%": {
+              transform: "rotateY(180deg)"
+          },
+          "75%": {
+              transform: "rotateY(270deg)"
+          },
+          "100%": {
+              transform: "rotateY(360deg)"
+          }
         }
       },
       animation: {
-        float: "float 4s ease-in-out infinite"
+        float: "float 4s ease-in-out infinite",
+        "rotative-coin": "rotative-coin 4s linear infinite"
       }
     },
   },
