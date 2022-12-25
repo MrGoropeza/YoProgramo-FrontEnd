@@ -1,17 +1,20 @@
-<div class="flex items-center dark:text-slate-200">
+<div class="flex items-center">
   <div
     class="m-2 h-72 w-1/2 translate-y-5 rounded-3xl bg-yellow-600 transition-all duration-700 sm:m-6 md:m-0 md:w-1/5 md:translate-y-0 md:rounded-none"
   ></div>
   <div
-    class="m-2 h-72 w-1/2 rounded-md bg-sky-600 pl-32 transition-all duration-700 dark:bg-slate-800 sm:m-6 md:m-0 md:w-4/5 md:rounded-none"
+    class="m-2 h-72 w-1/2 rounded-md bg-sky-600 pl-32 transition-all duration-700 dark:bg-slate-700 sm:m-6 md:m-0 md:w-4/5 md:rounded-none"
   >
     <div
-      class="absolute left-0 flex w-full items-center translate-y-80 flex-col gap-3 rounded-2xl bg-sky-500 transition-all duration-700 dark:bg-slate-900 md:static md:h-full md:translate-y-0 md:items-start md:justify-center md:bg-transparent dark:md:bg-transparent"
+      class="absolute left-0 flex w-full translate-y-80 flex-col items-center gap-3 rounded-2xl bg-sky-500 transition-all duration-700 dark:bg-slate-800 md:static md:h-full md:translate-y-0 md:items-start md:justify-center md:bg-transparent dark:md:bg-transparent"
     >
-      <p class="mt-2 px-4 flex flex-col max-w-max text-center text-4xl md:text-start">
+      <p
+        class="mt-2 flex max-w-max flex-col px-4 text-center text-4xl md:text-start"
+      >
         <span>
-          Hola, soy
-          <span class="name-hover font-bold" (click)="goToPersonalPage()">Gonzalo Oropeza</span>
+          <span class="name-hover font-bold" (click)="goToPersonalPage()"
+            >Gonzalo Oropeza</span
+          >
         </span>
         <span class="text-xl italic md:self-end">Full Stack Developer Jr</span>
       </p>
@@ -23,7 +26,11 @@
         ></div>
         <p class="max-w-min text-2xl md:max-w-max">
           Trabajando en
-          <span class="place-hover whitespace-nowrap font-bold" (click)="goToWork()">Siltium</span>
+          <span
+            class="place-hover whitespace-nowrap font-bold"
+            (click)="goToWork()"
+            >Siltium</span
+          >
         </p>
       </div>
       <div
@@ -34,7 +41,9 @@
         ></div>
         <p class="max-w-min text-2xl md:max-w-max">
           Estudiando
-          <span class="place-hover whitespace-nowrap font-bold" (click)="goToCareer()"
+          <span
+            class="place-hover whitespace-nowrap font-bold"
+            (click)="goToCareer()"
             >Ing. en Informática</span
           >
         </p>
