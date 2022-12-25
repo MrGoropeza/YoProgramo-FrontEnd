@@ -6,7 +6,6 @@ import { HeroComponent } from './components/hero/hero.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { TecnologiasComponent } from './components/tecnologias/tecnologias.component';
-import { MenuComponent } from './components/menu/menu.component';
 
 const routes: Routes = [
   {
@@ -21,7 +20,6 @@ const routes: Routes = [
     HeroComponent,
     HeaderComponent,
     TecnologiasComponent,
-    MenuComponent,
   ],
   imports: [
     CommonModule,
