@@ -6,7 +6,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DialogModule } from 'primeng/dialog';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   exports: [
@@ -17,6 +18,7 @@ import {TooltipModule} from 'primeng/tooltip';
     TabMenuModule,
     InputSwitchModule,
     TooltipModule,
+    SkeletonModule,
   ],
 })
 export class PrimeComponentsModule {}

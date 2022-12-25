@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of, startWith } from 'rxjs';
 import { TechModel } from 'src/app/project/models/tech.model';
 
 @Component({
