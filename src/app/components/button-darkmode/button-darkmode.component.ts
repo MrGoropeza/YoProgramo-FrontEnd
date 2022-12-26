@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { InputSwitchOnChangeEvent } from 'primeng/inputswitch';
 import { ThemeService } from 'src/core/services/theme.service';
 

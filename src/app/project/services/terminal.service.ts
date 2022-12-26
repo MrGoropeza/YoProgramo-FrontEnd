@@ -15,7 +15,7 @@ export class UserTerminalService {
     path: ""
   }
 
-  welcomeMessage: string = `Bienvenido a la consola de mi portfolio.\nEscribí 'help' para ver los comandos disponibles.`;
+  welcomeMessage = `Bienvenido a la consola de mi portfolio.\nEscribí 'help' para ver los comandos disponibles.`;
   terminal!: Terminal;
   commands: CommandModel[] = [
     {
@@ -54,13 +54,13 @@ export class UserTerminalService {
   }
   
   stylePrompts(){
-    let styledPrompt = `<span class="terminal-prompt-user">${this.actualUser.name}@GonzaloOropeza</span><span class="terminal-prompt-separator">:</span><span class="terminal-prompt-path">Portfolio/${this.actualUser.path}</span><span class="terminal-prompt-separator">$</span>`;
-    let prompt = (this.terminal.el.nativeElement as HTMLElement).getElementsByClassName("p-terminal-content-prompt");
+    const styledPrompt = `<span class="terminal-prompt-user">${this.actualUser.name}@GonzaloOropeza</span><span class="terminal-prompt-separator">:</span><span class="terminal-prompt-path">Portfolio/${this.actualUser.path}</span><span class="terminal-prompt-separator">$</span>`;
+    const prompt = (this.terminal.el.nativeElement as HTMLElement).getElementsByClassName("p-terminal-content-prompt");
 
     prompt.item(0)!.innerHTML = styledPrompt;
 
     setTimeout(() => {
-      let prompts = (this.terminal.el.nativeElement as HTMLElement).getElementsByClassName("p-terminal-prompt");
+      const prompts = (this.terminal.el.nativeElement as HTMLElement).getElementsByClassName("p-terminal-prompt");
       for (let index = 0; index < prompts.length; index++) {
         prompts.item(index)!.innerHTML = styledPrompt;
       }
@@ -69,13 +69,13 @@ export class UserTerminalService {
 
   setPrompt(text: string){
     setTimeout(() => {
-      let prompt = (this.terminal.el.nativeElement as HTMLElement).getElementsByClassName("p-terminal-content-prompt");
+      const prompt = (this.terminal.el.nativeElement as HTMLElement).getElementsByClassName("p-terminal-content-prompt");
       prompt.item(0)!.innerHTML = text;
     }, 1);
   }
 
   helpCommand(){
-    let response = this.commands.reduce(
+    const response = this.commands.reduce(
       (prev, command) => prev.concat(`\t${command.name}   -   ${command.desc}\n`),
       "Comandos Disponibles:\n"
     );
@@ -88,21 +88,21 @@ export class UserTerminalService {
     this.terminal.commands = [];
   }
 
-  interactiveCommandRunning: boolean = false;
+  interactiveCommandRunning = false;
 
   async logInCommand(){
     this.clearCommand();
     this.interactiveCommandRunning = true;
     this.setPrompt("Nombre de Usuario:");
-    let username = await firstValueFrom(this.terminal.terminalService.commandHandler);
+    const username = await firstValueFrom(this.terminal.terminalService.commandHandler);
     
     this.clearCommand();
     this.setPrompt("Contraseña:");
 
-    let inputPrompt = this.terminal.el.nativeElement.children[0].children[1].children[1] as HTMLElement;
+    const inputPrompt = this.terminal.el.nativeElement.children[0].children[1].children[1] as HTMLElement;
     inputPrompt.setAttribute("type", "password");
 
-    let password = await firstValueFrom(this.terminal.terminalService.commandHandler);
+    const password = await firstValueFrom(this.terminal.terminalService.commandHandler);
 
     inputPrompt.setAttribute("type", "text");
 
@@ -130,7 +130,7 @@ export class UserTerminalService {
     if(this.interactiveCommandRunning){return;}
     this.commandHistory.push(command);
     this.actualIndex = this.commandHistory.length;
-    let action = this.commands.find(c => c.name === command);
+    const action = this.commands.find(c => c.name === command);
     if(action){
       switch (action.name) {
         case "help":
@@ -158,7 +158,7 @@ export class UserTerminalService {
     this.stylePrompts();
   }
 
-  actualIndex: number = 0;
+  actualIndex = 0;
 
   prevCommand(){
     if(this.commandHistory.length > 0 && (this.actualIndex - 1) >= 0){
@@ -179,8 +179,8 @@ export class UserTerminalService {
   }
 
   moveCursorToEnd(){
-    let inputSearch = (this.terminal.el.nativeElement as HTMLElement).getElementsByClassName("p-terminal-input");
-    let input = inputSearch.item(0)! as HTMLInputElement;
+    const inputSearch = (this.terminal.el.nativeElement as HTMLElement).getElementsByClassName("p-terminal-input");
+    const input = inputSearch.item(0)! as HTMLInputElement;
     input.setSelectionRange(input.value.length, input.value.length);
     input.focus();
   }

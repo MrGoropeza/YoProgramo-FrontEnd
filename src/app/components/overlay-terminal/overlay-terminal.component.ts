@@ -11,7 +11,7 @@ import { UserTerminalService } from 'src/app/project/services/terminal.service';
 })
 export class OverlayTerminalComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  visible: boolean = false;
+  visible = false;
   @ViewChild("terminal") terminal!: Terminal;
 
   commandHandler$!: Observable<string>;
