@@ -10,8 +10,12 @@ const routes: Routes = [
     component: PublicComponent,
     children: [
       {
-        path: "inicio",
+        path: "",
         pathMatch: "full",
+        redirectTo: "inicio",
+      },
+      {
+        path: "inicio",
         title: "Inicio",
         loadChildren: () => import('./page-landing/page-landing.module').then(m => m.PageLandingModule),
       },
