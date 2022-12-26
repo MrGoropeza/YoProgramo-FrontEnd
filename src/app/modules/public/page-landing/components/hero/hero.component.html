@@ -12,39 +12,48 @@
         class="mt-2 flex max-w-max flex-col px-4 text-center text-4xl md:text-start"
       >
         <span>
-          <span class="name-hover font-bold" (click)="goToPersonalPage()"
-            >Gonzalo Oropeza</span
+          <a
+            class="name-hover font-bold"
+            [href]="(aboutMeInfo$ | async)?.nameUrl"
+            target="_blank"
+            >{{ (aboutMeInfo$ | async)?.name }}</a
           >
         </span>
-        <span class="text-xl italic md:self-end">Full Stack Developer Jr</span>
+        <span class="text-xl italic md:self-end">{{
+          (aboutMeInfo$ | async)?.title
+        }}</span>
       </p>
       <div
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
-        <div
-          class="aspect-square w-20 rounded-full bg-siltium bg-cover bg-center bg-no-repeat animate-rotative-coin"
-        ></div>
+        <img
+          [src]="(aboutMeInfo$ | async)?.actualWork?.imageUrl"
+          class="w-20 max-w-none animate-rotative-coin rounded-full"
+        />
         <p class="max-w-min text-2xl md:max-w-max">
           Trabajando en
-          <span
+          <a
             class="place-hover whitespace-nowrap font-bold"
-            (click)="goToWork()"
-            >Siltium</span
+            [href]="(aboutMeInfo$ | async)?.actualWork?.url"
+            target="_blank"
+            >{{ (aboutMeInfo$ | async)?.actualWork?.name }}</a
           >
         </p>
       </div>
       <div
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
-        <div
-          class="aspect-square w-20 rounded-full bg-ucasal bg-cover bg-center bg-no-repeat animate-rotative-coin"
-        ></div>
+        <img
+          [src]="(aboutMeInfo$ | async)?.actualCareer?.imageUrl"
+          class="w-20 max-w-none animate-rotative-coin rounded-full"
+        />
         <p class="max-w-min text-2xl md:max-w-max">
           Estudiando
-          <span
+          <a
             class="place-hover whitespace-nowrap font-bold"
-            (click)="goToCareer()"
-            >Ing. en Informática</span
+            [href]="(aboutMeInfo$ | async)?.actualCareer?.url"
+            target="_blank"
+            >{{ (aboutMeInfo$ | async)?.actualCareer?.name }}</a
           >
         </p>
       </div>
@@ -53,8 +62,9 @@
   <div
     class="absolute flex w-full justify-center transition-all duration-700 md:w-2/5"
   >
-    <div
-      class="aspect-square w-56 rounded-full bg-mi-foto bg-cover bg-center bg-no-repeat"
-    ></div>
+    <img
+      [src]="(aboutMeInfo$ | async)?.imageUrl"
+      class="w-56 max-w-none rounded-full"
+    />
   </div>
 </div>

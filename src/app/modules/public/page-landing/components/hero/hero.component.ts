@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AboutModel } from 'src/app/project/models/about.model';
+import { selectAboutMeInfo } from '../../selectors/inicio.selectors';
 
 @Component({
   selector: 'app-hero',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeroComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store: Store
+  ) { }
+
+  aboutMeInfo$!: Observable<AboutModel>;
 
   ngOnInit(): void {
+    this.aboutMeInfo$ = this.store.select(selectAboutMeInfo);
   }
 
   goToPersonalPage(){

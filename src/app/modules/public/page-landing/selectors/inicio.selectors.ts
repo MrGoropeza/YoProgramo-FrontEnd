@@ -19,3 +19,8 @@ export const selectLoadingInicio = createSelector(
   selectInicioState,
   state => state.loading
 );
+
+export const selectAboutMeInfo = createSelector(
+  selectInicioState,
+   state => state.aboutMe
+);

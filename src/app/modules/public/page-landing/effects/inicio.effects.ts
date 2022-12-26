@@ -5,7 +5,9 @@ import { of } from 'rxjs';
 import * as InicioActions from '../actions/inicio.actions';
 import * as FrontendActions from '../actions/frontend.actions';
 import * as BackendActions from '../actions/backend.actions';
+import * as AboutActions from '../actions/aboutme.actions';
 import { TechnologiesService } from 'src/app/project/services/technologies.service';
+import { AboutMeService } from 'src/app/project/services/about-me.service';
 
 @Injectable()
 export class InicioEffects {
@@ -23,14 +25,19 @@ export class InicioEffects {
     );
   });
 
+  loadInicioAboutMe$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(InicioActions.loadInicios),
+      map(() => AboutActions.loadAboutmes())
+    );
+  });
+
   loadFrontendTechs$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FrontendActions.loadFrontends),
       concatMap(() =>
         this.techService.getFrontendTechs().pipe(
-          map((frontendTechs) =>
-            FrontendActions.loadFrontendsSuccess({ data: frontendTechs })
-          ),
+          map((data) => FrontendActions.loadFrontendsSuccess({ data })),
           catchError((error) =>
             of(FrontendActions.loadFrontendsFailure({ error }))
           )
@@ -44,9 +51,7 @@ export class InicioEffects {
       ofType(BackendActions.loadBackends),
       concatMap(() =>
         this.techService.getBackendTechs().pipe(
-          map((frontendTechs) =>
-            BackendActions.loadBackendsSuccess({ data: frontendTechs })
-          ),
+          map((data) => BackendActions.loadBackendsSuccess({ data })),
           catchError((error) =>
             of(BackendActions.loadBackendsFailure({ error }))
           )
@@ -55,8 +60,21 @@ export class InicioEffects {
     );
   });
 
+  loadAboutMe$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AboutActions.loadAboutmes),
+      concatMap(() =>
+        this.aboutService.getAboutMeInfo().pipe(
+          map((data) => AboutActions.loadAboutmesSuccess({ data })),
+          catchError((error) => of(AboutActions.loadAboutmesFailure({ error })))
+        )
+      )
+    );
+  });
+
   constructor(
     private actions$: Actions,
-    private techService: TechnologiesService
+    private techService: TechnologiesService,
+    private aboutService: AboutMeService
   ) {}
 }
