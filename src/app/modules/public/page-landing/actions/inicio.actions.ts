@@ -6,7 +6,6 @@ export const loadInicios = createAction(
 
 export const loadIniciosSuccess = createAction(
 	"[Inicio] Load Inicios Success",
-	props<{ data: any }>()
 );
 
 export const loadIniciosFailure = createAction(
