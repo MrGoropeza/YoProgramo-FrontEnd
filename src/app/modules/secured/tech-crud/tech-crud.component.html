@@ -1,0 +1,12 @@
+<p-dialog
+    header="CRUD Tecnologías"
+    [modal]="true"
+    [draggable]="false"
+    (visibleChange)="modalVisibleChange($event)"
+    [visible]="modalVisible"
+    styleClass="w-11/12"
+>
+    <app-ui-dynamic-table
+        tableTitle="Tecnología"
+    ></app-ui-dynamic-table>
+</p-dialog>
