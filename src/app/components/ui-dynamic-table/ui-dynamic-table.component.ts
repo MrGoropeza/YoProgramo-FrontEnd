@@ -17,7 +17,7 @@ export class UiDynamicTableComponent implements OnInit, OnDestroy {
   @Input() values!: any[];
   @Input() cols!: DynamicTableColumnModel[];
   @Input() loading!: boolean;
-  @Input() rows!: number;
+  @Input() rows = 5;
   @Input() totalRecords!: number;
   @Input() defaultSortField!: string;
   @Input() defaultSortOrder!: number;
