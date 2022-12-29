@@ -1,25 +1,43 @@
 <div
-  class="absolute left-0 flex w-full translate-y-80 flex-col items-center gap-3 rounded-2xl md:rounded-none bg-sky-600 transition-all duration-700 dark:bg-slate-900 md:static md:h-full md:translate-y-0 md:justify-center"
+  class="absolute left-0 flex w-full translate-y-80 flex-col items-center gap-3 rounded-2xl bg-sky-600 transition-all duration-700 dark:bg-slate-900 md:static md:h-full md:translate-y-0 md:justify-center md:rounded-none"
 >
-  <h2 class="text-center text-3xl font-bold">Tecnologías usadas en mi portfolio</h2>
-
-  <p-tabMenu
-    #tabMenu
-    [model]="tabs"
-    [activeItem]="tabs[0]"
-  ></p-tabMenu>
-
-  <div [ngSwitch]="tabMenu.activeItem.label" class="max-w-full">
-    <app-tech-list
-      *ngSwitchCase="'FrontEnd'"
-      [title]="'FrontEnd'"
-      [techs]="(frontTechs$ | async)!"
-    ></app-tech-list>
-    <app-tech-list
-      *ngSwitchCase="'BackEnd'"
-      [title]="'BackEnd'"
-      [techs]="(backTechs$ | async)!"
-    ></app-tech-list>
+  <div class="mt-2 flex items-center gap-3">
+    <h2 class="text-center text-3xl font-bold">
+      Tecnologías usadas en mi portfolio
+    </h2>
+    <p-button
+      icon="pi pi-pencil"
+      styleClass="p-button-success p-button-rounded"
+      (onClick)="editTechsClick()"
+    ></p-button>
   </div>
 
+  <div class="mt-2 flex items-center gap-3">
+    <p-tabMenu
+      #tabMenu
+      [model]="techTypesToMenuItem((techTypes$ | async)!)"
+      [activeItem]="tabMenu.model[0]"
+      (activeItemChange)="loadTechs($event.label!)"
+    ></p-tabMenu>
+    <p-button
+      icon="pi pi-pencil"
+      styleClass="p-button-success p-button-rounded"
+      (onClick)="editTypesClick()"
+    ></p-button>
+  </div>
+
+  <div *ngIf="tabMenu.model.length > 0">
+    <app-tech-list
+      [title]="tabMenu.activeItem.label!"
+      [techs]="(techs$ | async)!"
+    ></app-tech-list>
+  </div>
 </div>
+
+<app-techs-crud
+  [modalVisible]="(techCrudModalVisible$ | async)!.visible"
+></app-techs-crud>
+
+<app-tech-type-crud
+  [modalVisible]="(techTypeCrudModalVisible$ | async)!.visible"
+></app-tech-type-crud>

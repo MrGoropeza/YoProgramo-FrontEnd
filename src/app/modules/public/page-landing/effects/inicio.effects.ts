@@ -3,27 +3,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as InicioActions from '../actions/inicio.actions';
-import * as FrontendActions from '../actions/frontend.actions';
-import * as BackendActions from '../actions/backend.actions';
 import * as AboutActions from '../actions/aboutme.actions';
+import * as TechTypeActions from '../actions/techs-type.actions';
 import { TechnologiesService } from 'src/app/project/services/technologies.service';
 import { AboutMeService } from 'src/app/project/services/about-me.service';
 
 @Injectable()
 export class InicioEffects {
-  loadInicioFrontEnd$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(InicioActions.loadInicios),
-      map(() => FrontendActions.loadFrontends())
-    );
-  });
-
-  loadInicioBackEnd$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(InicioActions.loadInicios),
-      map(() => BackendActions.loadBackends())
-    );
-  });
 
   loadInicioAboutMe$ = createEffect(() => {
     return this.actions$.pipe(
@@ -32,28 +18,35 @@ export class InicioEffects {
     );
   });
 
-  loadFrontendTechs$ = createEffect(() => {
+  loadInicioTechTypes$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(FrontendActions.loadFrontends),
-      concatMap(() =>
-        this.techService.getFrontendTechs().pipe(
-          map((data) => FrontendActions.loadFrontendsSuccess({ data })),
+      ofType(InicioActions.loadInicios),
+      map(() => TechTypeActions.loadTechsTypes())
+    );
+  });
+
+  loadInicioTechs$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TechTypeActions.loadTechsTypesSuccess),
+      concatMap((action) =>
+        this.techService.getTechs(action.data[0].name).pipe(
+          map((data) => InicioActions.loadTechsSuccess({ data })),
           catchError((error) =>
-            of(FrontendActions.loadFrontendsFailure({ error }))
+            of(InicioActions.loadTechsFailure({ error }))
           )
         )
       )
     );
   });
 
-  loadBackendTechs$ = createEffect(() => {
+  loadTechs$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(BackendActions.loadBackends),
-      concatMap(() =>
-        this.techService.getBackendTechs().pipe(
-          map((data) => BackendActions.loadBackendsSuccess({ data })),
+      ofType(InicioActions.loadTechs),
+      concatMap((action) =>
+        this.techService.getTechs(action.activeType).pipe(
+          map((data) => InicioActions.loadTechsSuccess({ data })),
           catchError((error) =>
-            of(BackendActions.loadBackendsFailure({ error }))
+            of(InicioActions.loadTechsFailure({ error }))
           )
         )
       )

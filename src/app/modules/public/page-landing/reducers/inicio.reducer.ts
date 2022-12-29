@@ -1,18 +1,14 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { TechModel } from 'src/app/project/models/tech.model';
 import * as InicioActions from '../actions/inicio.actions';
-import * as FrontendActions from '../actions/frontend.actions';
-import * as BackendActions from '../actions/backend.actions';
 import * as AboutAction from '../actions/aboutme.actions';
 import { AboutModel } from 'src/app/project/models/about.model';
 
 export const inicioFeatureKey = 'inicio';
 
 export interface InicioState {
-  backendTechs: TechModel[];
-  backendError: any;
-  frontendTechs: TechModel[];
-  frontendError: any;
+  techs: TechModel[];
+  techsError: any;
   aboutMe: AboutModel;
   aboutMeError: any;
   loading: boolean;
@@ -20,10 +16,8 @@ export interface InicioState {
 }
 
 export const initialState: InicioState = {
-  backendTechs: [],
-  backendError: {},
-  frontendTechs: [],
-  frontendError: {},
+  techs: [],
+  techsError: undefined,
   aboutMe: {} as AboutModel,
   aboutMeError: {},
   loading: false,
@@ -50,20 +44,12 @@ export const reducer = createReducer(
     })
   ),
   on(
-    FrontendActions.loadFrontendsSuccess,
-    (state, action): InicioState => ({ ...state, frontendTechs: action.data })
+    InicioActions.loadTechsSuccess,
+    (state, action): InicioState => ({ ...state, techs: action.data })
   ),
   on(
-    FrontendActions.loadFrontendsFailure,
-    (state, action): InicioState => ({ ...state, frontendError: action.error })
-  ),
-  on(
-    BackendActions.loadBackendsSuccess,
-    (state, action): InicioState => ({ ...state, backendTechs: action.data })
-  ),
-  on(
-    BackendActions.loadBackendsFailure,
-    (state, action): InicioState => ({ ...state, backendError: action.error })
+    InicioActions.loadTechsFailure,
+    (state, action): InicioState => ({ ...state, techsError: action.error })
   ),
   on(
     AboutAction.loadAboutmesSuccess,
