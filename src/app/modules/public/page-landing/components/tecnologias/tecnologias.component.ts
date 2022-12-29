@@ -9,7 +9,7 @@ import { selectTechsInicio, selectTechTypesInicio } from '../../state/inicio.sel
 import { selectTechCrudModalState } from '../../../../secured/tech-crud/state/tech.selectors';
 import {
   selectTechTypeCrudModalState,
-} from '../../../../secured/tech-type-crud/state/tech-type.selectors';
+} from '../../../../secured/tech-type-crud/state/techs-type.selectors';
 import { openTechsCrud } from 'src/app/modules/secured/tech-crud/state/tech.actions';
 
 @Component({
