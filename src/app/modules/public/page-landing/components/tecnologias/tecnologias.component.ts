@@ -3,15 +3,14 @@ import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { TechModel, TipoTecnologia } from 'src/app/project/models/tech.model';
-import { loadTechs } from '../../actions/inicio.actions';
-import { loadTechsEdits } from '../../actions/techs-edit.actions';
-import { openTechsTypes } from '../../actions/techs-type.actions';
-import { selectTechsInicio } from '../../selectors/inicio.selectors';
-import { selectTechCrudModalState } from '../../selectors/tech-edit.selectors';
+import { loadTechs } from '../../state/inicio.actions';
+import { openTechsTypes } from '../../../../secured/tech-type-crud/state/techs-type.actions';
+import { selectTechsInicio, selectTechTypesInicio } from '../../state/inicio.selectors';
+import { selectTechCrudModalState } from '../../../../secured/tech-crud/state/tech.selectors';
 import {
   selectTechTypeCrudModalState,
-  selectTechTypes,
-} from '../../selectors/tech-type.selectors';
+} from '../../../../secured/tech-type-crud/state/tech-type.selectors';
+import { openTechsCrud } from 'src/app/modules/secured/tech-crud/state/tech.actions';
 
 @Component({
   selector: 'app-tecnologias',
@@ -35,7 +34,7 @@ export class TecnologiasComponent implements OnInit {
     this.techTypeCrudModalVisible$ = this.store.select(
       selectTechTypeCrudModalState
     );
-    this.techTypes$ = this.store.select(selectTechTypes);
+    this.techTypes$ = this.store.select(selectTechTypesInicio);
     this.techs$ = this.store.select(selectTechsInicio);
   }
 
@@ -44,7 +43,7 @@ export class TecnologiasComponent implements OnInit {
   }
 
   editTechsClick() {
-    this.store.dispatch(loadTechsEdits());
+    this.store.dispatch(openTechsCrud());
   }
 
   editTypesClick() {

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { TechModel } from 'src/app/project/models/tech.model';
+import { TechModel, TipoTecnologia } from 'src/app/project/models/tech.model';
 
 export const loadInicios = createAction('[Inicio] Load Inicios');
 
@@ -9,6 +9,21 @@ export const loadIniciosFailure = createAction(
   '[Inicio] Load Inicios Failure',
   props<{ error: any }>()
 );
+
+export const loadTechsTypes = createAction(
+  '[Inicio] Load TechsTypes',
+);
+
+export const loadTechsTypesSuccess = createAction(
+  '[Inicio] Load TechsTypes Success',
+  props<{ data: TipoTecnologia[] }>()
+);
+
+export const loadTechsTypesFailure = createAction(
+  '[Inicio] Load TechsTypes Failure',
+  props<{ error: any }>()
+);
+
 
 export const loadTechs = createAction(
   '[Inicio] Load Techs',

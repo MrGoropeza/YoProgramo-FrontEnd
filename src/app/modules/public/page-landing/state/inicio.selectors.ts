@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromInicio from '../reducers/inicio.reducer';
+import * as fromInicio from './inicio.reducer';
 
 export const selectInicioState = createFeatureSelector<fromInicio.InicioState>(
   fromInicio.inicioFeatureKey
@@ -8,6 +8,11 @@ export const selectInicioState = createFeatureSelector<fromInicio.InicioState>(
 export const selectLoadingInicio = createSelector(
   selectInicioState,
   state => state.loading
+);
+
+export const selectTechTypesInicio = createSelector(
+  selectInicioState,
+  state => state.techTypes
 );
 
 export const selectTechsInicio = createSelector(

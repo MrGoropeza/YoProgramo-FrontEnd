@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadInicios } from './actions/inicio.actions';
+import { loadInicios } from './state/inicio.actions';
 
 @Component({
   selector: 'app-page-landing',

@@ -1,12 +1,14 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { TechModel } from 'src/app/project/models/tech.model';
-import * as InicioActions from '../actions/inicio.actions';
+import { TechModel, TipoTecnologia } from 'src/app/project/models/tech.model';
+import * as InicioActions from './inicio.actions';
 import * as AboutAction from '../actions/aboutme.actions';
 import { AboutModel } from 'src/app/project/models/about.model';
 
 export const inicioFeatureKey = 'inicio';
 
 export interface InicioState {
+  techTypes: TipoTecnologia[];
+  techTypesError: any;
   techs: TechModel[];
   techsError: any;
   aboutMe: AboutModel;
@@ -16,6 +18,8 @@ export interface InicioState {
 }
 
 export const initialState: InicioState = {
+  techTypes: [],
+  techTypesError: undefined,
   techs: [],
   techsError: undefined,
   aboutMe: {} as AboutModel,
@@ -42,6 +46,14 @@ export const reducer = createReducer(
       loading: false,
       errors: [...state.errors, action.error],
     })
+  ),
+  on(
+    InicioActions.loadTechsTypesSuccess,
+    (state, action): InicioState => ({ ...state, techTypes: action.data })
+  ),
+  on(
+    InicioActions.loadTechsTypesFailure,
+    (state, action): InicioState => ({ ...state, techTypesError: action.error })
   ),
   on(
     InicioActions.loadTechsSuccess,

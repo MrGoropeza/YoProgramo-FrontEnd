@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import * as InicioActions from '../actions/inicio.actions';
+import * as InicioActions from './inicio.actions';
 import * as AboutActions from '../actions/aboutme.actions';
-import * as TechTypeActions from '../actions/techs-type.actions';
 import { TechnologiesService } from 'src/app/project/services/technologies.service';
 import { AboutMeService } from 'src/app/project/services/about-me.service';
 
@@ -21,18 +20,32 @@ export class InicioEffects {
   loadInicioTechTypes$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(InicioActions.loadInicios),
-      map(() => TechTypeActions.loadTechsTypes())
+      map(() => InicioActions.loadTechsTypes())
     );
   });
 
   loadInicioTechs$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(TechTypeActions.loadTechsTypesSuccess),
+      ofType(InicioActions.loadTechsTypesSuccess),
       concatMap((action) =>
         this.techService.getTechs(action.data[0].name).pipe(
           map((data) => InicioActions.loadTechsSuccess({ data })),
           catchError((error) =>
             of(InicioActions.loadTechsFailure({ error }))
+          )
+        )
+      )
+    );
+  });
+
+  loadTechsTypes$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(InicioActions.loadTechsTypes),
+      concatMap(() =>
+        this.techService.getTechTypes().pipe(
+          map((data) => InicioActions.loadTechsTypesSuccess({ data })),
+          catchError((error) =>
+            of(InicioActions.loadTechsTypesFailure({ error }))
           )
         )
       )

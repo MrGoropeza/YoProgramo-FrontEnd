@@ -34,10 +34,10 @@
   </div>
 </div>
 
-<app-techs-crud
+<app-tech-crud
   *ngIf="(techCrudModalVisible$ | async)!.visible"
   [modalVisible]="(techCrudModalVisible$ | async)!.visible"
-></app-techs-crud>
+></app-tech-crud>
 
 <app-tech-type-crud
   *ngIf="(techTypeCrudModalVisible$ | async)!.visible"
