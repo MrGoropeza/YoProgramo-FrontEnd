@@ -16,5 +16,10 @@
         [loading]="(valuesLoading$ | async)!"
 
         (lazyLoadAction)="lazyLoadEvent($event)"
+
+        confirmationHeader="Tipo de Tecnología"
+        confirmationValue="name"
+        confirmationMessage="¿Seguro de borrar este tipo?"
+
     ></app-ui-dynamic-table>
 </p-dialog>

@@ -4,7 +4,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { TipoTecnologia } from 'src/app/project/models/tech.model';
 import { DynamicTableColumnModel } from 'src/core/classes/dynamic-table.model';
-import { selectTechTypes, selectTechTypesLoading } from './state/tech-type.selectors';
+import { selectTechTypes, selectTechTypesLoading } from './state/techs-type.selectors';
 import { closeTechsTypes, loadTechsTypes } from './state/techs-type.actions';
 
 @Component({
