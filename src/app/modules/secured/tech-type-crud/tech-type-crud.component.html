@@ -1,0 +1,20 @@
+<p-dialog
+    header="CRUD Tipo de Tecnologías"
+    [modal]="true"
+    [draggable]="false"
+    (visibleChange)="modalVisibleChange($event)"
+    [visible]="modalVisible"
+    styleClass="w-11/12"
+>
+    <app-ui-dynamic-table
+        tableTitle="Tipo de Tecnología"
+        [cols]="cols"
+        defaultSortField="id"
+        [defaultSortOrder]="1"
+        
+        [values]="(values$ | async)!"
+        [loading]="(valuesLoading$ | async)!"
+
+        (lazyLoadAction)="lazyLoadEvent($event)"
+    ></app-ui-dynamic-table>
+</p-dialog>
