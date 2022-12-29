@@ -8,6 +8,10 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { SkeletonModule } from 'primeng/skeleton';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
   exports: [
@@ -19,6 +23,10 @@ import { SkeletonModule } from 'primeng/skeleton';
     InputSwitchModule,
     TooltipModule,
     SkeletonModule,
+    DynamicDialogModule,
+    TableModule,
+    ConfirmDialogModule,
+    InputTextModule
   ],
 })
 export class PrimeComponentsModule {}
