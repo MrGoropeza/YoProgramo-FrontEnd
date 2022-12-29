@@ -1,0 +1,143 @@
+<div class="overflow-hidden rounded-lg">
+  <p-table
+    #dt
+    [columns]="cols"
+    [value]="values"
+    responsiveLayout="stack"
+    styleClass="p-datatable-sm p-datatable-striped max-w-full"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+    [showCurrentPageReport]="true"
+    dataKey="id"
+    [lazy]="true"
+    (onLazyLoad)="lazyLoadEvent($event)"
+    [loading]="loading"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    [paginator]="true"
+    [sortField]="defaultSortField"
+    [sortOrder]="defaultSortOrder ? defaultSortOrder : 1"
+  >
+    <ng-template pTemplate="caption">
+      <div class="mb-2 flex flex-wrap justify-center gap-3 sm:justify-between">
+        <app-ui-button
+          label="Agregar {{ tableTitle }}"
+          icon="pi pi-plus"
+          [class]="'p-button-success'"
+          (click)="newClick.emit()"
+        ></app-ui-button>
+
+        <input
+          *ngIf="searchEnabled"
+          #inputSearch
+          pInputText
+          type="text"
+          (input)="onSearchQueryInput($event)"
+          placeholder="Buscar..."
+          oninput="this.value = this.value.toUpperCase()"
+        />
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" pSortableColumn="{{ col.field }}" [pSortableColumnDisabled]="col.sortable !== undefined && !col.sortable">
+          {{ col.header }}
+          <p-sortIcon *ngIf="col.sortable === undefined || col.sortable === true" field="{{ col.field }}"></p-sortIcon>
+        </th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-rowData
+      let-columns="columns"
+      let-editing="editing"
+      let-ri="rowIndex"
+      class="max-w-full"
+    >
+      <tr>
+        <td *ngFor="let col of columns" class="gap-3">
+          <span class="p-column-title font-bold">{{ col.header }}</span>
+
+          <span *ngIf="col.pipe === 'currency'">
+            {{ rowData[col.field] | currency:col.pipeArgs[0]:col.pipeArgs[1]:col.pipeArgs[2]:col.pipeArgs[3] }}
+          </span>
+
+          <span *ngIf="col.pipe === 'date'">
+            {{ rowData[col.field] | date:col.pipeArgs[0]:col.pipeArgs[1]:col.pipeArgs[2]  }}
+          </span>
+
+          <span *ngIf="col.pipe === 'object'">
+            {{ rowData[col.field] | object:col.pipeArgs }}
+          </span>
+
+          <span *ngIf="col.pipe === 'list'">
+            {{ rowData[col.field] | list:col.pipeArgs[0]:col.pipeArgs[1] }}
+          </span>
+
+          <span *ngIf="col.pipe === 'nullable'">
+            {{ rowData[col.field] | nullable:col.pipeArgs[0] }}
+          </span>
+
+          <span *ngIf="col.pipe === undefined || !col.pipe || col.pipe === ''">
+            {{ rowData[col.field] }}
+          </span>
+
+        </td>
+        <td>
+          <span class="p-column-title font-bold">Acciones</span>
+          <div class="flex flex-wrap gap-2">
+            <button
+              *ngIf="detailEnabled"
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-search"
+              class="p-button-rounded p-button-info"
+              pTooltip="Ver Detalle"
+              tooltipPosition="top"
+              (click)="detailClick.emit(rowData)"
+            ></button>
+            <button
+              *ngIf="editEnabled"
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-warning"
+              pTooltip="Editar"
+              tooltipPosition="top"
+              (click)="editClick.emit(rowData)"
+            ></button>
+            <button
+              *ngIf="deleteEnabled"
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-danger"
+              pTooltip="Eliminar"
+              tooltipPosition="top"
+              (click)="deleteRow(rowData)"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr class="dark:bg-blue-900">
+        <td colspan="10">Ningún {{ tableTitle }} por mostrar.</td>
+      </tr>
+    </ng-template>
+
+  </p-table>
+</div>
+
+
+<p-confirmDialog
+    [header]="confirmationHeader"
+    [message]="confirmationMessage"
+    [acceptLabel]="confirmationAcceptLabel"
+    [rejectLabel]="confirmationRejectLabel"
+></p-confirmDialog>

@@ -1,0 +1,42 @@
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th,
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td,
+:host ::ng-deep .p-datatable .p-datatable-header,
+:host ::ng-deep .p-datatable .p-datatable-footer {
+  @apply dark:text-slate-200 dark:bg-slate-800 dark:border-slate-600;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th:hover,
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td:hover{
+  @apply text-slate-400
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-label {
+  @apply max-w-min break-words;
+}
+
+:host ::ng-deep .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon{
+  @apply dark:text-blue-400
+}
+
+.p-datatable .p-sortable-column.p-highlight:hover,
+:host ::ng-deep .p-datatable .p-sortable-column .p-sortable-column-icon,
+:host ::ng-deep .p-paginator .p-paginator-current{
+  @apply dark:text-slate-200
+}
+
+:host ::ng-deep .p-paginator,
+:host ::ng-deep .p-paginator .p-paginator-last,
+:host ::ng-deep .p-paginator .p-paginator-next,
+:host ::ng-deep .p-paginator .p-paginator-prev,
+:host ::ng-deep .p-paginator .p-paginator-first{
+  @apply  dark:text-slate-200 dark:bg-slate-800 dark:border-slate-600;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover,
+:host ::ng-deep .p-paginator .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
+:host ::ng-deep .p-paginator .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
+:host ::ng-deep .p-paginator .p-paginator-first:not(.p-disabled):not(.p-highlight):hover{
+  @apply dark:text-slate-200 dark:bg-slate-800 dark:border-slate-600;
+}
+
