@@ -136,7 +136,7 @@ export class TechTypeEffects {
     return this.actions$.pipe(
       ofType(TechTypeActions.deleteTechsTypes),
       mergeMap((action) =>
-        this.techService.deleteTechType(action.techType).pipe(
+        this.techTypeService.delete(action.techType).pipe(
           map(() => TechTypeActions.deleteTechsTypesSuccess()),
           catchError((error) =>
             of(TechTypeActions.deleteTechsTypesFailure({ error }))
