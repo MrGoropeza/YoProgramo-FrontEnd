@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PublicComponent } from './public.component';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { MessageService } from 'primeng/api';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ComponentsModule
-  ]
+  ],
+  providers: [MessageService]
 })
 export class PublicModule { }
