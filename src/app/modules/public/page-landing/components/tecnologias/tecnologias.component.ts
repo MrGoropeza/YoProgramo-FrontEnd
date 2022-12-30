@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
-import { Observable } from 'rxjs';
-import { Tecnologia, TipoTecnologia } from 'src/app/project/models/tech.model';
+import { map, Observable } from 'rxjs';
+import { Tecnologia } from 'src/app/project/models/tech.model';
 import { loadTechs } from '../../state/inicio.actions';
 import { openTechsTypes } from '../../../../secured/tech-type-crud/state/techs-type.actions';
 import { selectTechsInicio, selectTechTypesInicio } from '../../state/inicio.selectors';
 import { selectTechCrudModalState } from '../../../../secured/tech-crud/state/tech.selectors';
 import { openTechsCrud } from 'src/app/modules/secured/tech-crud/state/tech.actions';
+import { TechType } from 'src/app/project/models/TechType.model';
 
 @Component({
   selector: 'app-tecnologias',
@@ -15,7 +16,7 @@ import { openTechsCrud } from 'src/app/modules/secured/tech-crud/state/tech.acti
   styleUrls: ['./tecnologias.component.scss'],
 })
 export class TecnologiasComponent implements OnInit {
-  techTypes$!: Observable<TipoTecnologia[]>;
+  techTypes$!: Observable<TechType[]>;
   techs$!: Observable<Tecnologia[]>;
 
   techCrudModalVisible$!: Observable<{ visible: boolean; loading: boolean }>;
@@ -24,11 +25,14 @@ export class TecnologiasComponent implements OnInit {
 
   ngOnInit(): void {
     this.techCrudModalVisible$ = this.store.select(selectTechCrudModalState);
-    this.techTypes$ = this.store.select(selectTechTypesInicio);
+    const response$ = this.store.select(selectTechTypesInicio);
+    this.techTypes$ = response$.pipe(
+      map(value => value.data)
+    )
     this.techs$ = this.store.select(selectTechsInicio);
   }
 
-  techTypesToMenuItem(techTypes: TipoTecnologia[]): MenuItem[] {
+  techTypesToMenuItem(techTypes: TechType[]): MenuItem[] {
     return techTypes.map((techType) => ({ label: techType.name }));
   }
 
