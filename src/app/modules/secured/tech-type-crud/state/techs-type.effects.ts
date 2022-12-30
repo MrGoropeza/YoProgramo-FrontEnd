@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
 import { TechnologiesService } from 'src/app/project/services/technologies.service';
-import { TechTypeCrudComponent } from '../tech-type-crud.component';
+import TechTypeCrudComponent from '../tech-type-crud.component';
 import { TechTypeFormComponent } from '../tech-type-form/tech-type-form.component';
 import * as TechTypeActions from './techs-type.actions';
 import * as InicioActions from '../../../public/page-landing/state/inicio.actions';

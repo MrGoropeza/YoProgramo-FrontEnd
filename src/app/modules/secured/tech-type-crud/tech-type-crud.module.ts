@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TechTypeCrudComponent } from './tech-type-crud.component';
+import TechTypeCrudComponent from './tech-type-crud.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { StoreModule } from '@ngrx/store';
 
