@@ -11,13 +11,14 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import {InputTextModule} from 'primeng/inputtext';
-import {AutoCompleteModule} from 'primeng/autocomplete';
-import {CalendarModule} from 'primeng/calendar';
-import {DropdownModule} from 'primeng/dropdown';
-import {InputNumberModule} from 'primeng/inputnumber';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import {MultiSelectModule} from 'primeng/multiselect';
+import { InputTextModule } from 'primeng/inputtext';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   exports: [
@@ -32,13 +33,14 @@ import {MultiSelectModule} from 'primeng/multiselect';
     DynamicDialogModule,
     TableModule,
     ConfirmDialogModule,
-    InputTextModule, 
+    InputTextModule,
     AutoCompleteModule,
     CalendarModule,
     DropdownModule,
     InputNumberModule,
     InputTextareaModule,
     MultiSelectModule,
+    ToastModule,
   ],
 })
 export class PrimeComponentsModule {}
