@@ -1,12 +1,13 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { TipoTecnologia } from 'src/app/project/models/tech.model';
+import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
+import { TechType } from 'src/app/project/models/TechType.model';
 import * as actions from './techs-type.actions';
 
 
 export const techsTypeFeatureKey = 'techsType';
 
 export interface TechTypeCrudState {
-  techTypes: TipoTecnologia[];
+  techTypes: MultipleRecordsResponse<TechType>;
   techTypesError: any;
   techTypesLoading: boolean;
   techTypeOperationState: string;
@@ -15,7 +16,7 @@ export interface TechTypeCrudState {
 }
 
 export const initialState: TechTypeCrudState = {
-  techTypes: [],
+  techTypes: {data: [], totalRecords: 0},
   techTypesError: undefined,
   techTypesLoading: false,
   techTypeOperationState: '',

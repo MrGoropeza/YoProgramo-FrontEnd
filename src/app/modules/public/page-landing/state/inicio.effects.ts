@@ -27,13 +27,17 @@ export class InicioEffects {
   loadInicioTechs$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(InicioActions.loadTechsTypesSuccess),
-      concatMap((action) =>
-        this.techService.getTechs(action.data[0].name).pipe(
+      concatMap((action) => {
+        if(action.response.data.length === 0){
+          return of(InicioActions.loadTechsSuccess({ data: [] }));
+        }
+        return this.techService.getTechs(action.response.data[0].name).pipe(
           map((data) => InicioActions.loadTechsSuccess({ data })),
           catchError((error) =>
             of(InicioActions.loadTechsFailure({ error }))
           )
         )
+      }
       )
     );
   });
@@ -43,7 +47,7 @@ export class InicioEffects {
       ofType(InicioActions.loadTechsTypes),
       concatMap(() =>
         this.techService.getTechTypes().pipe(
-          map((data) => InicioActions.loadTechsTypesSuccess({ data })),
+          map((data) => InicioActions.loadTechsTypesSuccess({ response: data })),
           catchError((error) =>
             of(InicioActions.loadTechsTypesFailure({ error }))
           )

@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { Tecnologia, TipoTecnologia } from 'src/app/project/models/tech.model';
+import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
+import { Tecnologia } from 'src/app/project/models/tech.model';
+import { TechType } from 'src/app/project/models/TechType.model';
 
 export const loadInicios = createAction('[Inicio] Load Inicios');
 
@@ -16,7 +18,7 @@ export const loadTechsTypes = createAction(
 
 export const loadTechsTypesSuccess = createAction(
   '[Inicio] Load TechsTypes Success',
-  props<{ data: TipoTecnologia[] }>()
+  props<{ response: MultipleRecordsResponse<TechType> }>()
 );
 
 export const loadTechsTypesFailure = createAction(

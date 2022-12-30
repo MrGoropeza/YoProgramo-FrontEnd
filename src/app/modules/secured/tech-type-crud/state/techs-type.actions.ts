@@ -1,13 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { LazyLoadEvent } from 'primeng/api';
-import { TipoTecnologia } from 'src/app/project/models/tech.model';
+import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
+import { TechType } from 'src/app/project/models/TechType.model';
 
 export const openTechsTypes = createAction('[TechsType] Open TechsTypes');
 export const closeTechsTypes = createAction('[TechsType] Close TechsTypes');
 
 export const openTechsTypesForm = createAction(
   '[TechsType] Open TechsTypesForm',
-  props<{ techType?: TipoTecnologia }>()
+  props<{ techType?: TechType }>()
 );
 
 export const loadTechsTypes = createAction(
@@ -17,7 +18,7 @@ export const loadTechsTypes = createAction(
 
 export const loadTechsTypesSuccess = createAction(
   '[TechsType] Load TechsTypes Success',
-  props<{ data: TipoTecnologia[] }>()
+  props<{ data: MultipleRecordsResponse<TechType> }>()
 );
 
 export const loadTechsTypesFailure = createAction(
@@ -27,7 +28,7 @@ export const loadTechsTypesFailure = createAction(
 
 export const saveTechsTypes = createAction(
   '[TechsType] Save TechsTypes',
-  props<{ techType: TipoTecnologia }>()
+  props<{ techType: TechType }>()
 );
 
 export const saveTechsTypesSuccess = createAction(
@@ -41,7 +42,7 @@ export const saveTechsTypesFailure = createAction(
 
 export const deleteTechsTypes = createAction(
   '[TechsType] Delete TechsTypes',
-  props<{ techType: TipoTecnologia }>()
+  props<{ techType: TechType }>()
 );
 
 export const deleteTechsTypesSuccess = createAction(

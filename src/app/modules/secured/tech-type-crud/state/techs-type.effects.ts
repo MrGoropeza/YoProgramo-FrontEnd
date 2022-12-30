@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { MessageService } from 'primeng/api';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
 import { TechnologiesService } from 'src/app/project/services/technologies.service';
@@ -8,6 +8,7 @@ import TechTypeCrudComponent from '../tech-type-crud.component';
 import { TechTypeFormComponent } from '../tech-type-form/tech-type-form.component';
 import * as TechTypeActions from './techs-type.actions';
 import * as InicioActions from '../../../public/page-landing/state/inicio.actions';
+import { TechtypeService } from 'src/app/project/services/techtype.service';
 
 @Injectable()
 export class TechTypeEffects {
@@ -15,7 +16,8 @@ export class TechTypeEffects {
     private actions$: Actions,
     private techService: TechnologiesService,
     private dialogService: DialogService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private techTypeService: TechtypeService
   ) {}
 
   openTechTypes$ = createEffect(
@@ -57,31 +59,46 @@ export class TechTypeEffects {
     { dispatch: false }
   );
 
+  lastQuery!: LazyLoadEvent;
+
   loadTechTypes$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TechTypeActions.loadTechsTypes),
-      concatMap(() =>
-        this.techService.getTechTypes().pipe(
-          map((data) => TechTypeActions.loadTechsTypesSuccess({ data })),
+      concatMap((action) => {
+        if (action.query) {
+          this.lastQuery = action.query;
+        }
+
+        const query = window.btoa(JSON.stringify(this.lastQuery));
+
+        return this.techTypeService.getWithQuery(query).pipe(
+          map((data) =>
+            TechTypeActions.loadTechsTypesSuccess({
+              data: {
+                data: data,
+                totalRecords: this.techTypeService.totalRecords,
+              },
+            })
+          ),
           catchError((error) =>
             of(TechTypeActions.loadTechsTypesFailure({ error }))
           )
-        )
-      )
+        );
+      })
     );
   });
 
   saveTechType$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TechTypeActions.saveTechsTypes),
-      mergeMap((action) =>
-        this.techService.saveTechType(action.techType).pipe(
+      mergeMap((action) => {
+        return this.techTypeService.add(action.techType).pipe(
           map(() => TechTypeActions.saveTechsTypesSuccess()),
           catchError((error) =>
             of(TechTypeActions.saveTechsTypesFailure({ error }))
           )
-        )
-      )
+        );
+      })
     );
   });
 

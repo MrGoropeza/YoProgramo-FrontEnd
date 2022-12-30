@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EntityDataModule } from '@ngrx/data';
-import { entityConfig } from './entity-metadata';
+import { DefaultDataServiceConfig, EntityDataModule } from '@ngrx/data';
+import { entityConfig, defaultDataServiceConfig } from './entity-metadata';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { entityConfig } from './entity-metadata';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EntityDataModule.forRoot(entityConfig)
   ],
-  providers: [],
+  providers: [{provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

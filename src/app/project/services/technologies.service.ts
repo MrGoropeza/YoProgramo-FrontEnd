@@ -6,7 +6,9 @@ import {
   Observable,
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Tecnologia, TipoTecnologia } from '../models/tech.model';
+import { MultipleRecordsResponse } from '../models/MultipleRecordsResponse';
+import { Tecnologia } from '../models/tech.model';
+import { TechType } from '../models/TechType.model';
 
 @Injectable({
   providedIn: 'root',
@@ -59,7 +61,7 @@ export class TechnologiesService {
     const requests: Observable<any>[] = [];
 
     this.dummieFrontTechs.forEach((tech) => {
-      tech.tipo = { id: 1 } as TipoTecnologia;
+      tech.tipo = { id: 1 } as TechType;
 
       const form = new FormData();
       form.append('tech', JSON.stringify(tech));
@@ -92,14 +94,14 @@ export class TechnologiesService {
   }
 
   getTechTypes(){
-    return this.http.get<TipoTecnologia[]>(`${this.apiUrl}/tipoTecnologia/list`);
+    return this.http.get<MultipleRecordsResponse<TechType>>(`${this.apiUrl}/techtypes/`);
   }
 
-  saveTechType(techType: TipoTecnologia){
+  saveTechType(techType: TechType){
     return this.http.post(`${this.apiUrl}/tipoTecnologia/create`, techType);
   }
 
-  deleteTechType(techType: TipoTecnologia){
+  deleteTechType(techType: TechType){
     return this.http.delete(`${this.apiUrl}/tipoTecnologia/delete/${techType.id}`);
   }
 

@@ -3,7 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
-import { TipoTecnologia } from 'src/app/project/models/tech.model';
+import { TechType } from 'src/app/project/models/TechType.model';
+import { TechtypeService } from 'src/app/project/services/techtype.service';
 import { saveTechsTypes } from '../state/techs-type.actions';
 import { selectTechTypesOperationState } from '../state/techs-type.selectors';
 
@@ -24,6 +25,7 @@ export class TechTypeFormComponent implements OnInit, OnDestroy {
     private config: DynamicDialogConfig,
     private fb: FormBuilder,
     private store: Store,
+    private techTypeService: TechtypeService
   ){}
   
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class TechTypeFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const techType: TipoTecnologia = Object.keys(this.form.controls)
+    let techType = Object.keys(this.form.controls)
       .reduce(
         (prevValue: any, control) => {
           prevValue[control] = this.form.get(control)?.value;
