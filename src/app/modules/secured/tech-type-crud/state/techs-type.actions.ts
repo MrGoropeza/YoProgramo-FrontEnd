@@ -5,6 +5,11 @@ import { TipoTecnologia } from 'src/app/project/models/tech.model';
 export const openTechsTypes = createAction('[TechsType] Open TechsTypes');
 export const closeTechsTypes = createAction('[TechsType] Close TechsTypes');
 
+export const openTechsTypesForm = createAction(
+  '[TechsType] Open TechsTypesForm',
+  props<{ techType?: TipoTecnologia }>()
+);
+
 export const loadTechsTypes = createAction(
   '[TechsType] Load TechsTypes',
   props<{ query?: LazyLoadEvent }>()

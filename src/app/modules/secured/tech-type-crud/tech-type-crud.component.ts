@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { TipoTecnologia } from 'src/app/project/models/tech.model';
 import { DynamicTableColumnModel } from 'src/core/classes/dynamic-table.model';
 import { selectTechTypes, selectTechTypesLoading } from './state/techs-type.selectors';
-import { closeTechsTypes, loadTechsTypes } from './state/techs-type.actions';
+import * as techTypeActions from './state/techs-type.actions';
 
 @Component({
   selector: 'app-tech-type-crud',
@@ -40,13 +40,17 @@ export class TechTypeCrudComponent implements OnInit {
   }
 
   lazyLoadEvent(query: LazyLoadEvent){
-    this.store.dispatch(loadTechsTypes({query}));
+    this.store.dispatch(techTypeActions.loadTechsTypes({query}));
   }
 
   modalVisibleChange(event: boolean){
     if(!event){
-      this.store.dispatch(closeTechsTypes());
+      this.store.dispatch(techTypeActions.closeTechsTypes());
     }
+  }
+
+  openForm(techType?: TipoTecnologia){
+    this.store.dispatch(techTypeActions.openTechsTypesForm({ techType }));
   }
 
 }

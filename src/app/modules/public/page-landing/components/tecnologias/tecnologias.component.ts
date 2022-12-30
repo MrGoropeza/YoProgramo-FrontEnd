@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { TechModel, TipoTecnologia } from 'src/app/project/models/tech.model';
+import { Tecnologia, TipoTecnologia } from 'src/app/project/models/tech.model';
 import { loadTechs } from '../../state/inicio.actions';
 import { openTechsTypes } from '../../../../secured/tech-type-crud/state/techs-type.actions';
 import { selectTechsInicio, selectTechTypesInicio } from '../../state/inicio.selectors';
 import { selectTechCrudModalState } from '../../../../secured/tech-crud/state/tech.selectors';
-import {
-  selectTechTypeCrudModalState,
-} from '../../../../secured/tech-type-crud/state/techs-type.selectors';
 import { openTechsCrud } from 'src/app/modules/secured/tech-crud/state/tech.actions';
 
 @Component({
@@ -19,21 +16,14 @@ import { openTechsCrud } from 'src/app/modules/secured/tech-crud/state/tech.acti
 })
 export class TecnologiasComponent implements OnInit {
   techTypes$!: Observable<TipoTecnologia[]>;
-  techs$!: Observable<TechModel[]>;
+  techs$!: Observable<Tecnologia[]>;
 
   techCrudModalVisible$!: Observable<{ visible: boolean; loading: boolean }>;
-  techTypeCrudModalVisible$!: Observable<{
-    visible: boolean;
-    loading: boolean;
-  }>;
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.techCrudModalVisible$ = this.store.select(selectTechCrudModalState);
-    this.techTypeCrudModalVisible$ = this.store.select(
-      selectTechTypeCrudModalState
-    );
     this.techTypes$ = this.store.select(selectTechTypesInicio);
     this.techs$ = this.store.select(selectTechsInicio);
   }

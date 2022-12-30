@@ -1,4 +1,4 @@
-export interface TechModel{
+export interface Tecnologia{
     id?: number;
     name: string;
     imageUrl: string;

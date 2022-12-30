@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { TechModel, TipoTecnologia } from 'src/app/project/models/tech.model';
+import { Tecnologia, TipoTecnologia } from 'src/app/project/models/tech.model';
 import * as InicioActions from './inicio.actions';
 import * as AboutAction from '../actions/aboutme.actions';
 import { AboutModel } from 'src/app/project/models/about.model';
@@ -9,7 +9,7 @@ export const inicioFeatureKey = 'inicio';
 export interface InicioState {
   techTypes: TipoTecnologia[];
   techTypesError: any;
-  techs: TechModel[];
+  techs: Tecnologia[];
   techsError: any;
   aboutMe: AboutModel;
   aboutMeError: any;
