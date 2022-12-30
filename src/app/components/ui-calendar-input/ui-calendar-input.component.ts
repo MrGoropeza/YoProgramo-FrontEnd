@@ -1,17 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
 @Component({
   selector: 'app-ui-calendar-input',
   templateUrl: './ui-calendar-input.component.html',
   styleUrls: ['./ui-calendar-input.component.scss']
 })
-export class UiCalendarInputComponent implements OnInit {
+export class UiCalendarInputComponent {
 
   @Input() label!: string;
   @Input() placeholder!: string;
   @Input() icon!: string;
-  @Input() errorLabel!: string;
+  @Input() customErrors!: CrudErrorMessage[];
 
   @Input() suggestions!: any[];
   @Input() field!: string;
@@ -22,10 +23,5 @@ export class UiCalendarInputComponent implements OnInit {
 
   @Input() control!: string
   @Input() group!: FormGroup
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -1,17 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
 @Component({
   selector: 'app-ui-textarea',
   templateUrl: './ui-textarea.component.html',
   styleUrls: ['./ui-textarea.component.scss']
 })
-export class UiTextareaComponent implements OnInit {
+export class UiTextareaComponent {
 
   @Input() label!: string;
   @Input() placeholder!: string;
   @Input() icon!: string;
-  @Input() errorLabel!: string;
+  @Input() customErrors!: CrudErrorMessage[];
 
   @Input() control!: string
   @Input() group!: FormGroup
@@ -19,10 +20,5 @@ export class UiTextareaComponent implements OnInit {
   @Input() rows!: number;
   @Input() cols!: number;
   @Input() autoResize!: boolean;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
 
 @Component({
@@ -7,19 +8,14 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './ui-input-text.component.html',
   styleUrls: ['./ui-input-text.component.scss']
 })
-export class UiInputTextComponent implements OnInit {
+export class UiInputTextComponent {
 
   @Input() label!: string;
   @Input() placeholder!: string;
   @Input() icon!: string;
-  @Input() errorLabel!: string;
+  @Input() customErrors!: CrudErrorMessage[];
 
   @Input() control!: string
   @Input() group!: FormGroup
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

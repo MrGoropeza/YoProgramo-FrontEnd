@@ -28,6 +28,6 @@
     *ngIf="group.controls[control].invalid && group.controls[control].touched"
     id="float-input-help"
     class="p-error block"
-    >{{ errorLabel }}</small
+    >{{ group.controls[control].errors | crudErrorMessage:customErrors }}</small
   >
 </div>

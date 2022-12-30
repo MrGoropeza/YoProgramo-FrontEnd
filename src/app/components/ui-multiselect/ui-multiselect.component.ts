@@ -1,15 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
 @Component({
   selector: 'app-ui-multiselect',
   templateUrl: './ui-multiselect.component.html',
   styleUrls: ['./ui-multiselect.component.scss']
 })
-export class UiMultiselectComponent implements OnInit {
+export class UiMultiselectComponent {
 
   @Input() label!: string;
-  @Input() errorLabel!: string;
+  @Input() customErrors!: CrudErrorMessage[];
   @Input() placeholder!: string;
   @Input() icon!: string;
   
@@ -21,10 +22,5 @@ export class UiMultiselectComponent implements OnInit {
   @Input() group!: FormGroup
 
   @Output() panelHided = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

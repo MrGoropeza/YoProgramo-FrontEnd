@@ -13,7 +13,6 @@
       class="h-full w-full"
       [ngClass]="[group.controls[control].touched ? 'ng-dirty' : '']"
       formControlName="{{ control }}"
-      oninput="this.value = this.value.toUpperCase()"
     />
     <label for="float-input">{{ label }}</label>
   </span>
@@ -22,6 +21,6 @@
     *ngIf="group.controls[control].invalid && group.controls[control].touched"
     id="float-input-help"
     class="p-error block"
-    >{{ errorLabel }}</small
+    >{{ group.controls[control].errors | crudErrorMessage:customErrors }}</small
   >
 </div>

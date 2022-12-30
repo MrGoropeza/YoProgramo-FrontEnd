@@ -1,17 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
 @Component({
   selector: 'app-ui-dropdown',
   templateUrl: './ui-dropdown.component.html',
   styleUrls: ['./ui-dropdown.component.scss']
 })
-export class UiDropdownComponent implements OnInit {
+export class UiDropdownComponent {
 
   @Input() label!: string;
   @Input() placeholder!: string;
   @Input() icon!: string;
-  @Input() errorLabel!: string;
+  @Input() customErrors!: CrudErrorMessage[];
 
   @Input() control!: string
   @Input() group!: FormGroup
@@ -20,11 +21,5 @@ export class UiDropdownComponent implements OnInit {
   @Input() optionLabel!: string;
   @Input() optionValue!: string;
   @Input() autoDisplayFirst!: boolean;
-  
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
