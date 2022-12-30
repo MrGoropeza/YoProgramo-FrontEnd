@@ -18,6 +18,7 @@ import { UiInputNumberComponent } from './ui-input-number/ui-input-number.compon
 import { UiInputTextComponent } from './ui-input-text/ui-input-text.component';
 import { UiMultiselectComponent } from './ui-multiselect/ui-multiselect.component';
 import { UiTextareaComponent } from './ui-textarea/ui-textarea.component';
+import { CrudErrorMessagePipe } from 'src/core/pipes/crud-error-message.pipe';
 
 
 
@@ -37,6 +38,7 @@ import { UiTextareaComponent } from './ui-textarea/ui-textarea.component';
     ListPipe,
     ObjectPipe,
     NullablePipe,
+    CrudErrorMessagePipe,
   ],
   exports: [
     OverlayTerminalComponent,
@@ -54,6 +56,7 @@ import { UiTextareaComponent } from './ui-textarea/ui-textarea.component';
     ListPipe,
     ObjectPipe,
     NullablePipe,
+    CrudErrorMessagePipe,
   ],
   imports: [
     CommonModule,
