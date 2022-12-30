@@ -19,6 +19,7 @@ import { UiInputTextComponent } from './ui-input-text/ui-input-text.component';
 import { UiMultiselectComponent } from './ui-multiselect/ui-multiselect.component';
 import { UiTextareaComponent } from './ui-textarea/ui-textarea.component';
 import { CrudErrorMessagePipe } from 'src/core/pipes/crud-error-message.pipe';
+import { UiFormButtonsComponent } from './ui-form-buttons/ui-form-buttons.component';
 
 
 
@@ -35,6 +36,7 @@ import { CrudErrorMessagePipe } from 'src/core/pipes/crud-error-message.pipe';
     UiInputTextComponent,
     UiMultiselectComponent,
     UiTextareaComponent,
+    UiFormButtonsComponent,
     ListPipe,
     ObjectPipe,
     NullablePipe,
@@ -53,6 +55,7 @@ import { CrudErrorMessagePipe } from 'src/core/pipes/crud-error-message.pipe';
     UiInputTextComponent,
     UiMultiselectComponent,
     UiTextareaComponent,
+    UiFormButtonsComponent,
     ListPipe,
     ObjectPipe,
     NullablePipe,

@@ -1,0 +1,17 @@
+<div class="mt-3 flex justify-end gap-2 p-1">
+    <app-ui-button
+      label="Cancelar"
+      (clickAction)="cancelarClick.emit()"
+      class="p-button-raised p-button-info dark:text-slate-200"
+      icon="pi pi-times"
+      [loading]="cargando"
+    ></app-ui-button>
+    <app-ui-button
+      label="Guardar"
+      (clickAction)="guardarClick.emit()"
+      class="p-button-raised p-button-info dark:text-slate-200"
+      icon="pi pi-check"
+      [loading]="cargando"
+    ></app-ui-button>
+  </div>
+  
