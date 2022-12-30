@@ -1,0 +1,7 @@
+:host ::ng-deep .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item{
+    @apply dark:bg-slate-700 dark:text-slate-200
+}
+
+:host ::ng-deep .p-autocomplete-panel{
+    @apply dark:bg-slate-700 dark:text-slate-200
+}

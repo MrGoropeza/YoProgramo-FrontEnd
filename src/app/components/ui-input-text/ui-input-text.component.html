@@ -1,0 +1,27 @@
+<div [ngClass]="[label ? 'mt-8' : '']">
+  <span
+    class="field p-float-label h-full w-full"
+    [ngClass]="[icon ? 'p-input-icon-left' : '']"
+    [formGroup]="group"
+  >
+    <i class="{{ icon }}"></i>
+    <input
+      id="float-input"
+      type="text"
+      placeholder="{{ placeholder }}"
+      pInputText
+      class="h-full w-full"
+      [ngClass]="[group.controls[control].touched ? 'ng-dirty' : '']"
+      formControlName="{{ control }}"
+      oninput="this.value = this.value.toUpperCase()"
+    />
+    <label for="float-input">{{ label }}</label>
+  </span>
+
+  <small
+    *ngIf="group.controls[control].invalid && group.controls[control].touched"
+    id="float-input-help"
+    class="p-error block"
+    >{{ errorLabel }}</small
+  >
+</div>

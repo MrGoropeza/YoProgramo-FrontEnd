@@ -1,0 +1,4 @@
+:host ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight,
+:host ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item{
+    @apply dark:bg-slate-500 dark:text-slate-200
+}

@@ -1,0 +1,27 @@
+<div [ngClass]="[label ? 'mt-8' : '']">
+  <span
+    class="p-float-label h-full w-full"
+    [ngClass]="[icon ? 'p-input-icon-left' : '']"
+    [formGroup]="group"
+  >
+    <i class="{{ icon }}"></i>
+
+    <p-calendar
+      formControlName="{{ control }}"
+      [touchUI]="true"
+      [readonlyInput]="true"
+      panelStyleClass="min-w-min"
+      styleClass="w-full"
+      [ngClass]="[group.controls[control].touched ? 'ng-dirty' : '']"
+    ></p-calendar>
+
+    <label for="float-input">{{ label }}</label>
+  </span>
+
+  <small
+    *ngIf="group.controls[control].invalid && group.controls[control].touched"
+    id="float-input-help"
+    class="p-error block"
+    >{{ errorLabel }}</small
+  >
+</div>

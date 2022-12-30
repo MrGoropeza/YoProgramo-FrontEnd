@@ -5,12 +5,19 @@ import { OverlayTerminalComponent } from './overlay-terminal/overlay-terminal.co
 import { TerminalService } from 'primeng/terminal';
 import { UserTerminalService } from '../project/services/terminal.service';
 import { ButtonDarkmodeComponent } from './button-darkmode/button-darkmode.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UiDynamicTableComponent } from './ui-dynamic-table/ui-dynamic-table.component';
 import { UiButtonComponent } from './ui-button/ui-button.component';
 import { ListPipe } from 'src/core/pipes/list.pipe';
 import { ObjectPipe } from 'src/core/pipes/object.pipe';
 import { NullablePipe } from 'src/core/pipes/nullable.pipe';
+import { UiAutocompleteComponent } from './ui-autocomplete/ui-autocomplete.component';
+import { UiCalendarInputComponent } from './ui-calendar-input/ui-calendar-input.component';
+import { UiDropdownComponent } from './ui-dropdown/ui-dropdown.component';
+import { UiInputNumberComponent } from './ui-input-number/ui-input-number.component';
+import { UiInputTextComponent } from './ui-input-text/ui-input-text.component';
+import { UiMultiselectComponent } from './ui-multiselect/ui-multiselect.component';
+import { UiTextareaComponent } from './ui-textarea/ui-textarea.component';
 
 
 
@@ -20,6 +27,13 @@ import { NullablePipe } from 'src/core/pipes/nullable.pipe';
     ButtonDarkmodeComponent,
     UiDynamicTableComponent,
     UiButtonComponent,
+    UiAutocompleteComponent,
+    UiCalendarInputComponent,
+    UiDropdownComponent,
+    UiInputNumberComponent,
+    UiInputTextComponent,
+    UiMultiselectComponent,
+    UiTextareaComponent,
     ListPipe,
     ObjectPipe,
     NullablePipe,
@@ -30,6 +44,13 @@ import { NullablePipe } from 'src/core/pipes/nullable.pipe';
     ButtonDarkmodeComponent,
     UiDynamicTableComponent,
     UiButtonComponent,
+    UiAutocompleteComponent,
+    UiCalendarInputComponent,
+    UiDropdownComponent,
+    UiInputNumberComponent,
+    UiInputTextComponent,
+    UiMultiselectComponent,
+    UiTextareaComponent,
     ListPipe,
     ObjectPipe,
     NullablePipe,
@@ -37,7 +58,8 @@ import { NullablePipe } from 'src/core/pipes/nullable.pipe';
   imports: [
     CommonModule,
     PrimeComponentsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     TerminalService,

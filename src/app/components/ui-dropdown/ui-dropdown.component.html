@@ -1,0 +1,33 @@
+<div [ngClass]="[label ? 'mt-8' : '']">
+    <span
+      class="p-float-label h-full w-full"
+      [ngClass]="[icon ? 'p-input-icon-left' : '']"
+      [formGroup]="group"
+    >
+      <i class="{{ icon }}"></i>
+  
+      <p-dropdown
+        id="float-input"
+        [options]="options"
+        styleClass="w-full dark:bg-slate-600"
+        [ngClass]="[group.controls[control].touched ? 'ng-dirty' : '']"
+        panelStyleClass="dark:bg-slate-600 dark:text-slate-200"
+        emptyMessage="No hay opciones por mostrar"
+        placeholder="{{ placeholder }}"
+        formControlName="{{ control }}"
+        [optionLabel]="optionLabel"
+        [autoDisplayFirst]="autoDisplayFirst"
+      >
+      </p-dropdown>
+  
+      <label for="float-input">{{ label }}</label>
+    </span>
+  
+    <small
+      *ngIf="group.controls[control].invalid && group.controls[control].touched"
+      id="float-input-help"
+      class="p-error block"
+      >{{ errorLabel }}</small
+    >
+  </div>
+  

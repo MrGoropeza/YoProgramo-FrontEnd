@@ -1,0 +1,41 @@
+<div [ngClass]="[label ? 'mt-8' : '']">
+  <span
+    class="p-float-label h-full"
+    [ngClass]="[icon ? 'p-input-icon-left' : '']"
+    [formGroup]="group"
+  >
+    <i class="{{ icon }}"></i>
+
+    <p-inputNumber
+      id="float-input"
+      styleClass="w-full dark:bg-slate-600"
+      [ngClass]="[group.controls[control].touched ? 'ng-dirty' : '']"
+      inputStyleClass="w-full"
+      decrementButtonClass="p-button-danger"
+      incrementButtonClass="p-button-success"
+      placeholder="{{ placeholder }}"
+      formControlName="{{ control }}"
+      [showButtons]="showButtons"
+      [mode]="mode"
+      currency="ARS"
+      currencyDisplay="code"
+      locale="es-AR"
+      [min]="min"
+      [max]="max"
+      [suffix]="suffix"
+      [minFractionDigits]="minFractionDigits"
+      [maxFractionDigits]="maxFractionDigits"
+      [step]="step"
+      [useGrouping]="useGrouping"
+    ></p-inputNumber>
+
+    <label for="float-input">{{ label }}</label>
+  </span>
+
+  <small
+    *ngIf="group.controls[control].invalid && group.controls[control].touched"
+    id="float-input-help"
+    class="p-error block"
+    >{{ errorLabel }}</small
+  >
+</div>

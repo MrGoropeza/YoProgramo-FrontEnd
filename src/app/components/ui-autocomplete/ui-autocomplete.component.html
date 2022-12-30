@@ -1,0 +1,30 @@
+<div [ngClass]="[label ? 'mt-8' : '']">
+  <span
+    class="p-float-label h-full w-full"
+    [ngClass]="[icon ? 'p-input-icon-left' : '']"
+    [formGroup]="group"
+  >
+    <i class="{{ icon }}"></i>
+
+    <p-autoComplete
+      styleClass="w-full"
+      inputStyleClass="w-full"
+      [ngClass]="[group.controls[control].touched ? 'ng-dirty' : '']"
+      formControlName="{{ control }}"
+      [suggestions]="suggestions"
+      (completeMethod)="search.emit($event.query)"
+      [forceSelection]="true"
+      field="{{ field }}"
+      [delay]="500"
+    ></p-autoComplete>
+
+    <label for="float-input">{{ label }}</label>
+  </span>
+
+  <small
+    *ngIf="group.controls[control].invalid && group.controls[control].touched"
+    id="float-input-help"
+    class="p-error block"
+    >{{ errorLabel }}</small
+  >
+</div>
