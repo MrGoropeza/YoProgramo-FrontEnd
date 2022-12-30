@@ -4,8 +4,9 @@ import { catchError, map, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as InicioActions from './inicio.actions';
 import * as AboutActions from '../actions/aboutme.actions';
-import { TechnologiesService } from 'src/app/project/services/technologies.service';
 import { AboutMeService } from 'src/app/project/services/about-me.service';
+import { TechService } from 'src/app/project/services/tech.service';
+import { TechtypeService } from 'src/app/project/services/techtype.service';
 
 @Injectable()
 export class InicioEffects {
@@ -31,7 +32,7 @@ export class InicioEffects {
         if(action.response.data.length === 0){
           return of(InicioActions.loadTechsSuccess({ data: [] }));
         }
-        return this.techService.getTechs(action.response.data[0].name).pipe(
+        return this.techService.getAllCustom(action.response.data[0].name, "").pipe(
           map((data) => InicioActions.loadTechsSuccess({ data })),
           catchError((error) =>
             of(InicioActions.loadTechsFailure({ error }))
@@ -46,10 +47,13 @@ export class InicioEffects {
     return this.actions$.pipe(
       ofType(InicioActions.loadTechsTypes),
       concatMap(() =>
-        this.techService.getTechTypes().pipe(
-          map((data) => InicioActions.loadTechsTypesSuccess({ response: data })),
-          catchError((error) =>
-            of(InicioActions.loadTechsTypesFailure({ error }))
+        this.techTypeService.getAll().pipe(
+          map((data) => InicioActions.loadTechsTypesSuccess({ response: {data, totalRecords: data.length} })),
+          catchError((error) => {
+            console.log(error);
+            
+            return of(InicioActions.loadTechsTypesFailure({ error }))
+          }
           )
         )
       )
@@ -59,8 +63,8 @@ export class InicioEffects {
   loadTechs$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(InicioActions.loadTechs),
-      concatMap((action) =>
-        this.techService.getTechs(action.activeType).pipe(
+      concatMap(() =>
+        this.techService.getAll().pipe(
           map((data) => InicioActions.loadTechsSuccess({ data })),
           catchError((error) =>
             of(InicioActions.loadTechsFailure({ error }))
@@ -84,7 +88,8 @@ export class InicioEffects {
 
   constructor(
     private actions$: Actions,
-    private techService: TechnologiesService,
+    private techService: TechService,
+    private techTypeService: TechtypeService,
     private aboutService: AboutMeService
   ) {}
 }

@@ -1,37 +1,57 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { closeTechsCrud, loadTechsCrudFailure, loadTechsCrudSuccess, openTechsCrud } from './tech.actions';
+import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
+import { Tech } from 'src/app/project/models/Tech.model';
+import * as actions from './tech.actions';
 
 
-export const techsEditFeatureKey = 'techsCrud';
+export const techFeatureKey = 'techsType';
 
-export interface TechCrudState {
-  modalLoading: boolean;
-  modalVisible: boolean;
-  modalLoadingError: any;
+export interface TechState {
+  techs: MultipleRecordsResponse<Tech>;
+  techsError: any;
+  techsLoading: boolean;
+  techOperationState: string;
+  techSaveError: any;
+  techDeleteError: any;
 }
 
-export const initialState: TechCrudState = {
-  modalLoading: false,
-  modalVisible: false,
-  modalLoadingError: undefined,
+export const initialState: TechState = {
+  techs: {data: [], totalRecords: 0},
+  techsError: undefined,
+  techsLoading: false,
+  techOperationState: '',
+  techSaveError: undefined,
+  techDeleteError: undefined
 };
 
-export const techCrudReducer = createReducer<TechCrudState>(
+export const techReducer = createReducer<TechState>(
   initialState,
   on(
-    openTechsCrud,
-    (state): TechCrudState => ({...state, modalVisible: true})
+    actions.loadTechs,
+    (state): TechState => ({...state, techsLoading: true})
   ),
   on(
-    closeTechsCrud,
-    (state): TechCrudState => ({...state, modalVisible: false})
+    actions.loadTechsSuccess,
+    (state, action): TechState => ({...state, techs: action.data, techsLoading: false})
   ),
   on(
-    loadTechsCrudSuccess,
-    (state): TechCrudState => ({...state, modalLoading: false, modalVisible: true})
+    actions.loadTechsFailure,
+    (state, action): TechState => ({...state, techsError: action.error, techsLoading: false})
   ),
   on(
-    loadTechsCrudFailure,
-    (state, action): TechCrudState => ({...state, modalLoading: false, modalVisible: false, modalLoadingError: action.error})
+    actions.saveTechs,
+    (state): TechState => ({...state, techOperationState: "loading"})
+  ),
+  on(
+    actions.saveTechsSuccess,
+    (state): TechState => ({...state, techOperationState: "success"})
+  ),
+  on(
+    actions.saveTechsFailure,
+    (state, action): TechState => ({...state, techOperationState: "error", techSaveError: action.error})
+  ),
+  on(
+    actions.deleteTechsFailure,
+    (state, action): TechState => ({...state, techDeleteError: action.error})
   ),
 );

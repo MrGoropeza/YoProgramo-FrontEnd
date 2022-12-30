@@ -8,38 +8,41 @@ import {
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MultipleRecordsResponse } from '../models/MultipleRecordsResponse';
-import { TechType } from '../models/TechType.model';
+import { Tech } from '../models/Tech.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TechtypeService extends EntityCollectionServiceBase<TechType> {
+export class TechService extends EntityCollectionServiceBase<Tech> {
   constructor(
     serviceElementsFactory: EntityCollectionServiceElementsFactory,
     private http: HttpClient
   ) {
-    super('TechType', serviceElementsFactory);
+    super('Tech', serviceElementsFactory);
   }
 
   private apiUrl: string = environment.apiUrl;
   totalRecords = 0;
 
-  override getAll(): Observable<TechType[]> {
+  getAllCustom(techTypeName: string, query: string): Observable<Tech[]> {
     return this.http
-    .get<MultipleRecordsResponse<TechType>>(
-      `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
-    )
-    .pipe(
-      map((value) => {
-        this.totalRecords = value.totalRecords;
-        return value.data;
-      })
-    );
+      .get<MultipleRecordsResponse<Tech>>(
+        `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
+        {
+          params: { techTypeName, query },
+        }
+      )
+      .pipe(
+        map((value) => {
+          this.totalRecords = value.totalRecords;
+          return value.data;
+        })
+      );
   }
   
-  override getWithQuery(query: string): Observable<TechType[]> {
+  override getWithQuery(query: string): Observable<Tech[]> {
     return this.http
-      .get<MultipleRecordsResponse<TechType>>(
+      .get<MultipleRecordsResponse<Tech>>(
         `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
         {
           params: { query },

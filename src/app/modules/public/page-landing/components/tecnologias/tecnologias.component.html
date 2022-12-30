@@ -35,8 +35,3 @@
     ></app-tech-list>
   </div>
 </div>
-
-<app-tech-crud
-  *ngIf="(techCrudModalVisible$ | async)!.visible"
-  [modalVisible]="(techCrudModalVisible$ | async)!.visible"
-></app-tech-crud>

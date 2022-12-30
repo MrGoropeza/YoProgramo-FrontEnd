@@ -1,12 +1,20 @@
-<p-dialog
-    header="CRUD Tecnologías"
-    [modal]="true"
-    [draggable]="false"
-    (visibleChange)="modalVisibleChange($event)"
-    [visible]="modalVisible"
-    styleClass="w-11/12"
->
-    <app-ui-dynamic-table
-        tableTitle="Tecnología"
-    ></app-ui-dynamic-table>
-</p-dialog>
+<app-ui-dynamic-table
+    tableTitle="Tecnología"
+    [cols]="cols"
+    defaultSortField="id"
+    [defaultSortOrder]="1"
+    [searchEnabled]="false"
+    
+    [values]="(values$ | async)!"
+    [loading]="(valuesLoading$ | async)!"
+    [totalRecords]="(totalRecords$ | async)!"
+    (lazyLoadAction)="lazyLoadEvent($event)"
+
+    (newClick)="openForm()"
+    (editClick)="openForm($event)"
+    (deleteConfirmed)="delete($event)"
+
+    confirmationHeader="Tecnología"
+    confirmationValue="name"
+    confirmationMessage="¿Seguro de borrar este tipo?"
+></app-ui-dynamic-table>

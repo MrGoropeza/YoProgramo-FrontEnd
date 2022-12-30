@@ -1,6 +1,6 @@
 import { Action, Selector, Store } from '@ngrx/store';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { map, Observable, Subscription } from 'rxjs';
+import { filter, map, Observable, Subscription } from 'rxjs';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 import { DynamicTableColumnModel } from './dynamic-table.model';
 
@@ -19,22 +19,31 @@ export class CrudComponent<Model> {
     public ref: DynamicDialogRef,
     public closeAction: Action,
     public valuesSelector: Selector<object, MultipleRecordsResponse<Model>>,
-    public ValuesLoadingSelector: Selector<object, boolean>,
+    public ValuesLoadingSelector: Selector<object, boolean>
   ) {}
 
-  init(){
+  init() {
     const request = this.store.select(this.valuesSelector);
     this.values$ = request.pipe(
-      map(response => response.data)
+      map((response) => {
+        if (response) {
+          return response.data;
+        }
+        return [];
+      })
     );
     this.totalRecords$ = request.pipe(
-      map(response => response.totalRecords)
+      map((response) => {
+        if (response) {
+          return response.totalRecords;
+        }
+        return 0;
+      })
     );
-    this.valuesLoading$ = this.store.select(this.ValuesLoadingSelector)
+    this.valuesLoading$ = this.store.select(this.ValuesLoadingSelector);
   }
 
-  destroy(){
+  destroy() {
     this.onCloseSub$.unsubscribe();
   }
-
 }

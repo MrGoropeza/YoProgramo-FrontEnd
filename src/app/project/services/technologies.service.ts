@@ -1,14 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-} from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MultipleRecordsResponse } from '../models/MultipleRecordsResponse';
 import { Tech } from '../models/Tech.model';
-import { TechType } from '../models/TechType.model';
 
 @Injectable({
   providedIn: 'root',
@@ -55,62 +48,5 @@ export class TechnologiesService {
     // } as TechModel,
   ];
 
-  techsCharged$ = new BehaviorSubject(false);
-
-  createDummieTechs() {
-    const requests: Observable<any>[] = [];
-
-    this.dummieFrontTechs.forEach((tech) => {
-      tech.tipo = { id: 1 } as TechType;
-
-      const form = new FormData();
-      form.append('tech', JSON.stringify(tech));
-
-      requests.push(
-        this.http.post(`${this.apiUrl}/techs/create`, form, {
-          observe: 'response',
-        })
-      );
-    });
-
-    this.http
-      .post(
-        `${this.apiUrl}/tipoTecnologia/create`,
-        {
-          id: 1,
-          name: 'Frontend',
-        },
-        {
-          observe: 'response',
-        }
-      )
-      .subscribe(() => {
-        combineLatest(requests).subscribe((value) => {
-          if (value.every((response) => response.status === 200)) {
-            this.techsCharged$.next(true);
-          }
-        });
-      });
-  }
-
-  getTechTypes(){
-    return this.http.get<MultipleRecordsResponse<TechType>>(`${this.apiUrl}/techtypes/`);
-  }
-
-  saveTechType(techType: TechType){
-    return this.http.post(`${this.apiUrl}/tipoTecnologia/create`, techType);
-  }
-
-  deleteTechType(techType: TechType){
-    return this.http.delete(`${this.apiUrl}/tipoTecnologia/delete/${techType.id}`);
-  }
-
-  getTechs(techTypeName: string){
-    return this.http.get<Tech[]>(`${this.apiUrl}/techs/list`, {
-      params: {
-        tipo: techTypeName,
-      },
-    });
-  }
 
 }

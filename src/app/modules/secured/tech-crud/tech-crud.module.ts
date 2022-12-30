@@ -15,8 +15,8 @@ import { TechEffects } from './state/tech.effects';
     CommonModule,
     ComponentsModule,
     StoreModule.forFeature(
-      fromTechs.techsEditFeatureKey,
-      fromTechs.techCrudReducer
+      fromTechs.techFeatureKey,
+      fromTechs.techReducer
     ),
     EffectsModule.forFeature([TechEffects]),
   ],
