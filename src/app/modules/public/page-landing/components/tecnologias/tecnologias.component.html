@@ -12,12 +12,14 @@
     ></p-button>
   </div>
 
-  <div class="mt-2 flex items-center gap-3">
+  <div class="mt-2 flex items-center gap-3 max-w-full">
     <p-tabMenu
       #tabMenu
       [model]="techTypesToMenuItem((techTypes$ | async)!)"
-      [activeItem]="tabMenu.model[0]"
-      (activeItemChange)="loadTechs($event.label!)"
+      [activeItem]="firstTime ? techTypesToMenuItem((techTypes$ | async)!)[0] : tabMenu.activeItem"
+      (activeItemChange)="loadTechs($event)"
+      class="max-w-full overflow-x-auto"
+      styleClass="max-w-min"
     ></p-tabMenu>
     <p-button
       icon="pi pi-pencil"
@@ -28,7 +30,7 @@
 
   <div *ngIf="tabMenu.model.length > 0" class="max-w-full">
     <app-tech-list
-      [title]="tabMenu.activeItem.label!"
+      [title]="tabMenu.activeItem ? tabMenu.activeItem.label! : ''"
       [techs]="(techs$ | async)!"
     ></app-tech-list>
   </div>
