@@ -24,3 +24,31 @@ export const loadTechsTypesFailure = createAction(
   '[TechsType] Load TechsTypes Failure',
   props<{ error: any }>()
 );
+
+export const saveTechsTypes = createAction(
+  '[TechsType] Save TechsTypes',
+  props<{ techType: TipoTecnologia }>()
+);
+
+export const saveTechsTypesSuccess = createAction(
+  '[TechsType] Save TechsTypes Success'
+);
+
+export const saveTechsTypesFailure = createAction(
+  '[TechsType] Save TechsTypes Failure',
+  props<{ error: any }>()
+);
+
+export const deleteTechsTypes = createAction(
+  '[TechsType] Delete TechsTypes',
+  props<{ techType: TipoTecnologia }>()
+);
+
+export const deleteTechsTypesSuccess = createAction(
+  '[TechsType] Delete TechsTypes Success',
+);
+
+export const deleteTechsTypesFailure = createAction(
+  '[TechsType] Delete TechsTypes Failure',
+  props<{ error: any }>()
+);

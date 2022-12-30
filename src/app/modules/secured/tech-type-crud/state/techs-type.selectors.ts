@@ -14,3 +14,8 @@ export const selectTechTypesLoading = createSelector(
     selectTechTypeCrudState,
     state => state.techTypesLoading
 );
+
+export const selectTechTypesOperationState = createSelector(
+    selectTechTypeCrudState,
+    (state) => state.techTypeOperationState
+);

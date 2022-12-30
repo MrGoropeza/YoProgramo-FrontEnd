@@ -7,10 +7,13 @@ import { StoreModule } from '@ngrx/store';
 import * as fromTechType from './state/techs-type.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TechTypeEffects } from './state/techs-type.effects';
+import { TechTypeFormComponent } from './tech-type-form/tech-type-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    TechTypeCrudComponent
+    TechTypeCrudComponent,
+    TechTypeFormComponent
   ],
   exports: [
     TechTypeCrudComponent
@@ -18,11 +21,12 @@ import { TechTypeEffects } from './state/techs-type.effects';
   imports: [
     CommonModule,
     ComponentsModule,
+    ReactiveFormsModule,
     StoreModule.forFeature(
       fromTechType.techsTypeFeatureKey,
       fromTechType.techTypeCrudReducer
     ),
     EffectsModule.forFeature(TechTypeEffects),
-  ]
+  ],
 })
 export class TechTypeCrudModule { }

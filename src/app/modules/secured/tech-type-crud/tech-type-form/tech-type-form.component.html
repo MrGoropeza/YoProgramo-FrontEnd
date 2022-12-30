@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+    <app-ui-input-text
+      [group]="form"
+      control="name"
+      label="Nombre"
+    ></app-ui-input-text>
+</form>
+
+<app-ui-form-buttons
+    [cargando]="cargando"
+    (cancelarClick)="cancelar()"
+    (guardarClick)="guardar()"
+></app-ui-form-buttons>

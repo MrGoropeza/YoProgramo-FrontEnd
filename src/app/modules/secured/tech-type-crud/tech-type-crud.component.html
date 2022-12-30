@@ -3,6 +3,7 @@
     [cols]="cols"
     defaultSortField="id"
     [defaultSortOrder]="1"
+    [searchEnabled]="false"
     
     [values]="(values$ | async)!"
     [loading]="(valuesLoading$ | async)!"
@@ -10,9 +11,9 @@
 
     (newClick)="openForm()"
     (editClick)="openForm($event)"
+    (deleteConfirmed)="delete($event)"
 
     confirmationHeader="Tipo de Tecnología"
     confirmationValue="name"
     confirmationMessage="¿Seguro de borrar este tipo?"
-
 ></app-ui-dynamic-table>

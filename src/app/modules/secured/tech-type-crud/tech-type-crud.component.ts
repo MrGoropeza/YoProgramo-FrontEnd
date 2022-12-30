@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LazyLoadEvent } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -13,8 +13,6 @@ import * as techTypeActions from './state/techs-type.actions';
   styleUrls: ['./tech-type-crud.component.scss']
 })
 export class TechTypeCrudComponent implements OnInit {
-
-  @Input() modalVisible = false;
 
   cols: DynamicTableColumnModel[] = [
     {
@@ -43,14 +41,12 @@ export class TechTypeCrudComponent implements OnInit {
     this.store.dispatch(techTypeActions.loadTechsTypes({query}));
   }
 
-  modalVisibleChange(event: boolean){
-    if(!event){
-      this.store.dispatch(techTypeActions.closeTechsTypes());
-    }
-  }
-
   openForm(techType?: TipoTecnologia){
     this.store.dispatch(techTypeActions.openTechsTypesForm({ techType }));
+  }
+
+  delete(techType: TipoTecnologia){
+    this.store.dispatch(techTypeActions.deleteTechsTypes({techType}));
   }
 
 }

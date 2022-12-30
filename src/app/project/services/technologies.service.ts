@@ -95,6 +95,14 @@ export class TechnologiesService {
     return this.http.get<TipoTecnologia[]>(`${this.apiUrl}/tipoTecnologia/list`);
   }
 
+  saveTechType(techType: TipoTecnologia){
+    return this.http.post(`${this.apiUrl}/tipoTecnologia/create`, techType);
+  }
+
+  deleteTechType(techType: TipoTecnologia){
+    return this.http.delete(`${this.apiUrl}/tipoTecnologia/delete/${techType.id}`);
+  }
+
   getTechs(techTypeName: string){
     return this.http.get<Tecnologia[]>(`${this.apiUrl}/techs/list`, {
       params: {
