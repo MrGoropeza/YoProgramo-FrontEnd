@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Tecnologia } from 'src/app/project/models/tech.model';
+import { Tech } from 'src/app/project/models/Tech.model';
 
 @Component({
   selector: 'app-tech-list',
@@ -9,7 +9,7 @@ import { Tecnologia } from 'src/app/project/models/tech.model';
 export class TechListComponent implements OnInit {
 
   @Input() title!: string;
-  @Input() techs!: Tecnologia[];
+  @Input() techs!: Tech[];
 
   constructor() { }
 

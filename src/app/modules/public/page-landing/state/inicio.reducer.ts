@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { Tecnologia } from 'src/app/project/models/tech.model';
+import { Tech } from 'src/app/project/models/Tech.model';
 import * as InicioActions from './inicio.actions';
 import * as AboutAction from '../actions/aboutme.actions';
 import { AboutModel } from 'src/app/project/models/about.model';
@@ -11,7 +11,7 @@ export const inicioFeatureKey = 'inicio';
 export interface InicioState {
   techTypes: MultipleRecordsResponse<TechType>;
   techTypesError: any;
-  techs: Tecnologia[];
+  techs: Tech[];
   techsError: any;
   aboutMe: AboutModel;
   aboutMeError: any;

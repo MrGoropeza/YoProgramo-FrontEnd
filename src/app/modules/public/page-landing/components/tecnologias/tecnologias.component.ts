@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
 import { map, Observable } from 'rxjs';
-import { Tecnologia } from 'src/app/project/models/tech.model';
+import { Tech } from 'src/app/project/models/Tech.model';
 import { loadTechs } from '../../state/inicio.actions';
 import { openTechsTypes } from '../../../../secured/tech-type-crud/state/techs-type.actions';
 import {
@@ -19,7 +19,7 @@ import { TechType } from 'src/app/project/models/TechType.model';
 })
 export class TecnologiasComponent implements OnInit {
   techTypes$!: Observable<TechType[]>;
-  techs$!: Observable<Tecnologia[]>;
+  techs$!: Observable<Tech[]>;
 
   techCrudModalVisible$!: Observable<{ visible: boolean; loading: boolean }>;
 
