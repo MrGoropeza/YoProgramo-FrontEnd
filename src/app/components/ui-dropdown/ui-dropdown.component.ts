@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
@@ -20,6 +20,7 @@ export class UiDropdownComponent {
   @Input() options!: any;
   @Input() optionLabel!: string;
   @Input() optionValue!: string;
-  @Input() autoDisplayFirst!: boolean;
+  @Input() autoDisplayFirst = false;
+  @Input() filter = false;
 
 }

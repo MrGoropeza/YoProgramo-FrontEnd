@@ -2,6 +2,10 @@ body {
   @apply min-h-screen bg-gradient-to-br from-slate-300 to-blue-500;
 }
 
+.p-button{
+  background-color: #4F46E5;
+}
+
 .p-button-primary {
   @apply bg-blue-700;
 }
@@ -26,4 +30,13 @@ body {
   .p-tabmenuitem
   .p-menuitem-link:not(.p-disabled):focus {
   box-shadow: inset 0 0 0 1px #ffffff;
+}
+
+.p-fileupload .p-fileupload-buttonbar,
+.p-fileupload .p-fileupload-content {
+  @apply p-2;
+}
+
+.p-fileupload .p-fileupload-content .p-fileupload-files > div{
+  @apply flex gap-3 max-w-full overflow-x-auto
 }

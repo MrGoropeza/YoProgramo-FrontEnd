@@ -1,0 +1,45 @@
+<div class="max-w-full" [ngClass]="[label ? 'mt-8' : '']">
+  <label class="ml-3" for="file-upload">{{ label }}</label>
+  <p-fileUpload
+    #fileUpload
+    id="file-upload"
+    name="file[]"
+    [mode]="mode"
+    [multiple]="multiple"
+    [showUploadButton]="showUploadButton"
+    [showCancelButton]="showCancelButton"
+  >
+    <ng-template let-file pTemplate="file">
+      <div class="flex justify-center">
+        <div class="relative overflow-hidden rounded-xl bg-slate-900">
+          <img
+            [src]="file.objectURL"
+            class="aspect-square max-h-60 max-w-none object-cover"
+          />
+          <div
+            class="absolute bottom-0 right-0 flex w-full justify-between max-w-full items-center gap-2 bg-slate-900/70"
+          >
+            <div class="flex w-9/12 flex-col pl-1">
+              <p class="truncate font-bold">{{ file.name }}</p>
+              <p class="font-bold">{{ file.size | bytes }}</p>
+            </div>
+            <app-ui-button
+              icon="pi pi-times"
+              class="p-button-rounded w-3/12"
+              (clickAction)="removeFile(file)"
+            ></app-ui-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="content" let-files>
+      <div *ngIf="files.length === 0">
+        <div
+          class="flex h-20 w-full items-center justify-center border-2 border-dashed border-slate-400"
+        >
+          <i class="pi pi-image text-2xl"></i>
+        </div>
+      </div>
+    </ng-template>
+  </p-fileUpload>
+</div>

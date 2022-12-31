@@ -19,6 +19,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   exports: [
@@ -41,6 +42,7 @@ import { ToastModule } from 'primeng/toast';
     InputTextareaModule,
     MultiSelectModule,
     ToastModule,
+    FileUploadModule,
   ],
 })
 export class PrimeComponentsModule {}

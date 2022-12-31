@@ -20,8 +20,8 @@ import { UiMultiselectComponent } from './ui-multiselect/ui-multiselect.componen
 import { UiTextareaComponent } from './ui-textarea/ui-textarea.component';
 import { CrudErrorMessagePipe } from 'src/core/pipes/crud-error-message.pipe';
 import { UiFormButtonsComponent } from './ui-form-buttons/ui-form-buttons.component';
-
-
+import { UiFileUploadComponent } from './ui-file-upload/ui-file-upload.component';
+import { NgBytesPipeModule } from 'src/core/pipes/math/bytes.pipe';
 
 @NgModule({
   declarations: [
@@ -37,10 +37,11 @@ import { UiFormButtonsComponent } from './ui-form-buttons/ui-form-buttons.compon
     UiMultiselectComponent,
     UiTextareaComponent,
     UiFormButtonsComponent,
+    UiFileUploadComponent,
     ListPipe,
     ObjectPipe,
     NullablePipe,
-    CrudErrorMessagePipe,
+    CrudErrorMessagePipe
   ],
   exports: [
     OverlayTerminalComponent,
@@ -56,6 +57,7 @@ import { UiFormButtonsComponent } from './ui-form-buttons/ui-form-buttons.compon
     UiMultiselectComponent,
     UiTextareaComponent,
     UiFormButtonsComponent,
+    UiFileUploadComponent,
     ListPipe,
     ObjectPipe,
     NullablePipe,
@@ -65,7 +67,8 @@ import { UiFormButtonsComponent } from './ui-form-buttons/ui-form-buttons.compon
     CommonModule,
     PrimeComponentsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgBytesPipeModule
   ],
   providers: [
     TerminalService,

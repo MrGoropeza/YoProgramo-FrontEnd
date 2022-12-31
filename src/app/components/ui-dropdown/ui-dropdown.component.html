@@ -10,6 +10,7 @@
         id="float-input"
         [options]="options"
         styleClass="w-full dark:bg-slate-600"
+        appendTo="body"
         [ngClass]="[group.controls[control].touched ? 'ng-dirty' : '']"
         panelStyleClass="dark:bg-slate-600 dark:text-slate-200"
         emptyMessage="No hay opciones por mostrar"
@@ -17,6 +18,7 @@
         formControlName="{{ control }}"
         [optionLabel]="optionLabel"
         [autoDisplayFirst]="autoDisplayFirst"
+        [filter]="filter"
       >
       </p-dropdown>
   
