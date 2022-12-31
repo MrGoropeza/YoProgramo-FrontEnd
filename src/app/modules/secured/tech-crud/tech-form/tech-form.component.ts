@@ -55,7 +55,6 @@ export class TechFormComponent extends CrudFormComponent implements OnInit, OnDe
   tipos!: Observable<TechType[]>;
 
   guardar(){
-    console.log(this.files);
     this.cargando = true;
     this.form.markAllAsTouched();
     if (this.form.invalid) {

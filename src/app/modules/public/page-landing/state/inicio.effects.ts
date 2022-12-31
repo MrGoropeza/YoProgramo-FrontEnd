@@ -63,8 +63,8 @@ export class InicioEffects {
   loadTechs$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(InicioActions.loadTechs),
-      concatMap(() =>
-        this.techService.getAll().pipe(
+      concatMap((action) =>
+        this.techService.getWithQueryCustom(action.activeType, "").pipe(
           map((data) => InicioActions.loadTechsSuccess({ data })),
           catchError((error) =>
             of(InicioActions.loadTechsFailure({ error }))
