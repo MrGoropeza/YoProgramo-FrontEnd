@@ -7,6 +7,7 @@ import * as TechActions from './tech.actions';
 import * as InicioActions from '../../../public/page-landing/state/inicio.actions';
 import { TechService } from 'src/app/project/services/tech.service';
 import { TechCrudComponent } from '../tech-crud.component';
+import { TechFormComponent } from '../tech-form/tech-form.component';
 
 @Injectable()
 export class TechEffects {
@@ -23,7 +24,7 @@ export class TechEffects {
         ofType(TechActions.openTechs),
         map(() => {
           this.dialogService.open(TechCrudComponent, {
-            header: 'CRUD Tipo de Tecnologías',
+            header: 'CRUD Tecnologías',
             styleClass: 'w-full lg:w-11/12',
           });
         })
@@ -39,22 +40,22 @@ export class TechEffects {
     );
   });
 
-  // openTechTypesForm$ = createEffect(
-  //   () => {
-  //     return this.actions$.pipe(
-  //       ofType(TechActions.openTechsForm),
-  //       map((action) => {
-  //         this.dialogService.open(TechTypeFormComponent, {
-  //           header: action.tech
-  //             ? `Editar Tipo de Tecnología "${action.tech.name}"`
-  //             : 'Agregar Tipo de Tecnología',
-  //           data: { techType: action.tech },
-  //         });
-  //       })
-  //     );
-  //   },
-  //   { dispatch: false }
-  // );
+  openTechForm$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(TechActions.openTechsForm),
+        map((action) => {
+          this.dialogService.open(TechFormComponent, {
+            header: action.tech
+              ? `Editar Tecnología "${action.tech.name}"`
+              : 'Agregar Tecnología',
+            data: { techType: action.tech },
+          });
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
   lastQuery!: LazyLoadEvent;
 

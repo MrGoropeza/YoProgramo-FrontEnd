@@ -1,0 +1,44 @@
+<form [formGroup]="form">
+  <app-ui-input-text
+    [group]="form"
+    control="name"
+    label="Nombre"
+  ></app-ui-input-text>
+
+  <app-ui-textarea
+    [group]="form"
+    control="description"
+    label="Descripción"
+    [autoResize]="true"
+  ></app-ui-textarea>
+
+  <app-ui-dropdown
+    [group]="form"
+    control="tipo"
+    label="Tipo"
+    [filter]="true"
+  ></app-ui-dropdown>
+
+  <div class="flex items-center gap-2 mt-4">
+      <label>Archivo</label>
+      <p-inputSwitch id="switch" #switch></p-inputSwitch>
+      <label>Link</label>
+  </div>
+
+  <app-ui-input-text
+    *ngIf="switch.modelValue; else elseBlock"
+    [group]="form"
+    control="imageUrl"
+    label="URL de imagen"
+  ></app-ui-input-text>
+
+  <ng-template #elseBlock>
+    <app-ui-file-upload label="Icono"></app-ui-file-upload>
+  </ng-template>
+</form>
+
+<app-ui-form-buttons
+  [cargando]="cargando"
+  (cancelarClick)="cancelar()"
+  (guardarClick)="guardar()"
+></app-ui-form-buttons>
