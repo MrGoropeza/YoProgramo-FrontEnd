@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  EntityActionOptions,
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
@@ -38,5 +37,17 @@ export class TechService extends EntityCollectionServiceBase<Tech> {
           return value.data;
         })
       );
+  }
+
+  addCustom(tech: Tech){
+    let formData: FormData = new FormData();
+
+    const imageFile = tech.imageFile;
+    tech = {...tech, imageFile: undefined};
+
+    formData.append("tech", JSON.stringify(tech));
+    formData.append("imagen", imageFile as Blob);
+
+    return this.http.post(`${this.apiUrl}/tech/`, formData);
   }
 }

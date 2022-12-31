@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
+import { catchError, concatMap, from, map, mergeMap, of } from 'rxjs';
 import * as TechActions from './tech.actions';
 import * as InicioActions from '../../../public/page-landing/state/inicio.actions';
 import { TechService } from 'src/app/project/services/tech.service';
@@ -51,10 +51,10 @@ export class TechEffects {
               : 'Agregar Tecnología',
             data: { techType: action.tech },
           });
+          return InicioActions.loadTechsTypes();
         })
       );
     },
-    { dispatch: false }
   );
 
   lastQuery!: LazyLoadEvent;
@@ -90,7 +90,7 @@ export class TechEffects {
     return this.actions$.pipe(
       ofType(TechActions.saveTechs),
       mergeMap((action) => {
-        return this.techService.add(action.tech).pipe(
+        return this.techService.addCustom(action.tech).pipe(
           map(() => TechActions.saveTechsSuccess()),
           catchError((error) =>
             of(TechActions.saveTechsFailure({ error }))
