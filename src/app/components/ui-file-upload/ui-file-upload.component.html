@@ -4,10 +4,14 @@
     #fileUpload
     id="file-upload"
     name="file[]"
+    [files]="files"
     [mode]="mode"
     [multiple]="multiple"
     [showUploadButton]="showUploadButton"
     [showCancelButton]="showCancelButton"
+    [customUpload]="customUpload"
+    (uploadHandler)="this.filesChange.emit($event.files);"
+    (onSelect)="this.fileUpload.upload()"
   >
     <ng-template let-file pTemplate="file">
       <div class="flex justify-center">

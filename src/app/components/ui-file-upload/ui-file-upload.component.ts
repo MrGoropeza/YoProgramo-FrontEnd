@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FileUpload } from 'primeng/fileupload';
 @Component({
   selector: 'app-ui-file-upload',
@@ -9,11 +9,14 @@ export class UiFileUploadComponent {
   @ViewChild('fileUpload') fileUpload!: FileUpload;
 
   @Input() label!: string;
+  @Input() files: File[] = [];
+  @Output() filesChange = new EventEmitter<File[]>();
 
   @Input() mode = 'advanced';
   @Input() multiple = false;
   @Input() showUploadButton = false;
   @Input() showCancelButton = false;
+  @Input() customUpload = true;
 
   removeFile(toRemove: File) {
     this.fileUpload.remove(
