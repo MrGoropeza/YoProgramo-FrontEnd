@@ -23,29 +23,13 @@ export class TechService extends EntityCollectionServiceBase<Tech> {
 
   private apiUrl: string = environment.apiUrl;
   totalRecords = 0;
-
-  getAllCustom(techTypeName: string, query: string): Observable<Tech[]> {
+  
+  getWithQueryCustom(techTypeName: string, query: string): Observable<Tech[]> {
     return this.http
       .get<MultipleRecordsResponse<Tech>>(
         `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
         {
           params: { techTypeName, query },
-        }
-      )
-      .pipe(
-        map((value) => {
-          this.totalRecords = value.totalRecords;
-          return value.data;
-        })
-      );
-  }
-  
-  override getWithQuery(query: string): Observable<Tech[]> {
-    return this.http
-      .get<MultipleRecordsResponse<Tech>>(
-        `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
-        {
-          params: { query },
         }
       )
       .pipe(

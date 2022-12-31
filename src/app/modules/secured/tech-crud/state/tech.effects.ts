@@ -58,7 +58,7 @@ export class TechEffects {
 
   lastQuery!: LazyLoadEvent;
 
-  loadTechTypes$ = createEffect(() => {
+  loadTech$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TechActions.loadTechs),
       concatMap((action) => {
@@ -68,7 +68,7 @@ export class TechEffects {
 
         const query = window.btoa(JSON.stringify(this.lastQuery));
 
-        return this.techService.getWithQuery(query).pipe(
+        return this.techService.getWithQueryCustom("", query).pipe(
           map((data) =>
             TechActions.loadTechsSuccess({
               data: {
@@ -85,7 +85,7 @@ export class TechEffects {
     );
   });
 
-  saveTechType$ = createEffect(() => {
+  saveTech$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TechActions.saveTechs),
       mergeMap((action) => {

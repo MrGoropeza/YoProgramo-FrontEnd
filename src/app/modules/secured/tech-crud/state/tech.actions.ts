@@ -13,7 +13,7 @@ export const openTechsForm = createAction(
 
 export const loadTechs = createAction(
   '[Techs] Load Techs',
-  props<{ query?: LazyLoadEvent }>()
+  props<{ techTypeName?: string, query?: LazyLoadEvent }>()
 );
 
 export const loadTechsSuccess = createAction(

@@ -32,7 +32,7 @@ export class InicioEffects {
         if(action.response.data.length === 0){
           return of(InicioActions.loadTechsSuccess({ data: [] }));
         }
-        return this.techService.getAllCustom(action.response.data[0].name, "").pipe(
+        return this.techService.getWithQueryCustom(action.response.data[0].name, "").pipe(
           map((data) => InicioActions.loadTechsSuccess({ data })),
           catchError((error) =>
             of(InicioActions.loadTechsFailure({ error }))
