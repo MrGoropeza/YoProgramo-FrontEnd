@@ -1,21 +1,21 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { techFeatureKey, TechState } from './tech.reducer';
 
-export const selectTechTypeCrudState = createFeatureSelector<TechState>(
+export const selectTechState = createFeatureSelector<TechState>(
     techFeatureKey
 );
 
 export const selectTechs = createSelector(
-    selectTechTypeCrudState,
+    selectTechState,
     state => state.techs
 );
 
 export const selectTechsLoading = createSelector(
-    selectTechTypeCrudState,
+    selectTechState,
     state => state.techsLoading
 );
 
 export const selectTechOperationState = createSelector(
-    selectTechTypeCrudState,
+    selectTechState,
     (state) => state.techOperationState
 );
