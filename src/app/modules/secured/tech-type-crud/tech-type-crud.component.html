@@ -6,8 +6,8 @@
     [searchEnabled]="false"
     
     [values]="(values$ | async)!"
-    [loading]="(valuesLoading$ | async)!"
     [totalRecords]="(totalRecords$ | async)!"
+    [loading]="(valuesLoading$ | async)!"
     (lazyLoadAction)="lazyLoadEvent($event)"
 
     (newClick)="openForm()"

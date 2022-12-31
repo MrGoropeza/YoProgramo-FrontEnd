@@ -4,7 +4,7 @@ import { Tech } from 'src/app/project/models/Tech.model';
 import * as actions from './tech.actions';
 
 
-export const techFeatureKey = 'techsType';
+export const techFeatureKey = 'techs';
 
 export interface TechState {
   techs: MultipleRecordsResponse<Tech>;

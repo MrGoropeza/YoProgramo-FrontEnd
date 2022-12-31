@@ -75,7 +75,7 @@ export class TechTypeEffects {
           map((data) =>
             TechTypeActions.loadTechsTypesSuccess({
               data: {
-                data: data,
+                data,
                 totalRecords: this.techTypeService.totalRecords,
               },
             })

@@ -1,6 +1,6 @@
 import { Action, Selector, Store } from '@ngrx/store';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { filter, map, Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 import { DynamicTableColumnModel } from './dynamic-table.model';
 
@@ -24,22 +24,8 @@ export class CrudComponent<Model> {
 
   init() {
     const request = this.store.select(this.valuesSelector);
-    this.values$ = request.pipe(
-      map((response) => {
-        if (response) {
-          return response.data;
-        }
-        return [];
-      })
-    );
-    this.totalRecords$ = request.pipe(
-      map((response) => {
-        if (response) {
-          return response.totalRecords;
-        }
-        return 0;
-      })
-    );
+    this.values$ = request.pipe(map((response) => response.data));
+    this.totalRecords$ = request.pipe(map((response) => response.totalRecords));
     this.valuesLoading$ = this.store.select(this.ValuesLoadingSelector);
   }
 

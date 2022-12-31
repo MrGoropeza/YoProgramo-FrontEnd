@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
 import { map, Observable } from 'rxjs';
 import { Tech } from 'src/app/project/models/Tech.model';
-import { loadTechs, loadTechsTypes } from '../../state/inicio.actions';
+import { loadTechs } from '../../state/inicio.actions';
 import { openTechsTypes } from '../../../../secured/tech-type-crud/state/techs-type.actions';
 import {
   selectTechsInicio,
