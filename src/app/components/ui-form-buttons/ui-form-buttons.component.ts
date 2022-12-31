@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class UiFormButtonsComponent {
 
   @Input() cargando = false;
+  @Input() invalid = false;
   @Output() cancelarClick = new EventEmitter();
   @Output() guardarClick = new EventEmitter();
 
