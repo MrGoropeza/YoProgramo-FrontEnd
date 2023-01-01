@@ -1,12 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAction, props } from '@ngrx/store';
 import { LazyLoadEvent } from 'primeng/api';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
-import { Actions } from '@ngrx/effects';
 
-export class CrudActions<Model> extends Actions{
-  constructor(public modelName: string) {
-    super();
-  }
+export class CrudActions<Model> {
+  constructor(public modelName: string) {}
 
   // Open CRUD Dialog
   public openCrudDialog = createAction(
@@ -60,7 +58,7 @@ export class CrudActions<Model> extends Actions{
   );
 
   public deleteValueSuccess = createAction(
-    `[${this.modelName}] Delete ${this.modelName}s Success`,
+    `[${this.modelName}] Delete ${this.modelName}s Success`
   );
 
   public deleteValueFailure = createAction(

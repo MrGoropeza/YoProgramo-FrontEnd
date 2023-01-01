@@ -1,7 +1,6 @@
-import { Action, Selector, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { map, Observable, Subscription } from 'rxjs';
-import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 import { CrudState } from './crud-state/crud.reducer';
 import { DynamicTableColumnModel } from './dynamic-table.model';
 
