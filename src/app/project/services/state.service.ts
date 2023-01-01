@@ -6,6 +6,7 @@ import { Tech } from '../models/Tech.model';
 import { Store } from '@ngrx/store';
 
 export type appStateTypes = Tech | TechType;
+type appStateNames = "Tech" | "TechType";
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class StateService {
     });
   }
 
-  getState(modelName: string) {
+  getState(modelName: appStateNames) {
     return this.appStates.find((value) => value.modelName === modelName)!;
   }
 }
