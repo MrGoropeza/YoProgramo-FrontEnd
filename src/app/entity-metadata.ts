@@ -15,5 +15,5 @@ export const entityConfig: EntityDataModuleConfig = {
 
 export const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.apiUrl,
-  timeout: 3000,
+  timeout: 0,
 }
