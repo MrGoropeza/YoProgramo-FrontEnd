@@ -19,7 +19,7 @@ export class CrudActions<Model> extends Actions{
   // Open CRUD Form
   public openCrudForm = createAction(
     `[${this.modelName}] Open ${this.modelName} Form Dialog`,
-    props<{ value: Model }>()
+    props<{ value?: Model }>()
   );
 
   // Load CRUD Values

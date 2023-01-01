@@ -6,24 +6,29 @@ import { map, Observable } from 'rxjs';
 import { selectTechTypesInicio } from 'src/app/modules/public/page-landing/state/inicio.selectors';
 import { Tech } from 'src/app/project/models/Tech.model';
 import { TechType } from 'src/app/project/models/TechType.model';
+import {
+  appStateTypes,
+  StateService,
+} from 'src/app/project/services/state.service';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
-import { saveTechs } from '../state/tech.actions';
-import { selectTechOperationState } from '../state/tech.selectors';
 
 @Component({
   selector: 'app-tech-form',
   templateUrl: './tech-form.component.html',
-  styleUrls: ['./tech-form.component.scss']
+  styleUrls: ['./tech-form.component.scss'],
 })
-export class TechFormComponent extends CrudFormComponent implements OnInit, OnDestroy{
-
+export class TechFormComponent
+  extends CrudFormComponent<appStateTypes>
+  implements OnInit, OnDestroy
+{
   constructor(
+    private stateService: StateService,
     ref: DynamicDialogRef,
     config: DynamicDialogConfig,
     fb: FormBuilder,
     store: Store
   ) {
-    super(ref, config, fb, store, selectTechOperationState);
+    super(ref, config, fb, store, stateService.getState('Tech'));
 
     this.form = this.fb.group({
       id: [null],
@@ -39,13 +44,11 @@ export class TechFormComponent extends CrudFormComponent implements OnInit, OnDe
 
   ngOnInit(): void {
     this.init();
-    if(this.form.controls["imageUrl"].value){
-      this.form.controls["isLink"].setValue(true);
+    if (this.form.controls['imageUrl'].value) {
+      this.form.controls['isLink'].setValue(true);
     }
     const tiposRequest = this.store.select(selectTechTypesInicio);
-    this.tipos = tiposRequest.pipe(
-      map(response => response.data)
-    );
+    this.tipos = tiposRequest.pipe(map((response) => response.data));
   }
 
   ngOnDestroy(): void {
@@ -54,7 +57,7 @@ export class TechFormComponent extends CrudFormComponent implements OnInit, OnDe
 
   tipos!: Observable<TechType[]>;
 
-  guardar(){
+  guardar() {
     this.cargando = true;
     this.form.markAllAsTouched();
     if (this.form.invalid) {
@@ -63,22 +66,19 @@ export class TechFormComponent extends CrudFormComponent implements OnInit, OnDe
     }
 
     let tech: Tech = {
-      id: this.form.controls["id"].value,
-      name: this.form.controls["name"].value,
-      imageUrl: this.form.controls["imageUrl"].value ?? null,
-      description: this.form.controls["description"].value,
-      tipo: this.form.controls["tipo"].value,
+      id: this.form.controls['id'].value,
+      name: this.form.controls['name'].value,
+      imageUrl: this.form.controls['imageUrl'].value ?? null,
+      description: this.form.controls['description'].value,
+      tipo: this.form.controls['tipo'].value,
     } as Tech;
 
-    
-    if(this.files.length > 0){
-      tech = {...tech, imageFile: this.files[0]}
+    if (this.files.length > 0) {
+      tech = { ...tech, imageFile: this.files[0] };
     }
 
-    this.store.dispatch(saveTechs({tech}));
-    
+    this.store.dispatch(this.state.actions.saveValue({ value: tech }));
 
     this.savedValue();
   }
-
 }

@@ -1,18 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  EntityCollectionServiceBase,
-  EntityCollectionServiceElementsFactory,
-} from '@ngrx/data';
+import { EntityCollectionServiceElementsFactory } from '@ngrx/data';
 import { map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { CrudService } from 'src/core/classes/crud-state/crud.service';
 import { MultipleRecordsResponse } from '../models/MultipleRecordsResponse';
 import { TechType } from '../models/TechType.model';
+import { appStateTypes } from './state.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TechtypeService extends EntityCollectionServiceBase<TechType> {
+export class TechtypeService extends CrudService<appStateTypes> {
   constructor(
     serviceElementsFactory: EntityCollectionServiceElementsFactory,
     private http: HttpClient
@@ -20,22 +18,19 @@ export class TechtypeService extends EntityCollectionServiceBase<TechType> {
     super('TechType', serviceElementsFactory);
   }
 
-  private apiUrl: string = environment.apiUrl;
-  totalRecords = 0;
-
   override getAll(): Observable<TechType[]> {
     return this.http
-    .get<MultipleRecordsResponse<TechType>>(
-      `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
-    )
-    .pipe(
-      map((value) => {
-        this.totalRecords = value.totalRecords;
-        return value.data;
-      })
-    );
+      .get<MultipleRecordsResponse<TechType>>(
+        `${this.apiUrl}/${this.entityName.toLowerCase()}s/`
+      )
+      .pipe(
+        map((value) => {
+          this.totalRecords = value.totalRecords;
+          return value.data;
+        })
+      );
   }
-  
+
   override getWithQuery(query: string): Observable<TechType[]> {
     return this.http
       .get<MultipleRecordsResponse<TechType>>(

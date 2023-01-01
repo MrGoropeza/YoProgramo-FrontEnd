@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LazyLoadEvent } from 'primeng/api';
 import { DynamicTableColumnModel } from 'src/core/classes/dynamic-table.model';
-import * as techTypeActions from './state/techs-type.actions';
-import * as techTypeSelectors from './state/techs-type.selectors';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CrudComponent } from 'src/core/classes/crud-component';
 import { TechType } from 'src/app/project/models/TechType.model';
+import { appStateTypes, StateService } from 'src/app/project/services/state.service';
 
 @Component({
   selector: 'app-tech-type-crud',
@@ -14,20 +13,15 @@ import { TechType } from 'src/app/project/models/TechType.model';
   styleUrls: ['./tech-type-crud.component.scss'],
 })
 export default class TechTypeCrudComponent
-  extends CrudComponent<TechType>
+  extends CrudComponent<appStateTypes>
   implements OnInit, OnDestroy
 {
   constructor(
+    private stateService: StateService,
     store: Store,
-    ref: DynamicDialogRef,
+    ref: DynamicDialogRef
   ) {
-    super(
-      store,
-      ref,
-      techTypeActions.closeTechsTypes(),
-      techTypeSelectors.selectTechTypes,
-      techTypeSelectors.selectTechTypesLoading
-    );
+    super(store, ref, stateService.getState('TechType'));
   }
 
   ngOnInit(): void {
@@ -49,14 +43,22 @@ export default class TechTypeCrudComponent
   }
 
   lazyLoadEvent(query: LazyLoadEvent) {
-    this.store.dispatch(techTypeActions.loadTechsTypes({ query }));
+    this.store.dispatch(
+      this.state.actions.loadValues({
+        query,
+      })
+    );
   }
 
   openForm(techType?: TechType) {
-    this.store.dispatch(techTypeActions.openTechsTypesForm({ techType }));
+    this.store.dispatch(this.state.actions.openCrudForm({ value: techType }));
   }
 
   delete(techType: TechType) {
-    this.store.dispatch(techTypeActions.deleteTechsTypes({ techType }));
+    this.store.dispatch(
+      this.state.actions.deleteValue({
+        value: techType,
+      })
+    );
   }
 }

@@ -1,33 +1,27 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LazyLoadEvent } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Tech } from 'src/app/project/models/Tech.model';
+import { appStateTypes, StateService } from 'src/app/project/services/state.service';
 import { CrudComponent } from 'src/core/classes/crud-component';
 import { DynamicTableColumnModel } from 'src/core/classes/dynamic-table.model';
-import * as techActions from './state/tech.actions';
-import * as techSelectors from './state/tech.selectors';
 
 @Component({
   selector: 'app-tech-crud',
   templateUrl: './tech-crud.component.html',
-  styleUrls: ['./tech-crud.component.scss']
+  styleUrls: ['./tech-crud.component.scss'],
 })
-export class TechCrudComponent extends CrudComponent<Tech> implements OnInit, OnDestroy {
-
-  @Input() modalVisible = false;
-
+export class TechCrudComponent
+  extends CrudComponent<appStateTypes>
+  implements OnInit, OnDestroy
+{
   constructor(
+    private stateService: StateService,
     store: Store,
-    ref: DynamicDialogRef,
-  ){
-    super(
-      store,
-      ref,
-      techActions.closeTechs(),
-      techSelectors.selectTechs,
-      techSelectors.selectTechsLoading
-    );
+    ref: DynamicDialogRef
+  ) {
+    super(store, ref, stateService.getState('Tech'));
   }
 
   ngOnInit(): void {
@@ -48,7 +42,7 @@ export class TechCrudComponent extends CrudComponent<Tech> implements OnInit, On
         header: 'Tipo',
         field: 'tipo',
         pipe: 'object',
-        pipeArgs: ['name']
+        pipeArgs: ['name'],
       } as DynamicTableColumnModel,
     ];
     this.init();
@@ -59,15 +53,14 @@ export class TechCrudComponent extends CrudComponent<Tech> implements OnInit, On
   }
 
   lazyLoadEvent(query: LazyLoadEvent) {
-    this.store.dispatch(techActions.loadTechs({ query }));
+    this.store.dispatch(this.state.actions.loadValues({ query }));
   }
 
   openForm(tech?: Tech) {
-    this.store.dispatch(techActions.openTechsForm({ tech }));
+    this.store.dispatch(this.state.actions.openCrudForm({ value: tech }));
   }
 
   delete(tech: Tech) {
-    this.store.dispatch(techActions.deleteTechs({ tech }));
+    this.store.dispatch(this.state.actions.deleteValue({ value: tech }));
   }
-
 }

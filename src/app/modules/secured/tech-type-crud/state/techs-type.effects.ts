@@ -1,176 +1,187 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { Actions } from '@ngrx/effects';
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
 import TechTypeCrudComponent from '../tech-type-crud.component';
 import { TechTypeFormComponent } from '../tech-type-form/tech-type-form.component';
-import * as TechTypeActions from './techs-type.actions';
 import * as InicioActions from '../../../public/page-landing/state/inicio.actions';
 import { TechtypeService } from 'src/app/project/services/techtype.service';
+import { CrudEffects } from 'src/core/classes/crud-state/crud.effects';
+import { appStateTypes, StateService } from 'src/app/project/services/state.service';
 
 @Injectable()
-export class TechTypeEffects {
+export class TechTypeEffects extends CrudEffects<appStateTypes>{
   constructor(
-    private actions$: Actions,
-    private dialogService: DialogService,
-    private messageService: MessageService,
+    actions$: Actions,
+    dialogService: DialogService,
+    messageService: MessageService,
+    private stateService: StateService,
     private techTypeService: TechtypeService
-  ) {}
-
-  openTechTypes$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(TechTypeActions.openTechsTypes),
-        map(() => {
-          this.dialogService.open(TechTypeCrudComponent, {
-            header: 'CRUD Tipo de Tecnologías',
-            styleClass: 'w-full lg:w-11/12',
-          });
-        })
-      );
-    },
-    { dispatch: false }
-  );
-
-  closeTechTypes$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(TechTypeActions.closeTechsTypes),
-      map(() => InicioActions.loadTechsTypes())
+  ) {
+    super(
+      actions$,
+      dialogService,
+      messageService,
+      "TechType",
+      stateService.getState("TechType").actions,
+      InicioActions.loadTechsTypes(),
+      TechTypeCrudComponent,
+      TechTypeFormComponent,
+      techTypeService
     );
-  });
+  }
 
-  openTechTypesForm$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(TechTypeActions.openTechsTypesForm),
-        map((action) => {
-          this.dialogService.open(TechTypeFormComponent, {
-            header: action.techType
-              ? `Editar Tipo de Tecnología "${action.techType.name}"`
-              : 'Agregar Tipo de Tecnología',
-            data: { techType: action.techType },
-          });
-        })
-      );
-    },
-    { dispatch: false }
-  );
+  // openTechTypes$ = createEffect(
+  //   () => {
+  //     return this.actions$.pipe(
+  //       ofType(TechTypeActions.openTechsTypes),
+  //       map(() => {
+  //         this.dialogService.open(TechTypeCrudComponent, {
+  //           header: 'CRUD Tipo de Tecnologías',
+  //           styleClass: 'w-full lg:w-11/12',
+  //         });
+  //       })
+  //     );
+  //   },
+  //   { dispatch: false }
+  // );
 
-  lastQuery!: LazyLoadEvent;
+  // closeTechTypes$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(TechTypeActions.closeTechsTypes),
+  //     map(() => InicioActions.loadTechsTypes())
+  //   );
+  // });
 
-  loadTechTypes$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(TechTypeActions.loadTechsTypes),
-      concatMap((action) => {
-        if (action.query) {
-          this.lastQuery = action.query;
-        }
+  // openTechTypesForm$ = createEffect(
+  //   () => {
+  //     return this.actions$.pipe(
+  //       ofType(TechTypeActions.openTechsTypesForm),
+  //       map((action) => {
+  //         this.dialogService.open(TechTypeFormComponent, {
+  //           header: action.techType
+  //             ? `Editar Tipo de Tecnología "${action.techType.name}"`
+  //             : 'Agregar Tipo de Tecnología',
+  //           data: { techType: action.techType },
+  //         });
+  //       })
+  //     );
+  //   },
+  //   { dispatch: false }
+  // );
 
-        const query = window.btoa(JSON.stringify(this.lastQuery));
+  // loadTechTypes$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(TechTypeActions.loadTechsTypes),
+  //     concatMap((action) => {
+  //       if (action.query) {
+  //         this.lastQuery = action.query;
+  //       }
 
-        return this.techTypeService.getWithQuery(query).pipe(
-          map((data) =>
-            TechTypeActions.loadTechsTypesSuccess({
-              data: {
-                data,
-                totalRecords: this.techTypeService.totalRecords,
-              },
-            })
-          ),
-          catchError((error) =>
-            of(TechTypeActions.loadTechsTypesFailure({ error }))
-          )
-        );
-      })
-    );
-  });
+  //       const query = window.btoa(JSON.stringify(this.lastQuery));
 
-  saveTechType$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(TechTypeActions.saveTechsTypes),
-      mergeMap((action) => {
-        return this.techTypeService.add(action.techType).pipe(
-          map(() => TechTypeActions.saveTechsTypesSuccess()),
-          catchError((error) =>
-            of(TechTypeActions.saveTechsTypesFailure({ error }))
-          )
-        );
-      })
-    );
-  });
+  //       return this.techTypeService.getWithQuery(query).pipe(
+  //         map((data) =>
+  //           TechTypeActions.loadTechsTypesSuccess({
+  //             data: {
+  //               data,
+  //               totalRecords: this.techTypeService.totalRecords,
+  //             },
+  //           })
+  //         ),
+  //         catchError((error) =>
+  //           of(TechTypeActions.loadTechsTypesFailure({ error }))
+  //         )
+  //       );
+  //     })
+  //   );
+  // });
 
-  saveTechSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(TechTypeActions.saveTechsTypesSuccess),
-      map(() => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Tipo de Tecnología guardada con éxito.',
-        });
-        return TechTypeActions.loadTechsTypes({});
-      })
-    );
-  });
+  // saveTechType$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(TechTypeActions.saveTechsTypes),
+  //     mergeMap((action) => {
+  //       return this.techTypeService.add(action.techType).pipe(
+  //         map(() => TechTypeActions.saveTechsTypesSuccess()),
+  //         catchError((error) =>
+  //           of(TechTypeActions.saveTechsTypesFailure({ error }))
+  //         )
+  //       );
+  //     })
+  //   );
+  // });
 
-  saveTechFailure$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(TechTypeActions.saveTechsTypesFailure),
-        map(() => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al guardar Tipo de Tecnología. Intente de nuevo.',
-          });
-        })
-      );
-    },
-    { dispatch: false }
-  );
+  // saveTechSuccess$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(TechTypeActions.saveTechsTypesSuccess),
+  //     map(() => {
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Éxito',
+  //         detail: 'Tipo de Tecnología guardada con éxito.',
+  //       });
+  //       return TechTypeActions.loadTechsTypes({});
+  //     })
+  //   );
+  // });
 
-  deleteTechType$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(TechTypeActions.deleteTechsTypes),
-      mergeMap((action) =>
-        this.techTypeService.delete(action.techType).pipe(
-          map(() => TechTypeActions.deleteTechsTypesSuccess()),
-          catchError((error) =>
-            of(TechTypeActions.deleteTechsTypesFailure({ error }))
-          )
-        )
-      )
-    );
-  });
+  // saveTechFailure$ = createEffect(
+  //   () => {
+  //     return this.actions$.pipe(
+  //       ofType(TechTypeActions.saveTechsTypesFailure),
+  //       map(() => {
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Error',
+  //           detail: 'Error al guardar Tipo de Tecnología. Intente de nuevo.',
+  //         });
+  //       })
+  //     );
+  //   },
+  //   { dispatch: false }
+  // );
 
-  deleteTechSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(TechTypeActions.deleteTechsTypesSuccess),
-      map(() => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Tipo de Tecnología eliminada con éxito.',
-        });
-        return TechTypeActions.loadTechsTypes({});
-      })
-    );
-  });
+  // deleteTechType$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(TechTypeActions.deleteTechsTypes),
+  //     mergeMap((action) =>
+  //       this.techTypeService.delete(action.techType).pipe(
+  //         map(() => TechTypeActions.deleteTechsTypesSuccess()),
+  //         catchError((error) =>
+  //           of(TechTypeActions.deleteTechsTypesFailure({ error }))
+  //         )
+  //       )
+  //     )
+  //   );
+  // });
 
-  deleteTechFailure$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(TechTypeActions.deleteTechsTypesFailure),
-        map(() => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al eliminar Tipo de Tecnología. Intente de nuevo.',
-          });
-        })
-      );
-    },
-    { dispatch: false }
-  );
+  // deleteTechSuccess$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(TechTypeActions.deleteTechsTypesSuccess),
+  //     map(() => {
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Éxito',
+  //         detail: 'Tipo de Tecnología eliminada con éxito.',
+  //       });
+  //       return TechTypeActions.loadTechsTypes({});
+  //     })
+  //   );
+  // });
+
+  // deleteTechFailure$ = createEffect(
+  //   () => {
+  //     return this.actions$.pipe(
+  //       ofType(TechTypeActions.deleteTechsTypesFailure),
+  //       map(() => {
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Error',
+  //           detail: 'Error al eliminar Tipo de Tecnología. Intente de nuevo.',
+  //         });
+  //       })
+  //     );
+  //   },
+  //   { dispatch: false }
+  // );
 }

@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
 import { map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { CrudService } from 'src/core/classes/crud-state/crud.service';
 import { MultipleRecordsResponse } from '../models/MultipleRecordsResponse';
 import { Tech } from '../models/Tech.model';
+import { appStateTypes } from './state.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TechService extends EntityCollectionServiceBase<Tech> {
+export class TechService extends CrudService<appStateTypes> {
   constructor(
     serviceElementsFactory: EntityCollectionServiceElementsFactory,
     private http: HttpClient
@@ -20,10 +20,8 @@ export class TechService extends EntityCollectionServiceBase<Tech> {
     super('Tech', serviceElementsFactory);
   }
 
-  private apiUrl: string = environment.apiUrl;
-  totalRecords = 0;
   
-  getWithQueryCustom(techTypeName: string, query: string): Observable<Tech[]> {
+  override getWithQueryCustom(techTypeName: string, query: string): Observable<Tech[]> {
     return this.http
       .get<MultipleRecordsResponse<Tech>>(
         `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
@@ -39,7 +37,7 @@ export class TechService extends EntityCollectionServiceBase<Tech> {
       );
   }
 
-  addCustom(tech: Tech){
+  override addCustom(tech: Tech){
     let formData: FormData = new FormData();
 
     const imageFile = tech.imageFile;

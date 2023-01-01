@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 export class CrudService<Model> extends EntityCollectionServiceBase<Model> {
   totalRecords = 0;
-  private apiUrl: string = environment.apiUrl;
+  protected apiUrl: string = environment.apiUrl;
 
   constructor(
     private modelName: string,

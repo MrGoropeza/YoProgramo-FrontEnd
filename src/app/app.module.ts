@@ -10,6 +10,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DefaultDataServiceConfig, EntityDataModule } from '@ngrx/data';
 import { entityConfig, defaultDataServiceConfig } from './entity-metadata';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,7 @@ import { entityConfig, defaultDataServiceConfig } from './entity-metadata';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EntityDataModule.forRoot(entityConfig)
   ],
-  providers: [{provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig}],
+  providers: [{provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig}, DialogService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

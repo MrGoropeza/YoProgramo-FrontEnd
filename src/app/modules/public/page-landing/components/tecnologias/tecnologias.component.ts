@@ -4,13 +4,12 @@ import { MenuItem } from 'primeng/api';
 import { map, Observable } from 'rxjs';
 import { Tech } from 'src/app/project/models/Tech.model';
 import { loadTechs } from '../../state/inicio.actions';
-import { openTechsTypes } from '../../../../secured/tech-type-crud/state/techs-type.actions';
 import {
   selectTechsInicio,
   selectTechTypesInicio,
 } from '../../state/inicio.selectors';
-import { openTechs } from 'src/app/modules/secured/tech-crud/state/tech.actions';
 import { TechType } from 'src/app/project/models/TechType.model';
+import { StateService } from 'src/app/project/services/state.service';
 @Component({
   selector: 'app-tecnologias',
   templateUrl: './tecnologias.component.html',
@@ -20,7 +19,10 @@ export class TecnologiasComponent implements OnInit {
   techTypes$!: Observable<TechType[]>;
   techs$!: Observable<Tech[]>;
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private stateService: StateService
+  ) {}
 
   ngOnInit(): void {
     const response$ = this.store.select(selectTechTypesInicio);
@@ -35,11 +37,11 @@ export class TecnologiasComponent implements OnInit {
   }
 
   editTechsClick() {
-    this.store.dispatch(openTechs());
+    this.store.dispatch(this.stateService.getState("Tech").actions.openCrudDialog());
   }
 
   editTypesClick() {
-    this.store.dispatch(openTechsTypes());
+    this.store.dispatch(this.stateService.getState("TechType").actions.openCrudDialog());
   }
 
   loadTechs(activeType: MenuItem) {

@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { appStateTypes, StateService } from 'src/app/project/services/state.service';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
-import { saveTechsTypes } from '../state/techs-type.actions';
-import { selectTechTypesOperationState } from '../state/techs-type.selectors';
 
 @Component({
   selector: 'app-tech-type-form',
@@ -12,16 +11,17 @@ import { selectTechTypesOperationState } from '../state/techs-type.selectors';
   styleUrls: ['./tech-type-form.component.scss'],
 })
 export class TechTypeFormComponent
-  extends CrudFormComponent
+  extends CrudFormComponent<appStateTypes>
   implements OnInit, OnDestroy
 {
   constructor(
+    private stateService: StateService,
     ref: DynamicDialogRef,
     config: DynamicDialogConfig,
     fb: FormBuilder,
     store: Store
   ) {
-    super(ref, config, fb, store, selectTechTypesOperationState);
+    super(ref, config, fb, store, stateService.getState('TechType'));
 
     this.form = this.fb.group({
       id: [null],
@@ -53,7 +53,10 @@ export class TechTypeFormComponent
       {}
     );
 
-    this.store.dispatch(saveTechsTypes({ techType }));
+    const saveAction = this.state.actions.saveValue({
+      value: techType,
+    });
+    this.store.dispatch(saveAction);
     this.savedValue();
   }
 }

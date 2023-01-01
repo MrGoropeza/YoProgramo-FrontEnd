@@ -9,16 +9,19 @@ import { CrudService } from './crud.service';
 
 export class CrudEffects<Model> {
   constructor(
-    private actions$: Actions,
-    private dialogService: DialogService,
-    private messageService: MessageService,
+    protected actions$: Actions,
+    protected dialogService: DialogService,
+    protected messageService: MessageService,
     private modelName: string,
     private crudActions: CrudActions<Model>,
     private inicioAction: Action,
     private crudComponent: any,
     private crudFormComponent: any,
     private modelService: CrudService<Model>
-  ) {}
+  ) {
+    console.log(`${modelName} - Creando instancia de Effects`);
+    
+  }
 
   openCrudDialog$ = createEffect(
     () => {
@@ -51,7 +54,7 @@ export class CrudEffects<Model> {
             header: action.value
               ? `Editar ${this.modelName} "${(action.value as any).name}"`
               : `Agregar ${this.modelName}`,
-            data: { ValueType: action.value },
+            data: { value: action.value },
           });
         })
       );

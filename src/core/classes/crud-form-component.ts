@@ -1,9 +1,10 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Selector, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
+import { CrudState } from './crud-state/crud.reducer';
 
-export class CrudFormComponent {
+export class CrudFormComponent<Model> {
   form!: FormGroup;
 
   constructor(
@@ -11,12 +12,12 @@ export class CrudFormComponent {
     protected config: DynamicDialogConfig,
     protected fb: FormBuilder,
     protected store: Store,
-    protected operationStateSelector: Selector<object, string>
+    protected state: CrudState<Model>
   ) {}
 
   init() {
     if (this.config.data) {
-      this.form.patchValue(this.config.data.techType);
+      this.form.patchValue(this.config.data.value);
     }
   }
 
@@ -36,7 +37,7 @@ export class CrudFormComponent {
   }
 
   savedValue(){
-    const operationState$ = this.store.select(this.operationStateSelector);
+    const operationState$ = this.store.select(this.state.selectors.selectValuesOperationState);
 
     this.saved = operationState$
       .subscribe(

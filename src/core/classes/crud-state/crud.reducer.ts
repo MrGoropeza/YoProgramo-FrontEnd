@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createReducer, on, Action } from '@ngrx/store';
-import { MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
+import { createReducer, on } from '@ngrx/store';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 import { CrudActions } from './crud.actions';
-import { CrudEffects } from './crud.effects';
 import { CrudSelectors } from './crud.selectors';
-import { CrudService } from './crud.service';
-
 export interface modelState<Model> {
   values: MultipleRecordsResponse<Model>;
   valuesError: any;
@@ -20,31 +15,14 @@ export interface modelState<Model> {
 export class CrudState<Model> {
   constructor(
     public modelName: string,
-    private dialogService: DialogService,
-    private messageService: MessageService,
-    private inicioAction: Action,
-    private crudComponent: any,
-    private crudFormComponent: any,
-    private crudService: CrudService<Model>,
   ) {}
 
   public actions: CrudActions<Model> = new CrudActions(this.modelName);
   public selectors: CrudSelectors<Model> = new CrudSelectors(this.modelName);
-  public effects: CrudEffects<Model> = new CrudEffects(
-    this.actions,
-    this.dialogService,
-    this.messageService,
-    this.modelName,
-    this.actions,
-    this.inicioAction,
-    this.crudComponent,
-    this.crudFormComponent,
-    this.crudService
-  );
 
   public modelFeatureKey = this.modelName;
 
-  public initialState: modelState<Model> = {
+  private initialState: modelState<Model> = {
     values: { data: [], totalRecords: 0 },
     valuesError: undefined,
     valuesLoading: false,
