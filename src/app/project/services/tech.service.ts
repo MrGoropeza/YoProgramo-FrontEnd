@@ -46,7 +46,9 @@ export class TechService extends EntityCollectionServiceBase<Tech> {
     tech = {...tech, imageFile: undefined};
 
     formData.append("tech", JSON.stringify(tech));
-    formData.append("imagen", imageFile as Blob);
+    if(imageFile){
+      formData.append("imagen", imageFile as Blob);
+    }
 
     return this.http.post(`${this.apiUrl}/tech/`, formData);
   }
