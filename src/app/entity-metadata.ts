@@ -3,10 +3,11 @@ import { environment } from 'src/environments/environment';
 
 const entityMetadata: EntityMetadataMap = {
   TechType: {},
-  Tech: {}
+  Tech: {},
+  Place: {}
 };
 
-const pluralNames = { Tech: "Techs", TechType: "TechTypes" };
+const pluralNames = { Tech: "Techs", TechType: "TechTypes", Place: "Places" };
 
 export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,

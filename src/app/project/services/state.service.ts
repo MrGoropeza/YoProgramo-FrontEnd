@@ -4,9 +4,10 @@ import { CrudState } from 'src/core/classes/crud-state/crud.reducer';
 import { TechType } from '../models/TechType.model';
 import { Tech } from '../models/Tech.model';
 import { Store } from '@ngrx/store';
+import { Place } from '../models/place.model';
 
-export type appStateTypes = Tech | TechType;
-type appStateNames = "Tech" | "TechType";
+export type appStateTypes = Tech | TechType | Place;
+type appStateNames = "Tech" | "TechType" | "Place";
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class StateService {
   appStates: CrudState<appStateTypes>[] = [
     new CrudState<appStateTypes>('TechType'),
     new CrudState<appStateTypes>('Tech'),
+    new CrudState<appStateTypes>('Place'),
   ];
 
   constructor(private store: Store) {

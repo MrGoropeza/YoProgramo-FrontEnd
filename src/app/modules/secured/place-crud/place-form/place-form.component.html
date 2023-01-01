@@ -1,0 +1,53 @@
+<form [formGroup]="form">
+  <app-ui-input-text
+    [group]="form"
+    control="name"
+    label="Nombre"
+  ></app-ui-input-text>
+
+  <app-ui-textarea
+    [group]="form"
+    control="description"
+    label="Descripción"
+    [autoResize]="true"
+  ></app-ui-textarea>
+
+  <app-ui-input-text
+    [group]="form"
+    control="url"
+    label="URL de Org."
+  ></app-ui-input-text>
+  
+  <div class="mt-4 flex items-center gap-2">
+    <label>Archivo</label>
+    <p-inputSwitch id="switch" #switch formControlName="isLink"></p-inputSwitch>
+    <label>Link</label>
+  </div>
+
+
+  <div *ngIf="switch.modelValue; else elseBlock">
+    <div class="flex justify-center">
+      <p-image
+        [src]="form.controls['imageUrl'].value"
+        imageClass="aspect-square max-h-60 max-w-none object-cover"
+        [preview]="true"
+        appendTo="body"
+      ></p-image>
+    </div>
+    <app-ui-input-text
+      [group]="form"
+      control="imageUrl"
+      label="URL de imagen"
+    ></app-ui-input-text>
+  </div>
+
+  <ng-template #elseBlock>
+    <app-ui-file-upload [(files)]="files"></app-ui-file-upload>
+  </ng-template>
+</form>
+
+<app-ui-form-buttons
+  [cargando]="cargando"
+  (cancelarClick)="cancelar()"
+  (guardarClick)="guardar()"
+></app-ui-form-buttons>

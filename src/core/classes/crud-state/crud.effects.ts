@@ -27,7 +27,7 @@ export class CrudEffects<Model> {
         ofType(this.crudActions.openCrudDialog),
         map(() => {
           this.dialogService.open(this.crudComponent, {
-            header: `CRUD ${this.modelName}`,
+            header: `CRUD ${this.modelName}s`,
             styleClass: 'w-full lg:w-11/12',
           });
         })

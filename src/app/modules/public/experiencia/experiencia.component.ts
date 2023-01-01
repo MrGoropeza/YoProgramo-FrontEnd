@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StateService } from 'src/app/project/services/state.service';
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'app-experiencia',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExperienciaComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private stateService: StateService,
+    private store: Store
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  placesClick(){
+    const openDialogAction = this.stateService.getState("Place").actions.openCrudDialog();
+    this.store.dispatch(openDialogAction);
   }
 
 }

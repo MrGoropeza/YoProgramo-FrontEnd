@@ -1,15 +1,10 @@
+import { Place } from "./place.model";
+
 export interface AboutModel{
     name: string;
     nameUrl: string;
     title: string;
     imageUrl: string;
-    actualWork: PlaceModel;
-    actualCareer: PlaceModel;
-}
-
-export interface PlaceModel{
-    id: string;
-    name: string;
-    url: string;
-    imageUrl: string;
+    actualWork: Place;
+    actualCareer: Place;
 }
