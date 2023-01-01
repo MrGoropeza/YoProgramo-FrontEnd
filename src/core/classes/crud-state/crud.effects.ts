@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
@@ -14,7 +13,6 @@ export class CrudEffects<Model> {
     protected messageService: MessageService,
     private modelName: string,
     private crudActions: CrudActions<Model>,
-    private inicioAction: Action,
     private crudComponent: any,
     private crudFormComponent: any,
     private modelService: CrudService<Model>
@@ -37,13 +35,6 @@ export class CrudEffects<Model> {
     },
     { dispatch: false }
   );
-
-  closeCrudDialog$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(this.crudActions.closeCrudDialog),
-      map(() => this.inicioAction)
-    );
-  });
 
   openCrudForm$ = createEffect(
     () => {

@@ -4,7 +4,6 @@ import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import TechTypeCrudComponent from '../tech-type-crud.component';
 import { TechTypeFormComponent } from '../tech-type-form/tech-type-form.component';
-import * as InicioActions from '../../../public/page-landing/state/inicio.actions';
 import { TechtypeService } from 'src/app/project/services/techtype.service';
 import { CrudEffects } from 'src/core/classes/crud-state/crud.effects';
 import { appStateTypes, StateService } from 'src/app/project/services/state.service';
@@ -24,7 +23,6 @@ export class TechTypeEffects extends CrudEffects<appStateTypes>{
       messageService,
       "TechType",
       stateService.getState("TechType").actions,
-      InicioActions.loadTechsTypes(),
       TechTypeCrudComponent,
       TechTypeFormComponent,
       techTypeService

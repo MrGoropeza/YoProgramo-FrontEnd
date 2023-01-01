@@ -8,7 +8,6 @@ import { appStateTypes, StateService } from 'src/app/project/services/state.serv
 import { TechService } from 'src/app/project/services/tech.service';
 import { CrudEffects } from 'src/core/classes/crud-state/crud.effects';
 import { CrudState } from 'src/core/classes/crud-state/crud.reducer';
-import * as InicioActions from '../../../public/page-landing/state/inicio.actions';
 import { TechCrudComponent } from '../tech-crud.component';
 import { TechFormComponent } from '../tech-form/tech-form.component';
 
@@ -30,7 +29,6 @@ export class TechEffects extends CrudEffects<appStateTypes>{
       messageService,
       "Tech",
       stateService.getState("Tech").actions,
-      InicioActions.loadInicios(),
       TechCrudComponent,
       TechFormComponent,
       techService
