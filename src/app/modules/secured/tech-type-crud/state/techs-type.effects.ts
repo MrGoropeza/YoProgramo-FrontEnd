@@ -3,7 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
-import { TechnologiesService } from 'src/app/project/services/technologies.service';
 import TechTypeCrudComponent from '../tech-type-crud.component';
 import { TechTypeFormComponent } from '../tech-type-form/tech-type-form.component';
 import * as TechTypeActions from './techs-type.actions';
@@ -14,7 +13,6 @@ import { TechtypeService } from 'src/app/project/services/techtype.service';
 export class TechTypeEffects {
   constructor(
     private actions$: Actions,
-    private techService: TechnologiesService,
     private dialogService: DialogService,
     private messageService: MessageService,
     private techTypeService: TechtypeService
