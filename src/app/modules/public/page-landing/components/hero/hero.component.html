@@ -12,12 +12,12 @@
         class="mt-2 flex max-w-max flex-col px-4 text-center text-4xl md:text-start"
       >
         <span>
+          <span class="font-bold">{{ (aboutMeInfo$ | async)?.name }}</span>
           <a
-            class="name-hover font-bold"
             [href]="(aboutMeInfo$ | async)?.nameUrl"
             target="_blank"
-            >{{ (aboutMeInfo$ | async)?.name }}</a
-          >
+            class="pi pi-linkedin ml-3 text-2xl font-bold"
+          ></a>
         </span>
         <span class="text-xl italic md:self-end">{{
           (aboutMeInfo$ | async)?.title
@@ -30,14 +30,18 @@
           [src]="(aboutMeInfo$ | async)?.actualWork?.imageUrl"
           class="w-20 max-w-none animate-rotative-coin rounded-full"
         />
-        <p class="max-w-min text-2xl md:max-w-max">
-          Trabajando en
+        <p class="max-w-min flex items-center text-2xl md:max-w-max">
+          <span>
+            Trabajando en
+            <span class="whitespace-nowrap font-bold">{{
+              (aboutMeInfo$ | async)?.actualWork?.name
+            }}</span>
+          </span>
           <a
-            class="place-hover whitespace-nowrap font-bold"
             [href]="(aboutMeInfo$ | async)?.actualWork?.url"
             target="_blank"
-            >{{ (aboutMeInfo$ | async)?.actualWork?.name }}</a
-          >
+            class="pi pi-external-link ml-3 text-xl font-bold"
+          ></a>
         </p>
       </div>
       <div
@@ -47,14 +51,18 @@
           [src]="(aboutMeInfo$ | async)?.actualCareer?.imageUrl"
           class="w-20 max-w-none animate-rotative-coin rounded-full"
         />
-        <p class="max-w-min text-2xl md:max-w-max">
-          Estudiando
+        <p class="max-w-min flex items-center text-2xl md:max-w-max">
+          <span>
+            Estudiando
+            <span class="whitespace-nowrap font-bold">{{
+              (aboutMeInfo$ | async)?.actualCareer?.name
+            }}</span>
+          </span>
           <a
-            class="place-hover whitespace-nowrap font-bold"
             [href]="(aboutMeInfo$ | async)?.actualCareer?.url"
             target="_blank"
-            >{{ (aboutMeInfo$ | async)?.actualCareer?.name }}</a
-          >
+            class="pi pi-external-link ml-3 text-xl font-bold"
+          ></a>
         </p>
       </div>
     </div>
