@@ -2,9 +2,20 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import {
+  BehaviorSubject,
+  debounceTime,
+  delay,
+  distinctUntilChanged,
+  Subscription,
+} from 'rxjs';
 import { Place } from 'src/app/project/models/place.model';
-import { appStateTypes, StateService } from 'src/app/project/services/state.service';
+import {
+  appStateTypes,
+  StateService,
+} from 'src/app/project/services/state.service';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
+import { NOIMAGELINK } from 'src/core/consts/no-image';
 
 @Component({
   selector: 'app-place-form',
@@ -36,12 +47,47 @@ export class PlaceFormComponent
 
   files: File[] = [];
 
+  imageLink$ = new BehaviorSubject<string>(NOIMAGELINK);
+  formImageLinkSub$!: Subscription;
+  imageLinkValid$ = new BehaviorSubject<boolean>(false);
+
   ngOnInit(): void {
     this.init();
+    if (this.form.controls['imageUrl'].value === NOIMAGELINK) {
+      this.form.controls['imageUrl'].setValue(null);
+    } else {
+      this.form.controls['isLink'].setValue(true);
+      this.imageLink$.next(this.form.controls['imageUrl'].value);
+      this.imageLinkValid$.next(true);
+    }
+    this.formImageLinkSub$ = this.form.controls['imageUrl'].valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((value) => {
+        if (value === NOIMAGELINK && this.imageLink$.value !== NOIMAGELINK) {
+          this.imageLink$.next(NOIMAGELINK);
+          this.form.controls['imageUrl'].setValue(null);
+        }
+        this.imageLink$.next(value);
+        this.imageLinkValid$.next(true);
+        let sub$ = this.imageLinkValid$.pipe(delay(200)).subscribe((valid) => {
+          if (valid) {
+            this.form.controls['imageUrl'].setValue(value);
+          }
+          sub$.unsubscribe();
+        });
+      });
+  }
+
+  imageError() {
+    this.imageLink$.next(NOIMAGELINK);
+    this.imageLinkValid$.next(false);
   }
 
   ngOnDestroy(): void {
     this.destroy();
+    if (this.formImageLinkSub$) {
+      this.formImageLinkSub$.unsubscribe();
+    }
   }
 
   guardar() {
@@ -56,7 +102,9 @@ export class PlaceFormComponent
       id: this.form.controls['id'].value,
       name: this.form.controls['name'].value,
       url: this.form.controls['url'].value ?? null,
-      imageUrl: this.form.controls['imageUrl'].value ?? null,
+      imageUrl: this.imageLinkValid$.value
+        ? this.form.controls['imageUrl'].value
+        : null,
       description: this.form.controls['description'].value,
     } as Place;
 

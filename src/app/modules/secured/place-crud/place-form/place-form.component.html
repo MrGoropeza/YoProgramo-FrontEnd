@@ -28,10 +28,11 @@
   <div *ngIf="switch.modelValue; else elseBlock">
     <div class="flex justify-center">
       <p-image
-        [src]="form.controls['imageUrl'].value"
+        [src]="(imageLink$ | async)!"
         imageClass="aspect-square max-h-60 max-w-none object-cover"
         [preview]="true"
         appendTo="body"
+        (onImageError)="imageError()"
       ></p-image>
     </div>
     <app-ui-input-text
