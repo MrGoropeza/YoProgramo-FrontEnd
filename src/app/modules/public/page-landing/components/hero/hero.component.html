@@ -11,13 +11,14 @@
       <p
         class="mt-2 flex max-w-max flex-col px-4 text-center text-4xl md:text-start"
       >
-        <span>
+        <span class="flex items-center">
           <span class="font-bold">{{ (aboutMeInfo$ | async)?.name }}</span>
           <a
             [href]="(aboutMeInfo$ | async)?.nameUrl"
             target="_blank"
             class="pi pi-linkedin ml-3 text-2xl font-bold"
           ></a>
+          <a class="pi pi-pencil text-xl text-white ml-3"></a>
         </span>
         <span class="text-xl italic md:self-end">{{
           (aboutMeInfo$ | async)?.title
