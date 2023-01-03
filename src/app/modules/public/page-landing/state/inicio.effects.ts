@@ -4,7 +4,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as InicioActions from './inicio.actions';
-import * as AboutActions from '../actions/aboutme.actions';
 import { AboutMeService } from 'src/app/project/services/about-me.service';
 import { TechService } from 'src/app/project/services/tech.service';
 import { TechtypeService } from 'src/app/project/services/techtype.service';
@@ -15,7 +14,7 @@ export class InicioEffects {
   loadInicioAboutMe$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(InicioActions.loadInicios),
-      map(() => AboutActions.loadAboutmes())
+      map(() => InicioActions.loadAboutmes())
     );
   });
 
@@ -105,11 +104,11 @@ export class InicioEffects {
 
   loadAboutMe$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AboutActions.loadAboutmes),
+      ofType(InicioActions.loadAboutmes),
       concatMap(() =>
         this.aboutService.getAboutMeInfo().pipe(
-          map((data) => AboutActions.loadAboutmesSuccess({ data })),
-          catchError((error) => of(AboutActions.loadAboutmesFailure({ error })))
+          map((data) => InicioActions.loadAboutmesSuccess({ data })),
+          catchError((error) => of(InicioActions.loadAboutmesFailure({ error })))
         )
       )
     );

@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { AboutModel } from 'src/app/project/models/about.model';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 import { Tech } from 'src/app/project/models/Tech.model';
 import { TechType } from 'src/app/project/models/TechType.model';
@@ -38,5 +39,19 @@ export const loadTechsSuccess = createAction(
 
 export const loadTechsFailure = createAction(
   '[Inicio] Load Techs Failure',
+  props<{ error: any }>()
+);
+
+export const loadAboutmes = createAction(
+  '[Aboutme] Load Aboutmes'
+);
+
+export const loadAboutmesSuccess = createAction(
+  '[Aboutme] Load Aboutmes Success',
+  props<{ data: AboutModel }>()
+);
+
+export const loadAboutmesFailure = createAction(
+  '[Aboutme] Load Aboutmes Failure',
   props<{ error: any }>()
 );
