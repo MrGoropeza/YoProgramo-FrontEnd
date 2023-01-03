@@ -26,7 +26,6 @@ export const loadTechsTypesFailure = createAction(
   props<{ error: any }>()
 );
 
-
 export const loadTechs = createAction(
   '[Inicio] Load Techs',
   props<{ activeType: string }>()
@@ -34,7 +33,7 @@ export const loadTechs = createAction(
 
 export const loadTechsSuccess = createAction(
   '[Inicio] Load Techs Success',
-  props<{ data: Tech[] }>()
+  props<{ response: MultipleRecordsResponse<Tech> }>()
 );
 
 export const loadTechsFailure = createAction(

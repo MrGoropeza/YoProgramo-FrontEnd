@@ -15,8 +15,8 @@
   <div class="mt-2 flex items-center gap-3 max-w-full">
     <p-tabMenu
       #tabMenu
-      [model]="techTypesToMenuItem((techTypes$ | async)!)"
-      [activeItem]="firstTime ? techTypesToMenuItem((techTypes$ | async)!)[0] : tabMenu.activeItem"
+      [model]="techTypesToMenuItem((techTypes$ | async)!.data)"
+      [activeItem]="firstTime ? techTypesToMenuItem((techTypes$ | async)!.data)[0] : tabMenu.activeItem"
       (activeItemChange)="loadTechs($event)"
       class="max-w-full overflow-x-auto"
       styleClass="max-w-min"
@@ -31,7 +31,6 @@
   <div *ngIf="tabMenu.model.length > 0" class="max-w-full">
     <app-tech-list
       [title]="tabMenu.activeItem ? tabMenu.activeItem.label! : ''"
-      [techs]="(techs$ | async)!"
     ></app-tech-list>
   </div>
 </div>
