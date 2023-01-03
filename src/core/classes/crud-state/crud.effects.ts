@@ -63,7 +63,10 @@ export class CrudEffects<Model> {
           this.lastQuery = action.query;
         }
 
-        const query = window.btoa(JSON.stringify(this.lastQuery));
+        let query = "";
+        if(this.lastQuery){
+          query = window.btoa(JSON.stringify(this.lastQuery));
+        }
 
         return this.modelService.getWithQuery(query).pipe(
           map((data) =>

@@ -32,11 +32,17 @@ export class TechtypeService extends CrudService<appStateTypes> {
   }
 
   override getWithQuery(query: string): Observable<TechType[]> {
+    let params = undefined;
+
+    if (query !== '') {
+      params = { query };
+    }
+
     return this.http
       .get<MultipleRecordsResponse<TechType>>(
         `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
         {
-          params: { query },
+          params,
         }
       )
       .pipe(
