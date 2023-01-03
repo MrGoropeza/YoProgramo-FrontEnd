@@ -1,6 +1,6 @@
 import { Place } from "./place.model";
 
-export interface AboutModel{
+export interface About{
     name: string;
     nameUrl: string;
     title: string;

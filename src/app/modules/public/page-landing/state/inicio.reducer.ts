@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Tech } from 'src/app/project/models/Tech.model';
 import * as InicioActions from './inicio.actions';
-import { AboutModel } from 'src/app/project/models/about.model';
+import { About } from 'src/app/project/models/about.model';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 import { TechType } from 'src/app/project/models/TechType.model';
 
@@ -14,7 +14,7 @@ export interface InicioState {
   techs: MultipleRecordsResponse<Tech>
   techsError: unknown;
   techsLoading: boolean;
-  aboutMe: AboutModel;
+  aboutMe: About;
   aboutMeError: unknown;
   aboutLoading: boolean;
 }
@@ -26,7 +26,7 @@ export const initialState: InicioState = {
   techs: {data: [], totalRecords: 0},
   techsError: undefined,
   techsLoading: false,
-  aboutMe: {} as AboutModel,
+  aboutMe: {} as About,
   aboutMeError: {},
   aboutLoading: false,
 };
