@@ -1,9 +1,9 @@
 <h3 class="text-center text-2xl font-bold">{{ title }}</h3>
-<div *ngIf="techs; else loading" class="flex overflow-x-auto">
-  <div *ngIf="techs.length === 0">
+<div *ngIf="!(techsLoading | async)!; else loading" class="flex overflow-x-auto">
+  <div *ngIf="(techs | async)!.length === 0">
     <p class="text-center font-semibold my-4">Ninguna tecnología cargada para esta categoría aún.</p>
   </div>
-  <div class="py-4 px-1" *ngFor="let tech of techs">
+  <div class="py-4 px-1" *ngFor="let tech of (techs | async)!">
     <img
       [src]="tech.imageUrl"
       alt="{{ tech.name }}-Logo"

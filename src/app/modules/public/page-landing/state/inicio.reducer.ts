@@ -10,67 +10,56 @@ export const inicioFeatureKey = 'inicio';
 
 export interface InicioState {
   techTypes: MultipleRecordsResponse<TechType>;
-  techTypesError: any;
-  techs: Tech[];
-  techsError: any;
+  techTypesError: unknown;
+  techTypesLoading: boolean;
+  techs: MultipleRecordsResponse<Tech>
+  techsError: unknown;
+  techsLoading: boolean;
   aboutMe: AboutModel;
-  aboutMeError: any;
-  loading: boolean;
-  errors: any[];
+  aboutMeError: unknown;
+  aboutLoading: boolean;
 }
 
 export const initialState: InicioState = {
   techTypes: {data: [], totalRecords: 0},
   techTypesError: undefined,
-  techs: [],
+  techTypesLoading: false,
+  techs: {data: [], totalRecords: 0},
   techsError: undefined,
+  techsLoading: false,
   aboutMe: {} as AboutModel,
   aboutMeError: {},
-  loading: false,
-  errors: [],
+  aboutLoading: false,
 };
 
 export const reducer = createReducer(
   initialState,
-
-  on(
-    InicioActions.loadInicios,
-    (state): InicioState => ({ ...state, loading: true })
-  ),
   on(
     InicioActions.loadIniciosSuccess,
-    (state): InicioState => ({ ...state, loading: false })
-  ),
-  on(
-    InicioActions.loadIniciosFailure,
-    (state, action): InicioState => ({
-      ...state,
-      loading: false,
-      errors: [...state.errors, action.error],
-    })
+    (state): InicioState => ({ ...state, techTypesLoading: true, techsLoading: true, aboutLoading: true })
   ),
   on(
     InicioActions.loadTechsTypesSuccess,
-    (state, action): InicioState => ({ ...state, techTypes: action.response })
+    (state, action): InicioState => ({ ...state, techTypes: action.response, techTypesLoading: false })
   ),
   on(
     InicioActions.loadTechsTypesFailure,
-    (state, action): InicioState => ({ ...state, techTypesError: action.error })
+    (state, action): InicioState => ({ ...state, techTypesError: action.error, techTypesLoading: false })
   ),
   on(
     InicioActions.loadTechsSuccess,
-    (state, action): InicioState => ({ ...state, techs: action.data })
+    (state, action): InicioState => ({ ...state, techs: action.response, techsLoading: false })
   ),
   on(
     InicioActions.loadTechsFailure,
-    (state, action): InicioState => ({ ...state, techsError: action.error })
+    (state, action): InicioState => ({ ...state, techsError: action.error, techsLoading: false })
   ),
   on(
     AboutAction.loadAboutmesSuccess,
-    (state, action): InicioState => ({ ...state, aboutMe: action.data })
+    (state, action): InicioState => ({ ...state, aboutMe: action.data, aboutLoading: false })
   ),
   on(
     AboutAction.loadAboutmesFailure,
-    (state, action): InicioState => ({ ...state, aboutMeError: action.error })
+    (state, action): InicioState => ({ ...state, aboutMeError: action.error, aboutLoading: false })
   ),
 );

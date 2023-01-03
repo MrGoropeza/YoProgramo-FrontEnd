@@ -5,14 +5,14 @@ export const selectInicioState = createFeatureSelector<fromInicio.InicioState>(
   fromInicio.inicioFeatureKey
 );
 
-export const selectLoadingInicio = createSelector(
-  selectInicioState,
-  state => state.loading
-);
-
 export const selectTechTypesInicio = createSelector(
   selectInicioState,
   state => state.techTypes
+);
+
+export const selectTechTypesLoadingInicio = createSelector(
+  selectInicioState,
+  state => state.techTypesLoading
 );
 
 export const selectTechsInicio = createSelector(
