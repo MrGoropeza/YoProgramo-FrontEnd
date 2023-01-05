@@ -14,6 +14,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
 import { TechTypeCrudModule } from '../../secured/tech-type-crud/tech-type-crud.module';
 import { TechCrudModule } from '../../secured/tech-crud/tech-crud.module';
+import { AboutCrudModule } from '../../secured/about-crud/about-crud.module';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     ComponentsModule,
     TechTypeCrudModule,
     TechCrudModule,
+    AboutCrudModule,
     StoreModule.forFeature(fromInicio.inicioFeatureKey, fromInicio.reducer),
     EffectsModule.forFeature([
       InicioEffects,

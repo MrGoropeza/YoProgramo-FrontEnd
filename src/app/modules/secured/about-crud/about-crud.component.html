@@ -1,0 +1,45 @@
+<form class="grid" [formGroup]="form">
+
+  <app-ui-input-text
+    [group]="form"
+    control="name"
+    label="Nombre"
+  ></app-ui-input-text>
+
+  <app-ui-input-text
+    [group]="form"
+    control="title"
+    label="Título"
+  ></app-ui-input-text>
+
+  <app-ui-dropdown
+    [group]="form"
+    control="actualWork"
+    label="Trabajo Actual"
+  ></app-ui-dropdown>
+
+  <app-ui-dropdown
+    [group]="form"
+    control="actualCareer"
+    label="Carrera Actual"
+  ></app-ui-dropdown>
+
+  <div class="mt-4 flex justify-center">
+    <p class="">Foto de Perfil Actual</p>
+    <p-image
+      [src]="form.controls['imageUrl'].value"
+      [preview]="true"
+    ></p-image>
+  </div>
+
+  <app-ui-file-upload
+    class="mt-4"
+    label="Subir Foto de Perfil"
+  ></app-ui-file-upload>
+
+  <app-ui-form-buttons
+    [cargando]="cargando"
+    (cancelarClick)="cancelar()"
+    (guardarClick)="guardar()"
+  ></app-ui-form-buttons>
+</form>

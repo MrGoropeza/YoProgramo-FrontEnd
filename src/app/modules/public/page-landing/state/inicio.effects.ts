@@ -8,6 +8,8 @@ import { AboutMeService } from 'src/app/project/services/about-me.service';
 import { TechService } from 'src/app/project/services/tech.service';
 import { TechtypeService } from 'src/app/project/services/techtype.service';
 import { StateService } from 'src/app/project/services/state.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AboutCrudComponent } from 'src/app/modules/secured/about-crud/about-crud.component';
 
 @Injectable()
 export class InicioEffects {
@@ -114,8 +116,27 @@ export class InicioEffects {
     );
   });
 
+  openAboutMeTest$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(InicioActions.loadInicios),
+      map(() => this.stateService.getState('About').actions.openCrudForm({}))
+    );
+  });
+
+  openAboutMeDialog$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('About').actions.openCrudForm),
+      map(() => {
+        this.dialogService.open(AboutCrudComponent, {
+          header: "Editar Información Personal"
+        });
+      })
+    );
+  }, { dispatch: false });
+
   constructor(
     private actions$: Actions,
+    private dialogService: DialogService,
     private techService: TechService,
     private techTypeService: TechtypeService,
     private aboutService: AboutMeService,

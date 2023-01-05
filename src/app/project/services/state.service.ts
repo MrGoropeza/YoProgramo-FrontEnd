@@ -5,9 +5,10 @@ import { TechType } from '../models/TechType.model';
 import { Tech } from '../models/Tech.model';
 import { Store } from '@ngrx/store';
 import { Place } from '../models/place.model';
+import { About } from '../models/about.model';
 
-export type appStateTypes = Tech | TechType | Place;
-type appStateNames = "Tech" | "TechType" | "Place";
+export type appStateTypes = Tech | TechType | Place | About;
+export type appStateNames = "Tech" | "TechType" | "Place" | "About";
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class StateService {
     new CrudState<appStateTypes>('TechType'),
     new CrudState<appStateTypes>('Tech'),
     new CrudState<appStateTypes>('Place'),
+    new CrudState<appStateTypes>('About')
   ];
 
   constructor(private store: Store) {

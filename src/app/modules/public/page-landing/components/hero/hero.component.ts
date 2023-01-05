@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AboutModel } from 'src/app/project/models/about.model';
+import { About } from 'src/app/project/models/about.model';
+import { StateService } from 'src/app/project/services/state.service';
 import { selectAboutMeInfo } from '../../state/inicio.selectors';
 
 @Component({
@@ -12,12 +13,19 @@ import { selectAboutMeInfo } from '../../state/inicio.selectors';
 export class HeroComponent implements OnInit {
 
   constructor(
-    private store: Store
+    private store: Store,
+    private stateService: StateService
   ) { }
 
-  aboutMeInfo$!: Observable<AboutModel>;
+  aboutMeInfo$!: Observable<About>;
 
   ngOnInit(): void {
     this.aboutMeInfo$ = this.store.select(selectAboutMeInfo);
+  }
+
+  openAboutDialog(){
+    this.store.dispatch(
+      this.stateService.getState("About").actions.openCrudForm({})
+    );
   }
 }
