@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
+import { appStateNames } from 'src/app/project/services/state.service';
 import { CrudActions } from './crud.actions';
 import { CrudService } from './crud.service';
 
@@ -11,14 +12,14 @@ export class CrudEffects<Model> {
     protected actions$: Actions,
     protected dialogService: DialogService,
     protected messageService: MessageService,
-    private modelName: string,
+    private modelName: appStateNames,
     private crudActions: CrudActions<Model>,
     private crudComponent: any,
     private crudFormComponent: any,
     private modelService: CrudService<Model>
   ) {
     console.log(`${modelName} - Creando instancia de Effects`);
-    
+
   }
 
   openCrudDialog$ = createEffect(
@@ -129,7 +130,7 @@ export class CrudEffects<Model> {
     { dispatch: false }
   );
 
-  deleteValuee$ = createEffect(() => {
+  deleteValue$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.crudActions.deleteValue),
       mergeMap((action) =>

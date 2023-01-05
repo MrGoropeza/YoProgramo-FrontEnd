@@ -5,6 +5,7 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
+import { appStateNames } from 'src/app/project/services/state.service';
 import { environment } from 'src/environments/environment';
 
 export class CrudService<Model> extends EntityCollectionServiceBase<Model> {
@@ -12,7 +13,7 @@ export class CrudService<Model> extends EntityCollectionServiceBase<Model> {
   protected apiUrl: string = environment.apiUrl;
 
   constructor(
-    private modelName: string,
+    private modelName: appStateNames,
     serviceElementsFactory: EntityCollectionServiceElementsFactory
   ) {
     super(modelName, serviceElementsFactory);

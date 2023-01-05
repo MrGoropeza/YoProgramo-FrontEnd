@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createReducer, on } from '@ngrx/store';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
+import { appStateNames } from 'src/app/project/services/state.service';
 import { CrudActions } from './crud.actions';
 import { CrudSelectors } from './crud.selectors';
 export interface modelState<Model> {
@@ -14,7 +15,7 @@ export interface modelState<Model> {
 
 export class CrudState<Model> {
   constructor(
-    public modelName: string,
+    public modelName: appStateNames,
   ) {}
 
   public actions: CrudActions<Model> = new CrudActions(this.modelName);
