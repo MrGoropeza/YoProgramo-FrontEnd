@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Place } from 'src/app/project/models/place.model';
 import { appStateTypes, StateService } from 'src/app/project/services/state.service';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
 
@@ -36,8 +37,13 @@ export class AboutCrudComponent
 
   profileImage!: File;
 
+  places: Place[] = [];
+
   ngOnInit(): void {
-    this.init()
+    this.init();
+    if(this.config.data){
+      this.places = this.config.data.places;
+    }
   }
   ngOnDestroy(): void {
     this.destroy()
