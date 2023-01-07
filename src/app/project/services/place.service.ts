@@ -21,6 +21,19 @@ export class PlaceService extends CrudService<appStateTypes>{
     super('Place', serviceElementsFactory);
   }
 
+  override getAll(): Observable<Place[]> {
+    return this.http
+      .get<MultipleRecordsResponse<Place>>(
+        `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
+      )
+      .pipe(
+        map((value) => {
+          this.totalRecords = value.totalRecords;
+          return value.data;
+        })
+      );
+  }
+
   override getWithQuery(query: string): Observable<Place[]> {
     return this.http
       .get<MultipleRecordsResponse<Place>>(
