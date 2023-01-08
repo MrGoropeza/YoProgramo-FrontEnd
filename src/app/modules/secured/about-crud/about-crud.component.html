@@ -1,5 +1,4 @@
 <form class="grid" [formGroup]="form">
-
   <app-ui-input-text
     [group]="form"
     control="name"
@@ -55,6 +54,4 @@
     (cancelarClick)="cancelar()"
     (guardarClick)="guardar()"
   ></app-ui-form-buttons>
-
-  <pre>{{ form.getRawValue() | json }}</pre>
 </form>
