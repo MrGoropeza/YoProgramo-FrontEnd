@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Person } from 'src/app/project/models/about.model';
 import { StateService } from 'src/app/project/services/state.service';
+import { NOIMAGELINK } from 'src/core/consts/no-image';
 import { selectAboutMeInfo } from '../../state/inicio.selectors';
 
 @Component({
@@ -16,6 +17,8 @@ export class HeroComponent implements OnInit, OnDestroy {
   aboutMeInfo$!: Observable<Person>;
   aboutMeSub$!: Subscription;
 
+  noImageLink = NOIMAGELINK;
+
   ngOnInit(): void {
     this.aboutMeInfo$ = this.store.select(selectAboutMeInfo);
   }
@@ -24,13 +27,5 @@ export class HeroComponent implements OnInit, OnDestroy {
     if (this.aboutMeSub$) {
       this.aboutMeSub$.unsubscribe();
     }
-  }
-
-  openAboutDialog() {
-    this.aboutMeSub$ = this.aboutMeInfo$.subscribe((value) => {
-      this.store.dispatch(
-        this.stateService.getState('About').actions.openCrudForm({ value })
-      );
-    });
   }
 }

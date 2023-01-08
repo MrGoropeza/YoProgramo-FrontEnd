@@ -12,6 +12,12 @@
     label="Título"
   ></app-ui-input-text>
 
+  <app-ui-input-text
+    [group]="form"
+    control="nameUrl"
+    label="Link"
+  ></app-ui-input-text>
+
   <app-ui-dropdown
     [group]="form"
     control="actualWork"
@@ -41,6 +47,7 @@
   <app-ui-file-upload
     class="mt-4"
     label="Subir Foto de Perfil"
+    [(files)]="files"
   ></app-ui-file-upload>
 
   <app-ui-form-buttons

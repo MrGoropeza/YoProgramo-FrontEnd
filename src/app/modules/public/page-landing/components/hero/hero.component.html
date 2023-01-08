@@ -6,7 +6,7 @@
     class="m-2 h-72 w-1/2 rounded-md bg-sky-500 pl-32 transition-all duration-700 dark:bg-slate-700 sm:m-6 md:m-0 md:w-4/5 md:rounded-none"
   >
     <div
-      class="absolute left-0 flex w-full translate-y-80 flex-col items-center gap-3 rounded-2xl bg-sky-500 transition-all duration-700 dark:bg-slate-800 md:static md:h-full md:translate-y-0 md:items-start md:justify-center md:bg-transparent dark:md:bg-transparent"
+      class="absolute left-0 flex w-full h-72 translate-y-80 flex-col items-center justify-center gap-3 rounded-2xl bg-sky-500 transition-all duration-700 dark:bg-slate-800 md:static md:h-full md:translate-y-0 md:items-start md:justify-center md:bg-transparent dark:md:bg-transparent"
     >
       <p
         class="mt-2 flex max-w-max flex-col px-4 text-center text-4xl md:text-start"
@@ -14,13 +14,10 @@
         <span class="flex items-center">
           <span class="font-bold">{{ (aboutMeInfo$ | async)?.name }}</span>
           <a
+            *ngIf="(aboutMeInfo$ | async)?.nameUrl"
             [href]="(aboutMeInfo$ | async)?.nameUrl"
             target="_blank"
-            class="pi pi-linkedin ml-3 text-2xl font-bold"
-          ></a>
-          <a
-            class="pi pi-pencil ml-3 cursor-pointer text-xl text-white"
-            (click)="openAboutDialog()"
+            class="pi pi-external-link ml-3 text-2xl font-bold"
           ></a>
         </span>
         <span class="text-xl italic md:self-end">{{
@@ -28,9 +25,11 @@
         }}</span>
       </p>
       <div
+        *ngIf="(aboutMeInfo$ | async)?.actualWork"
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
         <img
+          *ngIf="(aboutMeInfo$ | async)?.actualWork?.imageUrl && (aboutMeInfo$ | async)?.actualWork?.imageUrl !== noImageLink"
           [src]="(aboutMeInfo$ | async)?.actualWork?.imageUrl"
           class="w-20 max-w-none animate-rotative-coin rounded-full"
         />
@@ -42,6 +41,7 @@
             }}</span>
           </span>
           <a
+            *ngIf="(aboutMeInfo$ | async)?.actualWork?.url"
             [href]="(aboutMeInfo$ | async)?.actualWork?.url"
             target="_blank"
             class="pi pi-external-link ml-3 text-xl font-bold"
@@ -49,9 +49,11 @@
         </p>
       </div>
       <div
+        *ngIf="(aboutMeInfo$ | async)?.actualCareer"
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
         <img
+          *ngIf="(aboutMeInfo$ | async)?.actualCareer?.imageUrl && (aboutMeInfo$ | async)?.actualCareer?.imageUrl !== noImageLink"
           [src]="(aboutMeInfo$ | async)?.actualCareer?.imageUrl"
           class="w-20 max-w-none animate-rotative-coin rounded-full"
         />
@@ -63,6 +65,7 @@
             }}</span>
           </span>
           <a
+            *ngIf="(aboutMeInfo$ | async)?.actualCareer?.url"
             [href]="(aboutMeInfo$ | async)?.actualCareer?.url"
             target="_blank"
             class="pi pi-external-link ml-3 text-xl font-bold"

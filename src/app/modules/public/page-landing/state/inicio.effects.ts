@@ -4,11 +4,11 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as InicioActions from './inicio.actions';
-import { AboutMeService } from 'src/app/project/services/about-me.service';
 import { TechService } from 'src/app/project/services/tech.service';
 import { TechtypeService } from 'src/app/project/services/techtype.service';
 import { StateService } from 'src/app/project/services/state.service';
 import { DialogService } from 'primeng/dynamicdialog';
+import { AboutService } from 'src/app/project/services/about.service';
 
 @Injectable()
 export class InicioEffects {
@@ -32,6 +32,20 @@ export class InicioEffects {
       map(() => InicioActions.loadTechsTypes())
     );
   });
+
+  saveAboutSuccess$ = createEffect(() => {
+     return this.actions$.pipe(
+      ofType(this.stateService.getState('About').actions.saveValueSuccess),
+      map(() => InicioActions.loadAboutmes())
+     );
+  });
+
+  savePlaceSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+     ofType(this.stateService.getState('Place').actions.saveValueSuccess),
+     map(() => InicioActions.loadAboutmes())
+    );
+ });
 
   deleteTechTypeSuccess$ = createEffect(() => {
     return this.actions$.pipe(
@@ -107,7 +121,7 @@ export class InicioEffects {
     return this.actions$.pipe(
       ofType(InicioActions.loadAboutmes),
       concatMap(() =>
-        this.aboutService.getAboutMeInfo().pipe(
+        this.aboutService.getMyInfo().pipe(
           map((data) => InicioActions.loadAboutmesSuccess({ data })),
           catchError((error) => of(InicioActions.loadAboutmesFailure({ error })))
         )
@@ -115,19 +129,12 @@ export class InicioEffects {
     );
   });
 
-  // openAboutMeTest$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(InicioActions.loadInicios),
-  //     map(() => this.stateService.getState('About').actions.openCrudForm({}))
-  //   );
-  // });
-
   constructor(
     private actions$: Actions,
     private dialogService: DialogService,
     private techService: TechService,
     private techTypeService: TechtypeService,
-    private aboutService: AboutMeService,
+    private aboutService: AboutService,
     private stateService: StateService
   ) {}
 }
