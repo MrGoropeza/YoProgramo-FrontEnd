@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Terminal } from 'primeng/terminal';
 import { firstValueFrom, Observable } from 'rxjs';
 import * as TerminalActions from 'src/app/modules/public/terminal/state/terminal.actions';
-import { CommandModel } from '../models/command.model';
+import { Command } from '../models/Command.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class UserTerminalService {
 
   welcomeMessage = `Bienvenido a la consola de mi portfolio.\nEscribí 'help' para ver los comandos disponibles.`;
   terminal!: Terminal;
-  commands: CommandModel[] = [
+  commands: Command[] = [
     // {
     //   name: 'help',
     //   desc: 'Muestra los comandos disponibles',

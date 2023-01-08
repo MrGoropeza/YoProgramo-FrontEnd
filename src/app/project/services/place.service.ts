@@ -6,7 +6,7 @@ import {
 import { map, Observable } from 'rxjs';
 import { CrudService } from 'src/core/classes/crud-state/crud.service';
 import { MultipleRecordsResponse } from '../models/MultipleRecordsResponse';
-import { Place } from '../models/place.model';
+import { Place } from '../models/Place.model';
 import { appStateTypes } from './state.service';
 
 @Injectable({

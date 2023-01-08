@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { EntityCollectionServiceElementsFactory } from '@ngrx/data';
 import { Observable, of } from 'rxjs';
 import { CrudService } from 'src/core/classes/crud-state/crud.service';
-import { Person } from '../models/about.model';
+import { Person } from '../models/Person.model';
 import { appStateTypes } from './state.service';
 
 @Injectable({

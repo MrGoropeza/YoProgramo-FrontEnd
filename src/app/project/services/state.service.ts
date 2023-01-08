@@ -4,8 +4,8 @@ import { CrudState } from 'src/core/classes/crud-state/crud.reducer';
 import { TechType } from '../models/TechType.model';
 import { Tech } from '../models/Tech.model';
 import { Store } from '@ngrx/store';
-import { Place } from '../models/place.model';
-import { Person } from '../models/about.model';
+import { Place } from '../models/Place.model';
+import { Person } from '../models/Person.model';
 
 export type appStateTypes = Tech | TechType | Place | Person;
 export type appStateNames = "Tech" | "TechType" | "Place" | "About";

@@ -3,8 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, firstValueFrom, map, mergeMap, Observable, of } from 'rxjs';
-import { Person } from 'src/app/project/models/about.model';
-import { Place } from 'src/app/project/models/place.model';
+import { Person } from 'src/app/project/models/Person.model';
+import { Place } from 'src/app/project/models/Place.model';
 import { AboutService } from 'src/app/project/services/about.service';
 import { PlaceService } from 'src/app/project/services/place.service';
 import {

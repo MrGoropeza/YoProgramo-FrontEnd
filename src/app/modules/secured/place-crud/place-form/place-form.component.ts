@@ -9,7 +9,7 @@ import {
   distinctUntilChanged,
   Subscription,
 } from 'rxjs';
-import { Place } from 'src/app/project/models/place.model';
+import { Place } from 'src/app/project/models/Place.model';
 import {
   appStateTypes,
   StateService,

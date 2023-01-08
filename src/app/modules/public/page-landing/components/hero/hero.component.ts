@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { Person } from 'src/app/project/models/about.model';
+import { Person } from 'src/app/project/models/Person.model';
 import { StateService } from 'src/app/project/services/state.service';
 import { NOIMAGELINK } from 'src/core/consts/no-image';
 import { selectAboutMeInfo } from '../../state/inicio.selectors';

@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, map, mergeMap, of } from 'rxjs';
-import { Place } from 'src/app/project/models/place.model';
+import { Place } from 'src/app/project/models/Place.model';
 import { PlaceService } from 'src/app/project/services/place.service';
 import { appStateTypes, StateService } from 'src/app/project/services/state.service';
 import { CrudEffects } from 'src/core/classes/crud-state/crud.effects';

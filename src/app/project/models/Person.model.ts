@@ -1,4 +1,4 @@
-import { Place } from "./place.model";
+import { Place } from "./Place.model";
 
 export interface Person{
     id: number;

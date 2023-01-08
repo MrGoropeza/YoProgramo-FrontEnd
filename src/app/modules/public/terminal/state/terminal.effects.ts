@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Terminal, TerminalService } from 'primeng/terminal';
 import { map } from 'rxjs';
-import { CommandModel } from 'src/app/project/models/command.model';
+import { Command } from 'src/app/project/models/Command.model';
 import { StateService } from 'src/app/project/services/state.service';
 import { TerminalComponent } from '../terminal.component';
 
@@ -107,7 +107,7 @@ export class TerminalEffects {
     { dispatch: false }
   );
 
-  commands: CommandModel[] = [
+  commands: Command[] = [
     {
       name: 'help',
       desc: 'Muestra los comandos disponibles',

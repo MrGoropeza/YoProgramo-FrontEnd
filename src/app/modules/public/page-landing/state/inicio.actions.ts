@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Person } from 'src/app/project/models/about.model';
+import { Person } from 'src/app/project/models/Person.model';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 import { Tech } from 'src/app/project/models/Tech.model';
 import { TechType } from 'src/app/project/models/TechType.model';

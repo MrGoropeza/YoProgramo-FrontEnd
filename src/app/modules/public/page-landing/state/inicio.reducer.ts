@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Tech } from 'src/app/project/models/Tech.model';
 import * as InicioActions from './inicio.actions';
-import { Person } from 'src/app/project/models/about.model';
+import { Person } from 'src/app/project/models/Person.model';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 import { TechType } from 'src/app/project/models/TechType.model';
 

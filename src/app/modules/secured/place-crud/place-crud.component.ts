@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicTableColumnModel } from 'src/core/classes/dynamic-table.model';
 import { LazyLoadEvent } from 'primeng/api';
-import { Place } from 'src/app/project/models/place.model';
+import { Place } from 'src/app/project/models/Place.model';
 
 @Component({
   selector: 'app-place-crud',
