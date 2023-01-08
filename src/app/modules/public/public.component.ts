@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
+import { TerminalOpenCommand } from './terminal/state/terminal.actions';
 
 @Component({
   selector: 'app-public',
   templateUrl: './public.component.html',
   styleUrls: ['./public.component.scss']
 })
-export class PublicComponent implements OnInit {
+export class PublicComponent {
 
   menuItems: MenuItem[] = [
     {
@@ -31,9 +33,12 @@ export class PublicComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private store: Store
+  ) { }
 
-  ngOnInit(): void {
+  openTerminal(){
+    this.store.dispatch(TerminalOpenCommand());
   }
 
 }

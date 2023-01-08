@@ -1,0 +1,30 @@
+:host ::ng-deep .p-terminal{
+  @apply whitespace-pre-line font-semibold min-h-full rounded-lg
+}
+
+:host ::ng-deep .p-terminal-prompt-container{
+  @apply flex flex-wrap
+}
+
+:host ::ng-deep .p-terminal-content-prompt,
+:host ::ng-deep .p-terminal-prompt{
+  @apply text-green-500 pr-2
+}
+
+:host ::ng-deep .terminal-prompt-user{
+  @apply text-green-500
+}
+
+:host ::ng-deep .terminal-prompt-path{
+  @apply text-blue-400
+}
+
+:host ::ng-deep .terminal-prompt-separator{
+  @apply text-slate-200
+}
+
+.dark{
+  :host ::ng-deep .p-terminal{
+      @apply bg-slate-700 text-slate-200 border-blue-400
+  }
+}
