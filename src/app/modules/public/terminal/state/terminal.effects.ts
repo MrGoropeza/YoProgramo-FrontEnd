@@ -14,6 +14,7 @@ export class TerminalEffects {
   private dialogRef!: DynamicDialogRef;
   private terminal!: Terminal;
   private terminalService!: TerminalService;
+  private interactiveCommandRunning = false;
 
   openTerminal$ = createEffect(
     () => {
@@ -75,30 +76,36 @@ export class TerminalEffects {
     );
   });
 
-  helpCommand$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(terminalActions.TerminalHelpCommand),
-      map(() => {
-        const response = this.commands.reduce(
-          (prev, command) =>
-            prev.concat(`\t${command.name}   -   ${command.desc}\n`),
-          'Comandos Disponibles:\n'
-        );
+  helpCommand$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(terminalActions.TerminalHelpCommand),
+        map(() => {
+          const response = this.commands.reduce(
+            (prev, command) =>
+              prev.concat(`\t${command.name}   -   ${command.desc}\n`),
+            'Comandos Disponibles:\n'
+          );
 
-        this.terminalService.sendResponse(response);
-      })
-    );
-  }, {dispatch: false})
+          this.terminalService.sendResponse(response);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
-  clearCommand$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(terminalActions.TerminalClearCommand),
-      map(() => {
-        this.terminal.welcomeMessage = '';
-        this.terminal.commands = [];
-      })
-    );
-  }, {dispatch: false})
+  clearCommand$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(terminalActions.TerminalClearCommand),
+        map(() => {
+          this.terminal.welcomeMessage = '';
+          this.terminal.commands = [];
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
   commands: CommandModel[] = [
     {
@@ -119,8 +126,23 @@ export class TerminalEffects {
     {
       name: 'places',
       desc: 'Abre el ABM de lugares',
-      action: this.stateService.getState("Place").actions.openCrudDialog()
-    }
+      action: this.stateService.getState('Place').actions.openCrudDialog(),
+    },
+    {
+      name: 'techtypes',
+      desc: 'Abre el ABM de tipos de tecnología',
+      action: this.stateService.getState('TechType').actions.openCrudDialog(),
+    },
+    {
+      name: 'techs',
+      desc: 'Abre el ABM de tecnologías',
+      action: this.stateService.getState('Tech').actions.openCrudDialog(),
+    },
+    {
+      name: 'about',
+      desc: 'Abre el Formulario para editar datos personales',
+      action: this.stateService.getState('About').actions.openCrudForm({}),
+    },
     // {
     //   name: 'login',
     //   desc: 'Iniciar sesión',
