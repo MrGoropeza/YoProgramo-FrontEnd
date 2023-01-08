@@ -5,9 +5,9 @@ import { TechType } from '../models/TechType.model';
 import { Tech } from '../models/Tech.model';
 import { Store } from '@ngrx/store';
 import { Place } from '../models/place.model';
-import { About } from '../models/about.model';
+import { Person } from '../models/about.model';
 
-export type appStateTypes = Tech | TechType | Place | About;
+export type appStateTypes = Tech | TechType | Place | Person;
 export type appStateNames = "Tech" | "TechType" | "Place" | "About";
 
 @Injectable({

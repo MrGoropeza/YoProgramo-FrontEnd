@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { About } from '../models/about.model';
+import { Person } from '../models/about.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AboutMeService {
-  getAboutMeInfo(): Observable<About> {
+  getAboutMeInfo(): Observable<Person> {
     return of({
       name: 'Gonzalo Oropeza',
       nameUrl: 'https://www.linkedin.com/in/gonzalo-oropeza-6170a717b/',
@@ -22,6 +22,6 @@ export class AboutMeService {
         name: 'Ing. en Informática',
         url: 'https://www.ucasal.edu.ar/carrera/nivel/carreras-grado/ingenieria-informatica/',
       },
-    } as About);
+    } as Person);
   }
 }

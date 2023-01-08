@@ -1,6 +1,7 @@
 import { Place } from "./place.model";
 
-export interface About{
+export interface Person{
+    itsMe: boolean;
     name: string;
     nameUrl: string;
     title: string;
