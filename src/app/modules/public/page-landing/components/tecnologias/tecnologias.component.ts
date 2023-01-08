@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import * as InicioSelectors from '../../state/inicio.selectors';
 import * as InicioActions from '../../state/inicio.actions';
-import { appStateTypes, StateService } from 'src/app/project/services/state.service';
+import { appStateTypes } from 'src/app/project/services/state.service';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
 @Component({
   selector: 'app-tecnologias',
@@ -15,7 +15,7 @@ export class TecnologiasComponent implements OnInit {
   techTypes$!: Observable<MultipleRecordsResponse<appStateTypes>>;
   techs$!: Observable<MultipleRecordsResponse<appStateTypes>>;
 
-  constructor(private store: Store, private stateService: StateService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.techTypes$ = this.store.select(InicioSelectors.selectTechTypesInicio);
@@ -26,18 +26,6 @@ export class TecnologiasComponent implements OnInit {
 
   techTypesToMenuItem(techTypes: appStateTypes[]): MenuItem[] {
     return techTypes.map((techType) => ({ label: techType.name }));
-  }
-
-  editTechsClick() {
-    this.store.dispatch(
-      this.stateService.getState('Tech').actions.openCrudDialog()
-    );
-  }
-
-  editTypesClick() {
-    this.store.dispatch(
-      this.stateService.getState('TechType').actions.openCrudDialog()
-    );
   }
 
   loadTechs(activeType: MenuItem) {

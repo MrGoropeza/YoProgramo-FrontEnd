@@ -17,9 +17,4 @@ export class ExperienciaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  placesClick(){
-    const openDialogAction = this.stateService.getState("Place").actions.openCrudDialog();
-    this.store.dispatch(openDialogAction);
-  }
-
 }

@@ -5,11 +5,6 @@
     <h2 class="text-center text-3xl font-bold">
       Tecnologías usadas en mi portfolio
     </h2>
-    <p-button
-      icon="pi pi-pencil"
-      styleClass="p-button-success p-button-rounded"
-      (onClick)="editTechsClick()"
-    ></p-button>
   </div>
 
   <div class="mt-2 flex max-w-full items-center gap-3">
@@ -17,7 +12,7 @@
       *ngIf="techTypesToMenuItem((techTypes$ | async)!.data).length === 0"
       class="font-bold text-xl"
     >
-      Cargar categoría ->
+      No hay categorías cargadas.
     </div>
     <p-tabMenu
       #tabMenu
@@ -31,11 +26,6 @@
       class="max-w-full overflow-x-auto"
       styleClass="max-w-min"
     ></p-tabMenu>
-    <p-button
-      icon="pi pi-pencil"
-      styleClass="p-button-success p-button-rounded"
-      (onClick)="editTypesClick()"
-    ></p-button>
   </div>
 
   <div *ngIf="tabMenu.model.length > 0" class="max-w-full">
