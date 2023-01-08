@@ -6,6 +6,7 @@ import * as InicioSelectors from '../../state/inicio.selectors';
 import * as InicioActions from '../../state/inicio.actions';
 import { appStateTypes } from 'src/app/project/services/state.service';
 import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
+import { TechType } from 'src/app/project/models/TechType.model';
 @Component({
   selector: 'app-tecnologias',
   templateUrl: './tecnologias.component.html',
@@ -25,7 +26,11 @@ export class TecnologiasComponent implements OnInit {
   firstTime = true;
 
   techTypesToMenuItem(techTypes: appStateTypes[]): MenuItem[] {
-    return techTypes.map((techType) => ({ label: techType.name }));
+    return techTypes.map((techType) => {
+      let label = (techType as TechType).name;
+      return ({ label })
+    }
+    );
   }
 
   loadTechs(activeType: MenuItem) {
