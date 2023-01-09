@@ -6,10 +6,11 @@
     class="m-2 h-72 w-1/2 rounded-md bg-sky-500 pl-32 transition-all duration-700 dark:bg-slate-700 sm:m-6 md:m-0 md:w-4/5 md:rounded-none"
   >
     <div
-      class="absolute left-0 flex w-full h-72 translate-y-80 flex-col items-center justify-center gap-3 rounded-2xl bg-sky-500 transition-all duration-700 dark:bg-slate-800 md:static md:h-full md:translate-y-0 md:items-start md:justify-center md:bg-transparent dark:md:bg-transparent"
+      class="absolute left-0 flex h-72 w-full translate-y-80 flex-col items-center justify-center gap-3 rounded-2xl bg-sky-500 transition-all duration-700 dark:bg-slate-800 md:static md:h-full md:translate-y-0 md:items-start md:justify-center md:bg-transparent dark:md:bg-transparent"
     >
       <p
         class="mt-2 flex max-w-max flex-col px-4 text-center text-4xl md:text-start"
+        *ngIf="!(aboutLoading$ | async)!; else nameLoading"
       >
         <span class="flex items-center">
           <span class="font-bold">{{ (aboutMeInfo$ | async)?.name }}</span>
@@ -28,49 +29,60 @@
         *ngIf="(aboutMeInfo$ | async)?.actualWork"
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
-        <img
-          *ngIf="(aboutMeInfo$ | async)?.actualWork?.place?.imageUrl && (aboutMeInfo$ | async)?.actualWork?.place?.imageUrl !== noImageLink"
-          [src]="(aboutMeInfo$ | async)?.actualWork?.place?.imageUrl"
-          class="w-20 max-w-none animate-rotative-coin rounded-full"
-        />
-        <p class="flex max-w-min items-center text-2xl md:max-w-max">
-          <span>
-            Trabajando en
-            <span class="whitespace-nowrap font-bold">{{
-              (aboutMeInfo$ | async)?.actualWork?.place?.name
-            }}</span>
-          </span>
-          <a
-            *ngIf="(aboutMeInfo$ | async)?.actualWork?.place?.url"
-            [href]="(aboutMeInfo$ | async)?.actualWork?.place?.url"
-            target="_blank"
-            class="pi pi-external-link ml-3 text-xl font-bold"
-          ></a>
-        </p>
+        <div *ngIf="!(aboutLoading$ | async)!; else actualItemLoading">
+          <img
+            *ngIf="
+              (aboutMeInfo$ | async)?.actualWork?.place?.imageUrl &&
+              (aboutMeInfo$ | async)?.actualWork?.place?.imageUrl !==
+                noImageLink
+            "
+            [src]="(aboutMeInfo$ | async)?.actualWork?.place?.imageUrl"
+            class="w-20 max-w-none animate-rotative-coin rounded-full"
+          />
+          <p class="flex max-w-min items-center text-2xl md:max-w-max">
+            <span>
+              Trabajando en
+              <span class="whitespace-nowrap font-bold">{{
+                (aboutMeInfo$ | async)?.actualWork?.place?.name
+              }}</span>
+            </span>
+            <a
+              *ngIf="(aboutMeInfo$ | async)?.actualWork?.place?.url"
+              [href]="(aboutMeInfo$ | async)?.actualWork?.place?.url"
+              target="_blank"
+              class="pi pi-external-link ml-3 text-xl font-bold"
+            ></a>
+          </p>
+        </div>
       </div>
       <div
         *ngIf="(aboutMeInfo$ | async)?.actualCareer"
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
-        <img
-          *ngIf="(aboutMeInfo$ | async)?.actualCareer?.imageUrl && (aboutMeInfo$ | async)?.actualCareer?.imageUrl !== noImageLink"
-          [src]="(aboutMeInfo$ | async)?.actualCareer?.imageUrl"
-          class="w-20 max-w-none animate-rotative-coin rounded-full"
-        />
-        <p class="flex max-w-min items-center text-2xl md:max-w-max">
-          <span>
-            Estudiando
-            <span class="whitespace-nowrap font-bold">{{
-              (aboutMeInfo$ | async)?.actualCareer?.name
-            }}</span>
-          </span>
-          <a
-            *ngIf="(aboutMeInfo$ | async)?.actualCareer?.url"
-            [href]="(aboutMeInfo$ | async)?.actualCareer?.url"
-            target="_blank"
-            class="pi pi-external-link ml-3 text-xl font-bold"
-          ></a>
-        </p>
+        <div *ngIf="!(aboutLoading$ | async)!; else actualItemLoading">
+          <img
+            *ngIf="
+              (aboutMeInfo$ | async)?.actualCareer?.imageUrl &&
+              (aboutMeInfo$ | async)?.actualCareer?.imageUrl !== noImageLink
+            "
+            [src]="(aboutMeInfo$ | async)?.actualCareer?.imageUrl"
+            class="w-20 max-w-none animate-rotative-coin rounded-full"
+          />
+          <p class="flex max-w-min items-center text-2xl md:max-w-max">
+            <span>
+              Estudiando
+              <span class="whitespace-nowrap font-bold">{{
+                (aboutMeInfo$ | async)?.actualCareer?.name
+              }}</span>
+            </span>
+            <a
+              *ngIf="(aboutMeInfo$ | async)?.actualCareer?.url"
+              [href]="(aboutMeInfo$ | async)?.actualCareer?.url"
+              target="_blank"
+              class="pi pi-external-link ml-3 text-xl font-bold"
+            ></a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -78,8 +90,29 @@
     class="absolute flex w-full justify-center transition-all duration-700 md:w-2/5"
   >
     <img
+      *ngIf="!(aboutLoading$ | async)!; else imageLoading"
       [src]="(aboutMeInfo$ | async)?.imageUrl"
-      class="w-56 max-w-none rounded-full object-cover aspect-square"
+      class="aspect-square w-56 max-w-none rounded-full object-cover"
     />
   </div>
+
+  <ng-template #imageLoading>
+    <p-skeleton shape="circle" size="14rem"></p-skeleton>
+  </ng-template>
+
+  <ng-template #nameLoading>
+    <div
+      class="mt-2 flex max-w-max flex-col items-center gap-1 px-4 text-4xl md:items-start"
+    >
+      <p-skeleton width="20rem" height="3rem"></p-skeleton>
+      <p-skeleton width="13rem" height="2rem" class="md:self-end"></p-skeleton>
+    </div>
+  </ng-template>
+
+  <ng-template #actualItemLoading>
+    <div class="flex items-center gap-2">
+      <p-skeleton shape="circle" size="5rem"></p-skeleton>
+      <p-skeleton width="15rem" height="2rem"></p-skeleton>
+    </div>
+  </ng-template>
 </div>
