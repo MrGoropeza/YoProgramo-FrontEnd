@@ -1,0 +1,47 @@
+<form [formGroup]="form">
+
+  <app-ui-dropdown
+    [group]="form"
+    control="place"
+    label="Lugar"
+    [options]="places"
+    optionLabel="name"
+  ></app-ui-dropdown>
+
+  <app-ui-input-text
+    [group]="form"
+    control="title"
+    label="Título"
+  ></app-ui-input-text>
+
+  <app-ui-textarea
+    [group]="form"
+    control="description"
+    label="Descripción"
+  ></app-ui-textarea>
+
+  <div class="flex gap-3 mt-4">
+    <p>¿Es el trabajo Actual?</p>
+    <p-inputSwitch
+      formControlName="actualWork"
+    ></p-inputSwitch>
+    <p>{{ form.controls['actualWork'].value ? "Sí" : "No" }}</p>
+  </div>
+
+  <app-ui-calendar-input
+    [group]="form"
+    control="timeRange"
+    label="Rango de Fechas"
+    selectionMode="range"
+    [customErrors]="[{errorKey: 'endDateRequired', errorMessage: 'Fecha de Fin Requerida.'}]"
+  ></app-ui-calendar-input>
+
+</form>
+
+<app-ui-form-buttons
+  [cargando]="cargando"
+  (cancelarClick)="cancelar()"
+  (guardarClick)="guardar()"
+></app-ui-form-buttons>
+
+<!-- <pre>{{ form.getRawValue() | json }}</pre> -->

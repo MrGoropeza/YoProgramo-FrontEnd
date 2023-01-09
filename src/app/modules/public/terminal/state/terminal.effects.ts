@@ -130,18 +130,23 @@ export class TerminalEffects {
     },
     {
       name: 'techtypes',
-      desc: 'Abre el ABM de tipos de tecnología',
+      desc: 'Abre ABM de tipos de tecnología',
       action: this.stateService.getState('TechType').actions.openCrudDialog(),
     },
     {
       name: 'techs',
-      desc: 'Abre el ABM de tecnologías',
+      desc: 'Abre ABM de tecnologías',
       action: this.stateService.getState('Tech').actions.openCrudDialog(),
     },
     {
       name: 'about',
-      desc: 'Abre el Formulario para editar datos personales',
+      desc: 'Abre Formulario para editar datos personales',
       action: this.stateService.getState('About').actions.openCrudForm({}),
+    },
+    {
+      name: 'exp',
+      desc: 'Abre ABM de experiencias',
+      action: this.stateService.getState('Experience').actions.openCrudDialog(),
     },
     // {
     //   name: 'login',
