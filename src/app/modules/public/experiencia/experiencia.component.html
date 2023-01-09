@@ -9,34 +9,53 @@
 <div
   class="m-4 flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-yellow-500 p-4 dark:border-blue-300"
 >
-  <div class="flex items-center justify-center gap-3">
+  <div
+    class="flex items-center justify-center gap-3"
+    *ngFor="let exp of (experiences | async)!"
+  >
     <img
-      src="assets/images/siltium.jpg"
-      alt="Siltium-Logo"
+      [src]="exp.place.imageUrl"
+      [alt]="exp.place.name"
       class="aspect-square h-full w-20 max-w-none rounded-full"
     />
     <div>
-      <p class="text-lg italic">Oct 2022 - Actualidad</p>
-      <p class="text-2xl font-bold">Trainee Developer</p>
+      <p class="text-lg italic">
+        {{ exp.startDate | date : "MMM y" }} -
+        {{ exp.actualWork ? "Actualidad" : (exp.finishDate | date : "MMM y") }}
+      </p>
+      <p class="text-2xl font-bold">{{ exp.title }}</p>
       <p class="text-justify text-xl">
-        Desarrollo de aplicaciones web en Angular
+        {{ exp.description }}
       </p>
     </div>
   </div>
-
-  <div class="flex items-center justify-center gap-3">
-    <img
-      src="assets/images/siltium.jpg"
-      alt="Siltium-Logo"
-      class="aspect-square h-full w-20 max-w-none rounded-full"
-    />
-    <div>
-      <p class="text-lg italic">Jun 2022 - Sep 2022</p>
-      <p class="text-2xl font-bold">Pasante</p>
-      <p class="text-justify text-xl">
-        Desarrollo de aplicaciones web en Angular. Programación Orientada a
-        Objetos en C#
-      </p>
+  <div
+    *ngIf="
+      (experiences | async)!.length === 0 && !(experiencesLoading | async)!
+    "
+    class="text-xl font-bold"
+  >
+    No tengo experiencias... :c
+  </div>
+  <div *ngIf="experiencesLoading | async" class="flex flex-col gap-3">
+    <div
+      class="flex items-center justify-center gap-3"
+      *ngFor="let dummy of [].constructor(3)"
+    >
+      <p-skeleton shape="circle" size="5rem"></p-skeleton>
+      <div>
+        <div class="flex items-center gap-2">
+          <p-skeleton width="5rem"></p-skeleton>
+          -
+          <p-skeleton width="5rem"></p-skeleton>
+        </div>
+        <p-skeleton
+          width="12rem"
+          height="1.5rem"
+          styleClass="mb-1"
+        ></p-skeleton>
+        <p-skeleton width="12rem" height="2rem"></p-skeleton>
+      </div>
     </div>
   </div>
 </div>
