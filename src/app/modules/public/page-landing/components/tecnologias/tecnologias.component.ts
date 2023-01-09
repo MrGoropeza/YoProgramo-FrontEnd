@@ -14,13 +14,17 @@ import { TechType } from 'src/app/project/models/TechType.model';
 })
 export class TecnologiasComponent implements OnInit {
   techTypes$!: Observable<MultipleRecordsResponse<appStateTypes>>;
+  techTypesLoading$!: Observable<boolean>;
   techs$!: Observable<MultipleRecordsResponse<appStateTypes>>;
+  techsLoading$!: Observable<boolean>;
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.techTypes$ = this.store.select(InicioSelectors.selectTechTypesInicio);
+    this.techTypesLoading$ = this.store.select(InicioSelectors.selectTechTypesLoadingInicio);
     this.techs$ = this.store.select(InicioSelectors.selectTechsInicio);
+    this.techsLoading$ = this.store.select(InicioSelectors.selectTechsLoadingInicio);
   }
 
   firstTime = true;

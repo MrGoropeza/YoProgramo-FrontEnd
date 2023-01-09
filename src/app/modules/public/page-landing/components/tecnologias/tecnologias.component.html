@@ -9,8 +9,11 @@
 
   <div class="mt-2 flex max-w-full items-center gap-3">
     <div
-      *ngIf="techTypesToMenuItem((techTypes$ | async)!.data).length === 0"
-      class="font-bold text-xl"
+      *ngIf="
+        techTypesToMenuItem((techTypes$ | async)!.data).length === 0 &&
+        !(techsLoading$ | async)!
+      "
+      class="text-xl font-bold"
     >
       No hay categorías cargadas.
     </div>

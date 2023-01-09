@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { Tech } from 'src/app/project/models/Tech.model';
 import * as InicioActions from './inicio.actions';
 import { Person } from 'src/app/project/models/Person.model';
@@ -34,7 +34,7 @@ export const initialState: InicioState = {
 export const reducer = createReducer(
   initialState,
   on(
-    InicioActions.loadIniciosSuccess,
+    InicioActions.loadInicios,
     (state): InicioState => ({ ...state, techTypesLoading: true, techsLoading: true, aboutLoading: true })
   ),
   on(

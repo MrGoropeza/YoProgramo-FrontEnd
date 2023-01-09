@@ -10,7 +10,7 @@ import * as InicioSelectors from '../../state/inicio.selectors';
   styleUrls: ['./tech-list.component.scss']
 })
 export class TechListComponent implements OnInit {
-  
+
   @Input() title!: string;
 
   techs!: Observable<Tech[]>;

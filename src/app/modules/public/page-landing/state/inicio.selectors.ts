@@ -20,6 +20,11 @@ export const selectTechsInicio = createSelector(
   state => state.techs
 );
 
+export const selectTechsLoadingInicio = createSelector(
+  selectInicioState,
+  state => state.techsLoading
+);
+
 export const selectAboutMeInfo = createSelector(
   selectInicioState,
    state => state.aboutMe
