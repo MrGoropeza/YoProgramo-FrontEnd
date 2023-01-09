@@ -8,8 +8,9 @@
 
     <p-calendar
       formControlName="{{ control }}"
-      [touchUI]="true"
+      appendTo="body"
       [readonlyInput]="true"
+      [selectionMode]="selectionMode"
       panelStyleClass="min-w-min"
       styleClass="w-full"
       [ngClass]="[group.controls[control].touched ? 'ng-dirty' : '']"
