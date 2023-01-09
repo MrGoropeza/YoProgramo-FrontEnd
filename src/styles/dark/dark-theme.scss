@@ -66,4 +66,32 @@
     @apply bg-slate-600 text-slate-200;
   }
 
+  .p-datepicker,
+  .p-datepicker .p-datepicker-header,
+  .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year,
+  .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month
+  {
+      @apply bg-slate-700 text-slate-200
+  }
+
+  .p-datepicker:not(.p-datepicker-inline),
+  .p-datepicker .p-datepicker-header .p-datepicker-prev,
+  .p-datepicker .p-datepicker-header .p-datepicker-next,
+  .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):hover,
+  .p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:not(.p-disabled):not(.p-highlight):hover,
+  .p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled):not(.p-highlight):hover
+  {
+      @apply bg-slate-600 text-slate-200
+  }
+
+  .p-datepicker table td.p-datepicker-today > span.p-highlight,
+  .p-datepicker table td > span.p-highlight,
+  .p-datepicker table td.p-datepicker-today > span,
+  .p-datepicker .p-yearpicker .p-yearpicker-year.p-highlight,
+  .p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled).p-highlight:focus
+  {
+      @apply bg-slate-700 text-slate-200
+  }
+
+
 }

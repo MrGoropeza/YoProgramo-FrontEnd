@@ -6,8 +6,7 @@ type DateSelectionMode = "single" | "multiple" | "range";
 
 @Component({
   selector: 'app-ui-calendar-input',
-  templateUrl: './ui-calendar-input.component.html',
-  styleUrls: ['./ui-calendar-input.component.scss']
+  templateUrl: './ui-calendar-input.component.html'
 })
 export class UiCalendarInputComponent {
 
