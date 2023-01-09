@@ -21,7 +21,7 @@ export const reducer = createReducer(
   initialState,
   on(
     actions.loadExps,
-    (state): ExpState => ({ ...state, experiencesLoading: true })
+    (state): ExpState => ({ ...state, experiences: [], experiencesLoading: true })
   ),
   on(
     actions.loadExpsSuccess,
