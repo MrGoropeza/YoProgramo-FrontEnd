@@ -33,6 +33,14 @@ const routes: Routes = [
             (m) => m.ExperienciaModule
           ),
       },
+      {
+        path: 'educacion',
+        title: 'Educación',
+        loadChildren: () =>
+          import('./education/education.module').then(
+            (m) => m.EducationModule
+          ),
+      },
     ],
   },
   {
