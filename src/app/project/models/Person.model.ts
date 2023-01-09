@@ -1,3 +1,4 @@
+import { Experience } from "./Experience.model";
 import { Place } from "./Place.model";
 
 export interface Person{
@@ -8,6 +9,6 @@ export interface Person{
     title: string;
     imageFile?: File;
     imageUrl: string;
-    actualWork: Place;
+    actualWork: Experience;
     actualCareer: Place;
 }
