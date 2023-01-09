@@ -4,8 +4,7 @@ import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
 @Component({
   selector: 'app-ui-dropdown',
-  templateUrl: './ui-dropdown.component.html',
-  styleUrls: ['./ui-dropdown.component.scss']
+  templateUrl: './ui-dropdown.component.html'
 })
 export class UiDropdownComponent {
 

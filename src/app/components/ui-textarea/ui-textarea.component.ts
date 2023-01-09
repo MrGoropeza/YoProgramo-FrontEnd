@@ -4,8 +4,7 @@ import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
 @Component({
   selector: 'app-ui-textarea',
-  templateUrl: './ui-textarea.component.html',
-  styleUrls: ['./ui-textarea.component.scss']
+  templateUrl: './ui-textarea.component.html'
 })
 export class UiTextareaComponent {
 

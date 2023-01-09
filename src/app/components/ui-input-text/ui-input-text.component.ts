@@ -5,8 +5,7 @@ import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
 @Component({
   selector: 'app-ui-input-text',
-  templateUrl: './ui-input-text.component.html',
-  styleUrls: ['./ui-input-text.component.scss']
+  templateUrl: './ui-input-text.component.html'
 })
 export class UiInputTextComponent {
 
