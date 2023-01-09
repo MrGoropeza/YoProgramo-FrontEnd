@@ -31,20 +31,17 @@
     ></p-tabMenu>
   </div>
 
-  <div class="flex flex-col items-center" *ngIf="(techsLoading$ | async)!">
-    <p-skeleton width="20rem" height="2rem"></p-skeleton>
-    <div class="flex gap-3 overflow-x-auto">
-      <div
-        class="my-2 flex flex-col items-center gap-3"
-        *ngFor="let dummy of [].constructor(3)"
-      >
-        <p-skeleton
-          size="12rem"
-          borderRadius="16px"
-          styleClass="bg-slate-600"
-        ></p-skeleton>
-        <p-skeleton width="10rem" styleClass="bg-slate-600"></p-skeleton>
-      </div>
+  <div class="flex gap-3 overflow-x-auto" *ngIf="(techsLoading$ | async)!">
+    <div
+      class="my-2 flex flex-col items-center gap-3"
+      *ngFor="let dummy of [].constructor(3)"
+    >
+      <p-skeleton
+        size="12rem"
+        borderRadius="16px"
+        styleClass="bg-slate-600"
+      ></p-skeleton>
+      <p-skeleton width="10rem" styleClass="bg-slate-600"></p-skeleton>
     </div>
   </div>
 
