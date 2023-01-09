@@ -5,10 +5,7 @@ import { PublicComponent } from './public.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TerminalModule } from './terminal/terminal.module';
-import { PlaceCrudModule } from '../secured/place-crud/place-crud.module';
-import { AboutCrudModule } from '../secured/about-crud/about-crud.module';
-import { TechCrudModule } from '../secured/tech-crud/tech-crud.module';
-import { TechTypeCrudModule } from '../secured/tech-type-crud/tech-type-crud.module';
+import { SecuredModule } from '../secured/secured.module';
 
 const routes: Routes = [
   {
@@ -51,10 +48,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ComponentsModule,
     TerminalModule,
-    TechTypeCrudModule,
-    TechCrudModule,
-    AboutCrudModule,
-    PlaceCrudModule
+    SecuredModule
   ],
   providers: [MessageService, ConfirmationService],
 })
