@@ -34,18 +34,25 @@ export class InicioEffects {
   });
 
   saveAboutSuccess$ = createEffect(() => {
-     return this.actions$.pipe(
+    return this.actions$.pipe(
       ofType(this.stateService.getState('About').actions.saveValueSuccess),
       map(() => InicioActions.loadAboutmes())
-     );
+    );
   });
 
   savePlaceSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-     ofType(this.stateService.getState('Place').actions.saveValueSuccess),
-     map(() => InicioActions.loadAboutmes())
+      ofType(this.stateService.getState('Place').actions.saveValueSuccess),
+      map(() => InicioActions.loadAboutmes())
     );
- });
+  });
+
+  saveExpSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('Experience').actions.saveValueSuccess),
+      map(() => InicioActions.loadAboutmes())
+    );
+  });
 
   deleteTechTypeSuccess$ = createEffect(() => {
     return this.actions$.pipe(
@@ -73,12 +80,20 @@ export class InicioEffects {
       ofType(InicioActions.loadTechsTypesSuccess),
       concatMap((action) => {
         if (action.response.data.length === 0) {
-          return of(InicioActions.loadTechsSuccess({ response: { data: [], totalRecords: 0 } }));
+          return of(
+            InicioActions.loadTechsSuccess({
+              response: { data: [], totalRecords: 0 },
+            })
+          );
         }
         return this.techService
           .getWithQueryCustom(action.response.data[0].name, '')
           .pipe(
-            map((data) => InicioActions.loadTechsSuccess({ response: { data, totalRecords: this.techService.totalRecords } })),
+            map((data) =>
+              InicioActions.loadTechsSuccess({
+                response: { data, totalRecords: this.techService.totalRecords },
+              })
+            ),
             catchError((error) => of(InicioActions.loadTechsFailure({ error })))
           );
       })
@@ -110,7 +125,11 @@ export class InicioEffects {
       ofType(InicioActions.loadTechs),
       concatMap((action) =>
         this.techService.getWithQueryCustom(action.activeType, '').pipe(
-          map((data) => InicioActions.loadTechsSuccess({ response: { data, totalRecords: this.techService.totalRecords } })),
+          map((data) =>
+            InicioActions.loadTechsSuccess({
+              response: { data, totalRecords: this.techService.totalRecords },
+            })
+          ),
           catchError((error) => of(InicioActions.loadTechsFailure({ error })))
         )
       )
@@ -123,7 +142,9 @@ export class InicioEffects {
       concatMap(() =>
         this.aboutService.getMyInfo().pipe(
           map((data) => InicioActions.loadAboutmesSuccess({ data })),
-          catchError((error) => of(InicioActions.loadAboutmesFailure({ error })))
+          catchError((error) =>
+            of(InicioActions.loadAboutmesFailure({ error }))
+          )
         )
       )
     );
