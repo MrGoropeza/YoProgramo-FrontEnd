@@ -25,6 +25,8 @@ export class TerminalEffects {
             header: 'Terminal',
             modal: false,
             position: 'bottom-right',
+            styleClass: 'w-full sm:w-auto',
+            style: {margin: 0}
           });
         })
       );
