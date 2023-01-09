@@ -26,7 +26,7 @@
         }}</span>
       </p>
       <div
-        *ngIf="(aboutMeInfo$ | async)?.actualWork"
+        *ngIf="(aboutMeInfo$ | async)?.actualWork || (aboutLoading$ | async)!"
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
         <div *ngIf="!(aboutLoading$ | async)!; else actualItemLoading">
@@ -56,7 +56,7 @@
         </div>
       </div>
       <div
-        *ngIf="(aboutMeInfo$ | async)?.actualCareer"
+        *ngIf="(aboutMeInfo$ | async)?.actualCareer || (aboutLoading$ | async)!"
         class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
         <div *ngIf="!(aboutLoading$ | async)!; else actualItemLoading">
@@ -104,8 +104,8 @@
     <div
       class="mt-2 flex max-w-max flex-col items-center gap-1 px-4 text-4xl md:items-start"
     >
-      <p-skeleton width="20rem" height="3rem"></p-skeleton>
-      <p-skeleton width="13rem" height="2rem" class="md:self-end"></p-skeleton>
+      <p-skeleton width="20rem" height="2.5rem"></p-skeleton>
+      <p-skeleton width="13rem" height="1.5rem" class="md:self-end"></p-skeleton>
     </div>
   </ng-template>
 
