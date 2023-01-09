@@ -3,9 +3,9 @@ import { appStateTypes, StateService } from 'src/app/project/services/state.serv
 import { CrudComponent } from 'src/core/classes/crud-component';
 import { Store } from '@ngrx/store';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DynamicTableColumnModel } from 'src/core/classes/dynamic-table.model';
 import { LazyLoadEvent } from 'primeng/api';
 import { Place } from 'src/app/project/models/Place.model';
+import { DynamicTableColumnModel } from 'src/app/components/ui-dynamic-table/ui-dynamic-table.component';
 
 @Component({
   selector: 'app-place-crud',

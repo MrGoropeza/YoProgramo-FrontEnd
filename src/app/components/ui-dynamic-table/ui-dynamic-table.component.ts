@@ -2,7 +2,17 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, of, Subscription, switchMap } from 'rxjs';
-import { DynamicTableColumnModel } from 'src/core/classes/dynamic-table.model';
+
+export interface DynamicTableColumnModel {
+  header: string;
+  field: string;
+  sortable: boolean;
+  pipe: pipes;
+  pipeArgs: string[];
+}
+
+type pipes = "currency" | "date" | "object" | "list" | "nullable" | undefined;
+
 
 @Component({
   selector: 'app-ui-dynamic-table',

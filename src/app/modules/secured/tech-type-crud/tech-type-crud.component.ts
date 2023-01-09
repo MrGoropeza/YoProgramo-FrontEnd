@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LazyLoadEvent } from 'primeng/api';
-import { DynamicTableColumnModel } from 'src/core/classes/dynamic-table.model';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CrudComponent } from 'src/core/classes/crud-component';
 import { TechType } from 'src/app/project/models/TechType.model';
 import { appStateTypes, StateService } from 'src/app/project/services/state.service';
+import { DynamicTableColumnModel } from 'src/app/components/ui-dynamic-table/ui-dynamic-table.component';
 
 @Component({
   selector: 'app-tech-type-crud',

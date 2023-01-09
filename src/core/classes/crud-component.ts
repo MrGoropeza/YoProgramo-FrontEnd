@@ -1,8 +1,8 @@
 import { Store } from '@ngrx/store';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { map, Observable, Subscription } from 'rxjs';
+import { DynamicTableColumnModel } from 'src/app/components/ui-dynamic-table/ui-dynamic-table.component';
 import { CrudState } from './crud-state/crud.reducer';
-import { DynamicTableColumnModel } from './dynamic-table.model';
 
 export class CrudComponent<Model> {
   cols: DynamicTableColumnModel[] = [];
