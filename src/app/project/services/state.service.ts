@@ -7,9 +7,10 @@ import { Store } from '@ngrx/store';
 import { Place } from '../models/Place.model';
 import { Person } from '../models/Person.model';
 import { Experience } from '../models/Experience.model';
+import { Education } from '../models/Education.model';
 
-export type appStateTypes = Tech | TechType | Place | Person | Experience;
-export type appStateNames = "Tech" | "TechType" | "Place" | "About" | "Experience";
+export type appStateTypes = Tech | TechType | Place | Person | Experience | Education;
+export type appStateNames = "Tech" | "TechType" | "Place" | "About" | "Experience" | "Education";
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class StateService {
     new CrudState<appStateTypes>('Place'),
     new CrudState<appStateTypes>('About'),
     new CrudState<appStateTypes>('Experience'),
+    new CrudState<appStateTypes>('Education'),
   ];
 
   constructor(private store: Store) {

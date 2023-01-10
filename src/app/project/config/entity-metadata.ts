@@ -11,6 +11,7 @@ const entityMetadata: EntityMetadataMap = {
   Place: {},
   About: {},
   Experience: {},
+  Education: {},
 };
 
 const pluralNames = {
@@ -19,6 +20,7 @@ const pluralNames = {
   Place: 'Places',
   About: 'About',
   Experience: 'Experiences',
+  Education: 'Educations'
 };
 
 export const entityConfig: EntityDataModuleConfig = {
