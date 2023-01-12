@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { startWith, Subscription } from 'rxjs';
+import { startWith } from 'rxjs';
+import { DateSelectionMode } from 'src/app/components/ui-calendar-input/ui-calendar-input.component';
 import { Experience } from 'src/app/project/models/Experience.model';
 import { Place } from 'src/app/project/models/Place.model';
 import {
@@ -21,7 +22,6 @@ export class ExpFormComponent
   extends CrudFormComponent<appStateTypes>
   implements OnInit, OnDestroy
 {
-  isActualWorkSub$!: Subscription;
 
   constructor(
     private stateService: StateService,
@@ -43,6 +43,7 @@ export class ExpFormComponent
   }
 
   places: Place[] = [];
+  dateSelectionMode: DateSelectionMode = "range";
 
   ngOnInit(): void {
     this.init();
@@ -55,24 +56,23 @@ export class ExpFormComponent
         this.form.controls["timeRange"].setValue(range);
       }
     }
-    this.isActualWorkSub$ = this.form.controls['actualWork'].valueChanges
+    this.suscriptions$.add(this.form.controls['actualWork'].valueChanges
       .pipe(startWith(this.form.controls['actualWork'].value))
       .subscribe((isActualWork) => {
         let timeRangeControl = this.form.controls['timeRange'];
         if (isActualWork) {
           timeRangeControl.setValidators(Validators.required);
+          this.dateSelectionMode = "single";
         } else {
           timeRangeControl.setValidators(DateRangeValidator());
+          this.dateSelectionMode = "range";
         }
         timeRangeControl.updateValueAndValidity();
-      });
+      }));
   }
 
   ngOnDestroy(): void {
     this.destroy();
-    if (this.isActualWorkSub$) {
-      this.isActualWorkSub$.unsubscribe();
-    }
   }
 
   guardar() {

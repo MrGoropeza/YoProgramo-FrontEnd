@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { startWith } from 'rxjs';
+import { DateSelectionMode } from 'src/app/components/ui-calendar-input/ui-calendar-input.component';
 import { Education } from 'src/app/project/models/Education.model';
 import { Place } from 'src/app/project/models/Place.model';
 import { appStateTypes, StateService } from 'src/app/project/services/state.service';
@@ -36,6 +37,7 @@ export class EducationFormComponent extends CrudFormComponent<appStateTypes> imp
   }
 
   places: Place[] = [];
+  dateSelectionMode: DateSelectionMode = "range";
 
   ngOnInit(): void {
     this.init();
@@ -54,8 +56,10 @@ export class EducationFormComponent extends CrudFormComponent<appStateTypes> imp
         let timeRangeControl = this.form.controls['timeRange'];
         if (isActualEducation) {
           timeRangeControl.setValidators(Validators.required);
+          this.dateSelectionMode = "single";
         } else {
           timeRangeControl.setValidators(DateRangeValidator());
+          this.dateSelectionMode = "range";
         }
         timeRangeControl.updateValueAndValidity();
       }));

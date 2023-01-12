@@ -1,5 +1,4 @@
 <form [formGroup]="form">
-
   <app-ui-dropdown
     [group]="form"
     control="place"
@@ -20,22 +19,23 @@
     label="Descripción"
   ></app-ui-textarea>
 
-  <div class="flex gap-3 mt-4">
+  <div class="mt-4 flex gap-3">
     <p>¿Es el trabajo Actual?</p>
-    <p-inputSwitch
-      formControlName="actualWork"
-    ></p-inputSwitch>
-    <p>{{ form.controls['actualWork'].value ? "Sí" : "No" }}</p>
+    <p-inputSwitch formControlName="actualWork"></p-inputSwitch>
+    <p>{{ form.controls["actualWork"].value ? "Sí" : "No" }}</p>
   </div>
 
   <app-ui-calendar-input
     [group]="form"
     control="timeRange"
-    label="Rango de Fechas"
-    selectionMode="range"
-    [customErrors]="[{errorKey: 'endDateRequired', errorMessage: 'Fecha de Fin Requerida.'}]"
+    [label]="
+      form.controls['actualWork'].value ? 'Fecha de Inicio' : 'Rango de Fechas'
+    "
+    [selectionMode]="dateSelectionMode"
+    [customErrors]="[
+      { errorKey: 'endDateRequired', errorMessage: 'Fecha de Fin Requerida.' }
+    ]"
   ></app-ui-calendar-input>
-
 </form>
 
 <app-ui-form-buttons

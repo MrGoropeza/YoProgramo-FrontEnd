@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CrudErrorMessage } from 'src/core/classes/ui-crud-error-message.model';
 
-type DateSelectionMode = "single" | "multiple" | "range";
+export type DateSelectionMode = "single" | "multiple" | "range";
 
 @Component({
   selector: 'app-ui-calendar-input',

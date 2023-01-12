@@ -31,8 +31,10 @@
   <app-ui-calendar-input
     [group]="form"
     control="timeRange"
-    label="Rango de Fechas"
-    selectionMode="range"
+    [label]="
+      form.controls['actualEducation'].value ? 'Fecha de Inicio' : 'Rango de Fechas'
+    "
+    [selectionMode]="dateSelectionMode"
     [customErrors]="[{errorKey: 'endDateRequired', errorMessage: 'Fecha de Fin Requerida.'}]"
   ></app-ui-calendar-input>
 
