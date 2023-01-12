@@ -10,7 +10,7 @@ export class CrudComponent<Model> {
   valuesLoading$!: Observable<boolean>;
   totalRecords$!: Observable<number>;
 
-  onCloseSub$: Subscription = this.ref.onClose.subscribe(() =>
+  suscriptions$: Subscription = this.ref.onClose.subscribe(() =>
     this.store.dispatch(this.state.actions.closeCrudDialog())
   );
 
@@ -28,6 +28,6 @@ export class CrudComponent<Model> {
   }
 
   destroy() {
-    this.onCloseSub$.unsubscribe();
+    this.suscriptions$.unsubscribe();
   }
 }
