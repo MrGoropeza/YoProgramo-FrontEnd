@@ -1,0 +1,94 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { startWith } from 'rxjs';
+import { Education } from 'src/app/project/models/Education.model';
+import { Place } from 'src/app/project/models/Place.model';
+import { appStateTypes, StateService } from 'src/app/project/services/state.service';
+import { CrudFormComponent } from 'src/core/classes/crud-form-component';
+import { DateRangeValidator } from 'src/core/validators/DateRange.validator';
+
+@Component({
+  selector: 'app-education-form',
+  templateUrl: './education-form.component.html',
+  styleUrls: ['./education-form.component.scss']
+})
+export class EducationFormComponent extends CrudFormComponent<appStateTypes> implements OnInit,OnDestroy {
+
+  constructor(
+    private stateService: StateService,
+    ref: DynamicDialogRef,
+    config: DynamicDialogConfig,
+    fb: FormBuilder,
+    store: Store
+  ) {
+    super(ref, config, fb, store, stateService.getState('Education'));
+
+    this.form = this.fb.group({
+      id: [null],
+      place: [null, Validators.required],
+      title: [null, Validators.required],
+      description: [null, Validators.required],
+      timeRange: [null, DateRangeValidator()],
+      actualEducation: [false],
+    });
+  }
+
+  places: Place[] = [];
+
+  ngOnInit(): void {
+    this.init();
+    if (this.config.data) {
+      this.places = this.config.data.places;
+      if(this.config.data.value){
+        const exp: Education = this.config.data.value;
+
+        let range = [new Date(exp.startDate), exp.finishDate ? new Date(exp.finishDate) : null];
+        this.form.controls["timeRange"].setValue(range);
+      }
+    }
+    this.suscriptions$.add(this.form.controls['actualEducation'].valueChanges
+      .pipe(startWith(this.form.controls['actualEducation'].value))
+      .subscribe((isActualEducation) => {
+        let timeRangeControl = this.form.controls['timeRange'];
+        if (isActualEducation) {
+          timeRangeControl.setValidators(Validators.required);
+        } else {
+          timeRangeControl.setValidators(DateRangeValidator());
+        }
+        timeRangeControl.updateValueAndValidity();
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy();
+  }
+
+  guardar() {
+    this.cargando = true;
+    this.form.markAllAsTouched();
+    if (this.form.invalid) {
+      this.cargando = false;
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let { timeRange: _, ...formValue } = this.form.getRawValue();
+
+    let value: Education;
+
+    let dateRange: Date[] = this.form.controls['timeRange'].value;
+
+    if (this.form.controls['actualEducation'].value) {
+      value = { ...formValue, startDate: dateRange[0] };
+    } else {
+      value = { ...formValue, startDate: dateRange[0], finishDate: dateRange[1] };
+    }
+
+    this.store.dispatch(this.state.actions.saveValue({ value }));
+
+    this.savedValue();
+  }
+
+}
