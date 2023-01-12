@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Person } from 'src/app/project/models/Person.model';
-import { Place } from 'src/app/project/models/Place.model';
 import { appStateTypes, StateService } from 'src/app/project/services/state.service';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
 
@@ -39,14 +38,10 @@ export class AboutCrudComponent
 
   files: File[] = [];
 
-  places: Place[] = [];
-
   ngOnInit(): void {
     this.init();
-    if(this.config.data){
-      this.places = this.config.data.places;
-    }
   }
+
   ngOnDestroy(): void {
     this.destroy()
   }

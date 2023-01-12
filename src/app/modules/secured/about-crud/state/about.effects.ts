@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { catchError, firstValueFrom, map, mergeMap, Observable, of } from 'rxjs';
+import { catchError, firstValueFrom, map, mergeMap, of } from 'rxjs';
 import { Person } from 'src/app/project/models/Person.model';
-import { Place } from 'src/app/project/models/Place.model';
 import { AboutService } from 'src/app/project/services/about.service';
-import { PlaceService } from 'src/app/project/services/place.service';
 import {
   appStateTypes,
   StateService,
@@ -24,8 +22,7 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
     dialogService: DialogService,
     messageService: MessageService,
     private stateService: StateService,
-    private aboutService: AboutService,
-    private placeService: PlaceService
+    private aboutService: AboutService
   ) {
     super(
       actions$,
@@ -52,12 +49,10 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
       return this.actions$.pipe(
         ofType(this.state.actions.openCrudForm),
         mergeMap(async () => {
-          let places = await firstValueFrom(this.placeService.getAll() as Observable<Place[]>)
           let myInfo = await firstValueFrom(this.aboutService.getMyInfo());
-
           this.dialogService.open(AboutCrudComponent, {
             header: 'Editar Información Personal',
-            data: { value: myInfo, places },
+            data: { value: myInfo },
           });
         })
       );
