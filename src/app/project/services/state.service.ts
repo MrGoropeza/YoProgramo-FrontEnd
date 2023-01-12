@@ -9,8 +9,20 @@ import { Person } from '../models/Person.model';
 import { Experience } from '../models/Experience.model';
 import { Education } from '../models/Education.model';
 
-export type appStateTypes = Tech | TechType | Place | Person | Experience | Education;
-export type appStateNames = "Tech" | "TechType" | "Place" | "About" | "Experience" | "Education";
+export type appStateTypes =
+  | Tech
+  | TechType
+  | Place
+  | Person
+  | Experience
+  | Education;
+export type appStateNames =
+  | 'Tech'
+  | 'TechType'
+  | 'Place'
+  | 'About'
+  | 'Experience'
+  | 'Education';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +38,9 @@ export class StateService {
   ];
 
   constructor(private store: Store) {
-    this.appStates.forEach((state) => {
-      store.addReducer(state.modelName, state.modelReducer);
-      this.appStates.push(state);
-      console.log(`${state.modelName} - Registrado en el Store`);
-    });
+    this.appStates.forEach((state) =>
+      store.addReducer(state.modelName, state.modelReducer)
+    );
   }
 
   getState(modelName: appStateNames) {
