@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { SelectItem, SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Person } from 'src/app/project/models/Person.model';
 import { Tech } from 'src/app/project/models/Tech.model';
-import { TechType } from 'src/app/project/models/TechType.model';
 import {
   appStateTypes,
   StateService,
 } from 'src/app/project/services/state.service';
+import { getSelectItemGroup } from 'src/app/project/utils/utils';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
 
 @Component({
@@ -50,22 +50,8 @@ export class AboutCrudComponent
     this.init();
     if (this.config.data) {
       const responseTechs = this.config.data.techs as Tech[];
-      let techTypes: TechType[] = responseTechs
-        .map((response) => response.tipo)
-        .filter(
-          (techType, index, self) =>
-            self.findIndex((value) => value.id === techType.id) === index
-        );
 
-      this.techs = techTypes.map((techType) => ({
-        label: techType.name,
-        value: techType,
-        items: responseTechs
-          .filter((tech) => tech.tipo.id === techType.id)
-          .map(
-            (tech) => ({ label: tech.name, value: tech } as SelectItem<Tech>)
-          ),
-      }));
+      this.techs = getSelectItemGroup(responseTechs);
     }
   }
 
