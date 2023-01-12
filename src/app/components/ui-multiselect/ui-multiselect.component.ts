@@ -14,6 +14,8 @@ export class UiMultiselectComponent {
   @Input() placeholder!: string;
   @Input() icon!: string;
 
+  @Input() maxSelectedLabels = 3;
+  @Input() selectedItemsLabel!: string;
   @Input() options!: any;
   @Input() optionLabel!: string;
   @Input() optionValue!: string;

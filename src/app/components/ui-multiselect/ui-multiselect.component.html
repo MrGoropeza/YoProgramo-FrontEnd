@@ -16,6 +16,8 @@
       placeholder="{{ placeholder }}"
       formControlName="{{ control }}"
       (onPanelHide)="panelHided.emit()"
+      [maxSelectedLabels]="maxSelectedLabels"
+      [selectedItemsLabel]="selectedItemsLabel"
       [optionLabel]="optionLabel"
       [group]="withGrouping"
       [optionGroupLabel]="optionGroupLabel"
