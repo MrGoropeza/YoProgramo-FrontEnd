@@ -53,7 +53,11 @@ export class ExpFormComponent
         const exp: Experience = this.config.data.value;
 
         let range = [new Date(exp.startDate), exp.finishDate ? new Date(exp.finishDate) : null];
-        this.form.controls["timeRange"].setValue(range);
+        if(exp.actualWork){
+          this.form.controls["timeRange"].setValue(range[0]);
+        }else{
+          this.form.controls["timeRange"].setValue(range);
+        }
       }
     }
     this.suscriptions$.add(this.form.controls['actualWork'].valueChanges
@@ -91,7 +95,7 @@ export class ExpFormComponent
     let dateRange: Date[] = this.form.controls['timeRange'].value;
 
     if (this.form.controls['actualWork'].value) {
-      value = { ...exp, startDate: dateRange[0] };
+      value = { ...exp, startDate: this.form.controls['timeRange'].value };
     } else {
       value = { ...exp, startDate: dateRange[0], finishDate: dateRange[1] };
     }

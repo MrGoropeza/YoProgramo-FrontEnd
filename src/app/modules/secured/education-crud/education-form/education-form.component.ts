@@ -47,7 +47,11 @@ export class EducationFormComponent extends CrudFormComponent<appStateTypes> imp
         const exp: Education = this.config.data.value;
 
         let range = [new Date(exp.startDate), exp.finishDate ? new Date(exp.finishDate) : null];
-        this.form.controls["timeRange"].setValue(range);
+        if(exp.actualEducation){
+          this.form.controls["timeRange"].setValue(range[0]);
+        }else{
+          this.form.controls["timeRange"].setValue(range);
+        }
       }
     }
     this.suscriptions$.add(this.form.controls['actualEducation'].valueChanges
@@ -85,7 +89,7 @@ export class EducationFormComponent extends CrudFormComponent<appStateTypes> imp
     let dateRange: Date[] = this.form.controls['timeRange'].value;
 
     if (this.form.controls['actualEducation'].value) {
-      value = { ...formValue, startDate: dateRange[0] };
+      value = { ...formValue, startDate: this.form.controls['timeRange'].value };
     } else {
       value = { ...formValue, startDate: dateRange[0], finishDate: dateRange[1] };
     }
