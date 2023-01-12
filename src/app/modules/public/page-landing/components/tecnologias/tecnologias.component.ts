@@ -1,46 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MenuItem } from 'primeng/api';
+import { SelectItem, SelectItemGroup } from 'primeng/api';
 import { Observable } from 'rxjs';
 import * as InicioSelectors from '../../state/inicio.selectors';
-import * as InicioActions from '../../state/inicio.actions';
-import { appStateTypes } from 'src/app/project/services/state.service';
-import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
-import { TechType } from 'src/app/project/models/TechType.model';
+import { Tech } from 'src/app/project/models/Tech.model';
 @Component({
   selector: 'app-tecnologias',
   templateUrl: './tecnologias.component.html',
   styleUrls: ['./tecnologias.component.scss'],
 })
 export class TecnologiasComponent implements OnInit {
-  techTypes$!: Observable<MultipleRecordsResponse<appStateTypes>>;
-  techTypesLoading$!: Observable<boolean>;
-  techs$!: Observable<MultipleRecordsResponse<appStateTypes>>;
+  techsGroup$!: Observable<SelectItemGroup[]>;
   techsLoading$!: Observable<boolean>;
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.techTypes$ = this.store.select(InicioSelectors.selectTechTypesInicio);
-    this.techTypesLoading$ = this.store.select(InicioSelectors.selectTechTypesLoadingInicio);
-    this.techs$ = this.store.select(InicioSelectors.selectTechsInicio);
-    this.techsLoading$ = this.store.select(InicioSelectors.selectTechsLoadingInicio);
+    this.techsGroup$ = this.store.select(InicioSelectors.selectTechsInicio);
+    this.techsLoading$ = this.store.select(InicioSelectors.selectAboutLoading);
   }
 
-  firstTime = true;
-
-  techTypesToMenuItem(techTypes: appStateTypes[]): MenuItem[] {
-    return techTypes.map((techType) => {
-      let label = (techType as TechType).name;
-      return ({ label })
-    }
-    );
-  }
-
-  loadTechs(activeType: MenuItem) {
-    this.firstTime = false;
-    if (activeType.label) {
-      this.store.dispatch(InicioActions.loadTechs({ activeType: activeType.label }));
-    }
+  selectGrouptoTechList(items: SelectItem<Tech>[]) {
+    return items.map((item) => item.value);
   }
 }
