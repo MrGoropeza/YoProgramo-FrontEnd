@@ -1,7 +1,7 @@
 import { TechType } from "./TechType.model";
 
 export interface Tech{
-    id?: number;
+    id: number;
     name: string;
     imageUrl: string;
     imageFile?: File;

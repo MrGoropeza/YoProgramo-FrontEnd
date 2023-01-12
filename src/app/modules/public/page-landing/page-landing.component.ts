@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadInicios } from './state/inicio.actions';
+import { loadAboutmes } from './state/inicio.actions';
 
 @Component({
   selector: 'app-page-landing',
@@ -14,7 +14,7 @@ export class PageLandingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.dispatch(loadInicios());
+    this.store.dispatch(loadAboutmes());
   }
 
 }

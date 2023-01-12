@@ -1,8 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Person } from 'src/app/project/models/Person.model';
 
-export const loadInicios = createAction('[Inicio] Load Inicios');
-
 export const loadAboutmes = createAction(
   '[Aboutme] Load Aboutmes'
 );

@@ -11,7 +11,7 @@ import { AboutService } from 'src/app/project/services/about.service';
 export class InicioEffects {
   loadAboutMe$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(InicioActions.loadInicios),
+      ofType(InicioActions.loadAboutmes),
       concatMap(() =>
         this.aboutService.getMyInfo().pipe(
           map((data) => InicioActions.loadAboutmesSuccess({ data })),

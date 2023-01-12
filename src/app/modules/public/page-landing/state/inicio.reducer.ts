@@ -23,7 +23,7 @@ export const initialState: InicioState = {
 export const reducer = createReducer(
   initialState,
   on(
-    InicioActions.loadInicios,
+    InicioActions.loadAboutmes,
     (state): InicioState => ({ ...state, aboutLoading: true })
   ),
   on(
