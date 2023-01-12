@@ -4,7 +4,8 @@
   "configurations": [
     {
       "name": "ng serve",
-      "type": "pwa-chrome",
+      "type": "chrome",
+      "runtimeExecutable": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
       "request": "launch",
       "preLaunchTask": "npm: start",
       "url": "http://localhost:4200/"
