@@ -3,6 +3,9 @@ import { Tech } from '../models/Tech.model';
 import { TechType } from '../models/TechType.model';
 
 export const getSelectItemGroup = (techsList: Tech[]): SelectItemGroup[] => {
+  if(!techsList){
+    return [];
+  }
   let techTypes: TechType[] = techsList
     .map((response) => response.tipo)
     .filter(
