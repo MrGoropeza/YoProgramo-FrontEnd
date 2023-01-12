@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { map, Observable } from 'rxjs';
-import { selectTechTypesInicio } from 'src/app/modules/public/page-landing/state/inicio.selectors';
+import { Observable } from 'rxjs';
 import { Tech } from 'src/app/project/models/Tech.model';
 import { TechType } from 'src/app/project/models/TechType.model';
 import {
@@ -47,8 +46,9 @@ export class TechFormComponent
     if (this.form.controls['imageUrl'].value) {
       this.form.controls['isLink'].setValue(true);
     }
-    const tiposRequest = this.store.select(selectTechTypesInicio);
-    this.tipos = tiposRequest.pipe(map((response) => response.data));
+    if(this.config.data){
+      this.tipos = this.config.data.techTypes;
+    }
   }
 
   ngOnDestroy(): void {
