@@ -1,5 +1,5 @@
+import { Education } from "./Education.model";
 import { Experience } from "./Experience.model";
-import { Place } from "./Place.model";
 
 export interface Person{
     id: number;
@@ -10,5 +10,5 @@ export interface Person{
     imageFile?: File;
     imageUrl: string;
     actualWork: Experience;
-    actualCareer: Place;
+    actualCareer: Education;
 }

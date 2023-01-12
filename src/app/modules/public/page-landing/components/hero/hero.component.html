@@ -27,9 +27,11 @@
       </p>
       <div
         *ngIf="(aboutMeInfo$ | async)?.actualWork || (aboutLoading$ | async)!"
-        class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
-        <div *ngIf="!(aboutLoading$ | async)!; else actualItemLoading">
+        <div
+          *ngIf="!(aboutLoading$ | async)!; else actualItemLoading"
+          class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
+        >
           <img
             *ngIf="
               (aboutMeInfo$ | async)?.actualWork?.place?.imageUrl &&
@@ -57,27 +59,30 @@
       </div>
       <div
         *ngIf="(aboutMeInfo$ | async)?.actualCareer || (aboutLoading$ | async)!"
-        class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
       >
-        <div *ngIf="!(aboutLoading$ | async)!; else actualItemLoading">
+        <div
+          *ngIf="!(aboutLoading$ | async)!; else actualItemLoading"
+          class="flex w-full items-center justify-center gap-2 px-4 py-2 md:justify-start md:gap-4"
+        >
           <img
             *ngIf="
-              (aboutMeInfo$ | async)?.actualCareer?.imageUrl &&
-              (aboutMeInfo$ | async)?.actualCareer?.imageUrl !== noImageLink
+              ((aboutMeInfo$ | async)?.actualCareer?.place)!.imageUrl &&
+              ((aboutMeInfo$ | async)?.actualCareer?.place)!.imageUrl !==
+                noImageLink
             "
-            [src]="(aboutMeInfo$ | async)?.actualCareer?.imageUrl"
+            [src]="((aboutMeInfo$ | async)?.actualCareer?.place)!.imageUrl"
             class="w-20 max-w-none animate-rotative-coin rounded-full"
           />
           <p class="flex max-w-min items-center text-2xl md:max-w-max">
             <span>
               Estudiando
               <span class="whitespace-nowrap font-bold">{{
-                (aboutMeInfo$ | async)?.actualCareer?.name
+                (aboutMeInfo$ | async)?.actualCareer?.title
               }}</span>
             </span>
             <a
-              *ngIf="(aboutMeInfo$ | async)?.actualCareer?.url"
-              [href]="(aboutMeInfo$ | async)?.actualCareer?.url"
+              *ngIf="((aboutMeInfo$ | async)?.actualCareer?.place)!.url"
+              [href]="((aboutMeInfo$ | async)?.actualCareer?.place)!.url"
               target="_blank"
               class="pi pi-external-link ml-3 text-xl font-bold"
             ></a>
@@ -92,7 +97,7 @@
     <img
       *ngIf="!(aboutLoading$ | async)!; else imageLoading"
       [src]="(aboutMeInfo$ | async)?.imageUrl"
-      [ngClass]="{'hidden': !(aboutMeInfo$ | async)?.imageUrl}"
+      [ngClass]="{ hidden: !(aboutMeInfo$ | async)?.imageUrl }"
       class="aspect-square w-56 max-w-none rounded-full object-cover"
     />
   </div>
@@ -106,7 +111,11 @@
       class="mt-2 flex max-w-max flex-col items-center gap-1 px-4 text-4xl md:items-start"
     >
       <p-skeleton width="20rem" height="2.5rem"></p-skeleton>
-      <p-skeleton width="13rem" height="1.5rem" class="md:self-end"></p-skeleton>
+      <p-skeleton
+        width="13rem"
+        height="1.5rem"
+        class="md:self-end"
+      ></p-skeleton>
     </div>
   </ng-template>
 
