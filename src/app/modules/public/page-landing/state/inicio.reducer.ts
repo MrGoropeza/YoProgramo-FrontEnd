@@ -1,64 +1,46 @@
 import { createReducer, on } from '@ngrx/store';
-import { Tech } from 'src/app/project/models/Tech.model';
 import * as InicioActions from './inicio.actions';
 import { Person } from 'src/app/project/models/Person.model';
-import { MultipleRecordsResponse } from 'src/app/project/models/MultipleRecordsResponse';
-import { TechType } from 'src/app/project/models/TechType.model';
+import { SelectItemGroup } from 'primeng/api';
+import { getSelectItemGroup } from 'src/app/project/utils/utils';
 
 export const inicioFeatureKey = 'inicio';
 
 export interface InicioState {
-  techTypes: MultipleRecordsResponse<TechType>;
-  techTypesError: unknown;
-  techTypesLoading: boolean;
-  techs: MultipleRecordsResponse<Tech>
-  techsError: unknown;
-  techsLoading: boolean;
   aboutMe: Person;
   aboutMeError: unknown;
   aboutLoading: boolean;
+  techs: SelectItemGroup[];
 }
 
 export const initialState: InicioState = {
-  techTypes: {data: [], totalRecords: 0},
-  techTypesError: undefined,
-  techTypesLoading: false,
-  techs: {data: [], totalRecords: 0},
-  techsError: undefined,
-  techsLoading: false,
   aboutMe: {} as Person,
   aboutMeError: {},
   aboutLoading: false,
+  techs: []
 };
 
 export const reducer = createReducer(
   initialState,
   on(
     InicioActions.loadInicios,
-    (state): InicioState => ({ ...state, techTypesLoading: true, techsLoading: true, aboutLoading: true })
-  ),
-  on(
-    InicioActions.loadTechsTypesSuccess,
-    (state, action): InicioState => ({ ...state, techTypes: action.response, techTypesLoading: false })
-  ),
-  on(
-    InicioActions.loadTechsTypesFailure,
-    (state, action): InicioState => ({ ...state, techTypesError: action.error, techTypesLoading: false })
-  ),
-  on(
-    InicioActions.loadTechsSuccess,
-    (state, action): InicioState => ({ ...state, techs: action.response, techsLoading: false })
-  ),
-  on(
-    InicioActions.loadTechsFailure,
-    (state, action): InicioState => ({ ...state, techsError: action.error, techsLoading: false })
+    (state): InicioState => ({ ...state, aboutLoading: true })
   ),
   on(
     InicioActions.loadAboutmesSuccess,
-    (state, action): InicioState => ({ ...state, aboutMe: action.data, aboutLoading: false })
+    (state, action): InicioState => ({
+      ...state,
+      aboutMe: action.data,
+      techs: getSelectItemGroup(action.data.techs),
+      aboutLoading: false,
+    })
   ),
   on(
     InicioActions.loadAboutmesFailure,
-    (state, action): InicioState => ({ ...state, aboutMeError: action.error, aboutLoading: false })
-  ),
+    (state, action): InicioState => ({
+      ...state,
+      aboutMeError: action.error,
+      aboutLoading: false,
+    })
+  )
 );

@@ -19,20 +19,6 @@ export class InicioEffects {
     );
   });
 
-  loadInicioTechTypes$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(InicioActions.loadInicios),
-      map(() => InicioActions.loadTechsTypes())
-    );
-  });
-
-  saveTechTypeSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(this.stateService.getState('TechType').actions.saveValueSuccess),
-      map(() => InicioActions.loadTechsTypes())
-    );
-  });
-
   saveAboutSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('About').actions.saveValueSuccess),
@@ -51,88 +37,6 @@ export class InicioEffects {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Experience').actions.saveValueSuccess),
       map(() => InicioActions.loadAboutmes())
-    );
-  });
-
-  deleteTechTypeSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(this.stateService.getState('TechType').actions.deleteValueSuccess),
-      map(() => InicioActions.loadTechsTypes())
-    );
-  });
-
-  saveTechSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(this.stateService.getState('Tech').actions.saveValueSuccess),
-      map(() => InicioActions.loadTechsTypes())
-    );
-  });
-
-  deleteTechSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(this.stateService.getState('Tech').actions.deleteValueSuccess),
-      map(() => InicioActions.loadTechsTypes())
-    );
-  });
-
-  loadInicioTechs$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(InicioActions.loadTechsTypesSuccess),
-      concatMap((action) => {
-        if (action.response.data.length === 0) {
-          return of(
-            InicioActions.loadTechsSuccess({
-              response: { data: [], totalRecords: 0 },
-            })
-          );
-        }
-        return this.techService
-          .getWithQueryCustom(action.response.data[0].name, '')
-          .pipe(
-            map((data) =>
-              InicioActions.loadTechsSuccess({
-                response: { data, totalRecords: this.techService.totalRecords },
-              })
-            ),
-            catchError((error) => of(InicioActions.loadTechsFailure({ error })))
-          );
-      })
-    );
-  });
-
-  loadTechsTypes$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(InicioActions.loadTechsTypes),
-      concatMap(() =>
-        this.techTypeService.getAll().pipe(
-          map((data) =>
-            InicioActions.loadTechsTypesSuccess({
-              response: { data, totalRecords: data.length },
-            })
-          ),
-          catchError((error) => {
-            console.log(error);
-
-            return of(InicioActions.loadTechsTypesFailure({ error }));
-          })
-        )
-      )
-    );
-  });
-
-  loadTechs$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(InicioActions.loadTechs),
-      concatMap((action) =>
-        this.techService.getWithQueryCustom(action.activeType, '').pipe(
-          map((data) =>
-            InicioActions.loadTechsSuccess({
-              response: { data, totalRecords: this.techService.totalRecords },
-            })
-          ),
-          catchError((error) => of(InicioActions.loadTechsFailure({ error })))
-        )
-      )
     );
   });
 
