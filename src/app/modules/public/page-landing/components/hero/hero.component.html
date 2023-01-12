@@ -92,6 +92,7 @@
     <img
       *ngIf="!(aboutLoading$ | async)!; else imageLoading"
       [src]="(aboutMeInfo$ | async)?.imageUrl"
+      [ngClass]="{'hidden': !(aboutMeInfo$ | async)?.imageUrl}"
       class="aspect-square w-56 max-w-none rounded-full object-cover"
     />
   </div>
