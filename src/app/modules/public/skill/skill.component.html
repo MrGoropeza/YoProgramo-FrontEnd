@@ -1,0 +1,61 @@
+<div
+  class="m-4 flex justify-center gap-1 rounded-lg border-2 border-yellow-500 p-4 dark:border-blue-300"
+>
+  <div class="logo">
+    <b><span>Mis </span><span>habilidades</span></b>
+  </div>
+</div>
+
+<div
+  class="m-4 flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-yellow-500 p-4 dark:border-blue-300"
+>
+  <div
+    class="flex items-center justify-center gap-3"
+    *ngFor="let value of (values | async)!"
+  >
+    <!-- <img
+      [src]="value.place.imageUrl"
+      [alt]="value.place.name"
+      class="aspect-square h-full w-20 max-w-none rounded-full"
+    />
+    <div>
+      <p class="text-lg italic">
+        {{ value.startDate | date : "MMM y" }} -
+        {{ value.actualEducation ? "Actualidad" : (value.finishDate | date : "MMM y") }}
+      </p>
+      <p class="text-2xl font-bold">{{ value.title }}</p>
+      <p class="text-justify text-xl">
+        {{ value.description }}
+      </p>
+    </div> -->
+  </div>
+  <div
+    *ngIf="
+      (values | async)!.length === 0 && !(valuesLoading | async)!
+    "
+    class="text-xl font-bold"
+  >
+    No tengo habilidades... :c
+  </div>
+  <div *ngIf="valuesLoading | async" class="flex flex-col gap-3">
+    <div
+      class="flex items-center justify-center gap-3"
+      *ngFor="let dummy of [].constructor(3)"
+    >
+      <p-skeleton shape="circle" size="5rem"></p-skeleton>
+      <div>
+        <div class="flex items-center gap-2">
+          <p-skeleton width="5rem"></p-skeleton>
+          -
+          <p-skeleton width="5rem"></p-skeleton>
+        </div>
+        <p-skeleton
+          width="12rem"
+          height="1.5rem"
+          styleClass="mb-1"
+        ></p-skeleton>
+        <p-skeleton width="12rem" height="2rem"></p-skeleton>
+      </div>
+    </div>
+  </div>
+</div>

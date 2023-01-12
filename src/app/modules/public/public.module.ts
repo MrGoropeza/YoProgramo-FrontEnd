@@ -41,6 +41,14 @@ const routes: Routes = [
             (m) => m.EducationModule
           ),
       },
+      {
+        path: 'habilidades',
+        title: 'Habilidades',
+        loadChildren: () =>
+          import('./skill/skill.module').then(
+            (m) => m.SkillModule
+          ),
+      },
     ],
   },
   {

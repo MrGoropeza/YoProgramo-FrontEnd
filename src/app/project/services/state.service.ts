@@ -8,6 +8,7 @@ import { Place } from '../models/Place.model';
 import { Person } from '../models/Person.model';
 import { Experience } from '../models/Experience.model';
 import { Education } from '../models/Education.model';
+import { Skill } from '../models/Skill.model';
 
 export type appStateTypes =
   | Tech
@@ -15,14 +16,16 @@ export type appStateTypes =
   | Place
   | Person
   | Experience
-  | Education;
+  | Education
+  | Skill;
 export type appStateNames =
   | 'Tech'
   | 'TechType'
   | 'Place'
   | 'About'
   | 'Experience'
-  | 'Education';
+  | 'Education'
+  | 'Skill';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +38,7 @@ export class StateService {
     new CrudState<appStateTypes>('About'),
     new CrudState<appStateTypes>('Experience'),
     new CrudState<appStateTypes>('Education'),
+    new CrudState<appStateTypes>('Skill'),
   ];
 
   constructor(private store: Store) {
