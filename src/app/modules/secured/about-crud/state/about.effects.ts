@@ -9,6 +9,7 @@ import {
   appStateTypes,
   StateService,
 } from 'src/app/project/services/state.service';
+import { TechService } from 'src/app/project/services/tech.service';
 import { CrudEffects } from 'src/core/classes/crud-state/crud.effects';
 import { CrudState } from 'src/core/classes/crud-state/crud.reducer';
 import { AboutCrudComponent } from '../about-crud.component';
@@ -22,7 +23,8 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
     dialogService: DialogService,
     messageService: MessageService,
     private stateService: StateService,
-    private aboutService: AboutService
+    private aboutService: AboutService,
+    private techService: TechService
   ) {
     super(
       actions$,
@@ -50,9 +52,10 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
         ofType(this.state.actions.openCrudForm),
         mergeMap(async () => {
           let myInfo = await firstValueFrom(this.aboutService.getMyInfo());
+          let techs = await firstValueFrom(this.techService.getAll());
           this.dialogService.open(AboutCrudComponent, {
             header: 'Editar Información Personal',
-            data: { value: myInfo },
+            data: { value: myInfo, techs },
           });
         })
       );

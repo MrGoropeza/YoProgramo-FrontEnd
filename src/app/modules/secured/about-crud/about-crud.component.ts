@@ -1,28 +1,33 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { SelectItem, SelectItemGroup } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Person } from 'src/app/project/models/Person.model';
-import { appStateTypes, StateService } from 'src/app/project/services/state.service';
+import { Tech } from 'src/app/project/models/Tech.model';
+import { TechType } from 'src/app/project/models/TechType.model';
+import {
+  appStateTypes,
+  StateService,
+} from 'src/app/project/services/state.service';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
 
 @Component({
   selector: 'app-about-crud',
   templateUrl: './about-crud.component.html',
-  styleUrls: ['./about-crud.component.scss']
+  styleUrls: ['./about-crud.component.scss'],
 })
 export class AboutCrudComponent
   extends CrudFormComponent<appStateTypes>
   implements OnInit, OnDestroy
 {
-
   constructor(
     private stateService: StateService,
     ref: DynamicDialogRef,
     config: DynamicDialogConfig,
     fb: FormBuilder,
     store: Store
-  ){
+  ) {
     super(ref, config, fb, store, stateService.getState('About'));
 
     this.form = fb.group({
@@ -30,6 +35,7 @@ export class AboutCrudComponent
       name: [null, Validators.required],
       nameUrl: [null],
       title: [null, Validators.required],
+      techs: [null],
       imageUrl: [null],
       actualWork: [null],
       actualCareer: [null],
@@ -38,18 +44,39 @@ export class AboutCrudComponent
 
   files: File[] = [];
 
+  techs: SelectItemGroup[] = [];
+
   ngOnInit(): void {
     this.init();
+    if (this.config.data) {
+      const responseTechs = this.config.data.techs as Tech[];
+      let techTypes: TechType[] = responseTechs
+        .map((response) => response.tipo)
+        .filter(
+          (techType, index, self) =>
+            self.findIndex((value) => value.id === techType.id) === index
+        );
+
+      this.techs = techTypes.map((techType) => ({
+        label: techType.name,
+        value: techType,
+        items: responseTechs
+          .filter((tech) => tech.tipo.id === techType.id)
+          .map(
+            (tech) => ({ label: tech.name, value: tech } as SelectItem<Tech>)
+          ),
+      }));
+    }
   }
 
   ngOnDestroy(): void {
-    this.destroy()
+    this.destroy();
   }
 
-  guardar(){
+  guardar() {
     this.cargando = true;
     this.form.markAllAsTouched();
-    if(this.form.invalid){
+    if (this.form.invalid) {
       this.cargando = false;
       return;
     }
@@ -62,7 +89,7 @@ export class AboutCrudComponent
       title: this.form.controls['title'].value,
       imageUrl: this.form.controls['imageUrl'].value,
       actualWork: this.form.controls['actualWork'].value,
-      actualCareer: this.form.controls['actualCareer'].value
+      actualCareer: this.form.controls['actualCareer'].value,
     } as Person;
 
     if (this.files.length > 0) {
@@ -73,5 +100,4 @@ export class AboutCrudComponent
 
     this.savedValue();
   }
-
 }

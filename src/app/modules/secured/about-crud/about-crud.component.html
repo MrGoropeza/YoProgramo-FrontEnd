@@ -17,6 +17,14 @@
     label="Link"
   ></app-ui-input-text>
 
+  <app-ui-multiselect
+    [group]="form"
+    control="techs"
+    label="Tecnologías del Portfolio"
+    [withGrouping]="true"
+    [options]="techs"
+  ></app-ui-multiselect>
+
   <div class="mt-4 flex flex-col items-center">
     <p class="">Foto de Perfil Actual</p>
     <p-image
@@ -40,3 +48,5 @@
     (guardarClick)="guardar()"
   ></app-ui-form-buttons>
 </form>
+
+<!-- <pre>{{ form.getRawValue() | json }}</pre> -->
