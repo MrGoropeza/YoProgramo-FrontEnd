@@ -13,10 +13,15 @@ export class UiMultiselectComponent {
   @Input() customErrors!: CrudErrorMessage[];
   @Input() placeholder!: string;
   @Input() icon!: string;
-  
+
   @Input() options!: any;
   @Input() optionLabel!: string;
   @Input() optionValue!: string;
+  @Input() withGrouping = false;
+  @Input() optionGroupLabel!: string;
+  @Input() optionGroupChildren!: string;
+  @Input() filterBy!: string;
+  @Input() filterValue!: string;
 
   @Input() control!: string
   @Input() group!: FormGroup
