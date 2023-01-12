@@ -7,9 +7,9 @@
     </h2>
   </div>
 
-  <p-tabView *ngIf="!(techsLoading$ | async)!">
+  <p-tabView *ngIf="!(techsLoading$ | async)!" class="w-full">
     <p-tabPanel *ngFor="let group of techsGroup$ | async" [header]="group.label">
-      <app-tech-list [title]="group.label" [techs]="selectGrouptoTechList(group.items)"></app-tech-list>
+      <app-tech-list [techs]="selectGrouptoTechList(group.items)"></app-tech-list>
     </p-tabPanel>
   </p-tabView>
 

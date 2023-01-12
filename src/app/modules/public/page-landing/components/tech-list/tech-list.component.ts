@@ -7,6 +7,5 @@ import { Tech } from 'src/app/project/models/Tech.model';
   styleUrls: ['./tech-list.component.scss'],
 })
 export class TechListComponent {
-  @Input() title!: string;
   @Input() techs: Tech[] = [];
 }

@@ -1,5 +1,4 @@
-<h3 class="text-center text-2xl font-bold">{{ title }}</h3>
-<div class="flex overflow-x-auto">
+<div class="flex justify-center overflow-x-auto">
   <div *ngIf="techs.length === 0">
     <p class="text-center font-semibold my-4">Ninguna tecnología cargada para esta categoría aún.</p>
   </div>
@@ -7,7 +6,7 @@
     <img
       [src]="tech.imageUrl"
       alt="{{ tech.name }}-Logo"
-      class="w-48 max-w-none animate-float"
+      class="w-48 max-w-none animate-float py-4"
     />
     <p
       class="cursor-help text-center text-xl font-bold"
