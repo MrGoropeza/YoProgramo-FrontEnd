@@ -90,6 +90,7 @@ export class AboutCrudComponent
       imageUrl: this.form.controls['imageUrl'].value,
       actualWork: this.form.controls['actualWork'].value,
       actualCareer: this.form.controls['actualCareer'].value,
+      techs: this.form.controls['techs'].value
     } as Person;
 
     if (this.files.length > 0) {
