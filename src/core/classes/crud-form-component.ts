@@ -21,12 +21,10 @@ export class CrudFormComponent<Model> {
     }
   }
 
-  saved!: Subscription;
+  suscriptions$: Subscription = new Subscription();
 
   destroy() {
-    if (this.saved) {
-      this.saved.unsubscribe();
-    }
+    this.suscriptions$.unsubscribe();
   }
 
   cargando = false;
@@ -36,20 +34,19 @@ export class CrudFormComponent<Model> {
     this.ref.close();
   }
 
-  savedValue(){
-    const operationState$ = this.store.select(this.state.selectors.selectValuesOperationState);
+  savedValue() {
+    const operationState$ = this.store.select(
+      this.state.selectors.selectValuesOperationState
+    );
 
-    this.saved = operationState$
-      .subscribe(
-        (value) => {
-          if(value === "error"){
-            this.cargando = false;
-          }else if(value === "success"){
-            this.cancelar();
-          }
-
+    this.suscriptions$.add(
+      operationState$.subscribe((value) => {
+        if (value === 'error') {
+          this.cargando = false;
+        } else if (value === 'success') {
+          this.cancelar();
         }
-      );
+      })
+    );
   }
-
 }
