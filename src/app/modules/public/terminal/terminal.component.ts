@@ -15,9 +15,7 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
   @ViewChild('terminal') terminal!: Terminal;
   private terminalService!: TerminalService;
 
-  commandHandlerSub$!: Subscription;
-  actualUserSub$!: Subscription;
-  interactiveCommandRunningSub$!: Subscription;
+  suscriptions$ = new Subscription();
 
   welcomeMessage$!: Observable<string>;
 
@@ -44,8 +42,8 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
   private initTerminal() {
     this.terminalService = this.terminal.terminalService;
 
-    this.commandHandlerSub$ = this.terminalService.commandHandler.subscribe(
-      (command) => {
+    this.suscriptions$.add(
+      this.terminalService.commandHandler.subscribe((command) => {
         if (this.interactiveCommandRunning) {
           return;
         }
@@ -54,22 +52,26 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
         this.store.dispatch(TerminalActions.TerminalSendCommand({ command }));
 
         this.stylePrompts();
-      }
+      })
     );
     const actualUser$ = this.store.select(
       TerminalSelectors.selectTerminalActualUser
     );
-    this.actualUserSub$ = actualUser$.subscribe((value) => {
-      this.actualUser = value;
-      this.stylePrompts();
-    });
+    this.suscriptions$.add(
+      actualUser$.subscribe((value) => {
+        this.actualUser = value;
+        this.stylePrompts();
+      })
+    );
 
     const interactive$ = this.store.select(
       TerminalSelectors.selectTerminalInteractiveFlag
     );
-    this.interactiveCommandRunningSub$ = interactive$.subscribe((value) => {
-      this.interactiveCommandRunning = value;
-    });
+    this.suscriptions$.add(
+      interactive$.subscribe((value) => {
+        this.interactiveCommandRunning = value;
+      })
+    );
     this.welcomeMessage$ = this.store.select(
       TerminalSelectors.selectTerminalWelcomeMessage
     );
@@ -77,15 +79,7 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.actualUserSub$) {
-      this.actualUserSub$.unsubscribe();
-    }
-    if (this.commandHandlerSub$) {
-      this.commandHandlerSub$.unsubscribe();
-    }
-    if (this.interactiveCommandRunningSub$) {
-      this.interactiveCommandRunningSub$.unsubscribe();
-    }
+    this.suscriptions$.unsubscribe();
   }
 
   stylePrompts() {
