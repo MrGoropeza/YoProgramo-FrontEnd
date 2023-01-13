@@ -7,24 +7,24 @@ import { StoreModule } from '@ngrx/store';
 import * as fromSkill from './state/skill.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SkillEffects } from './state/skill.effects';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
-    path: "",
-    component: SkillComponent
-  }
+    path: '',
+    component: SkillComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [
-    SkillComponent
-  ],
+  declarations: [SkillComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     ComponentsModule,
+    FormsModule,
     StoreModule.forFeature(fromSkill.skillFeatureKey, fromSkill.reducer),
-    EffectsModule.forFeature([SkillEffects])
-  ]
+    EffectsModule.forFeature([SkillEffects]),
+  ],
 })
-export class SkillModule { }
+export class SkillModule {}
