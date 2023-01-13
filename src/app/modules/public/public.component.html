@@ -1,5 +1,5 @@
 <div
-  class="mb-2 flex flex-wrap items-center justify-center gap-4 lg:justify-around"
+  class="mb-2 flex flex-wrap items-center justify-center gap-4 lg:justify-between"
 >
   <p-tabMenu
     [model]="menuItems"
@@ -10,10 +10,6 @@
   <div
     class="mr-3 h-16 w-80 bg-yo-programo bg-contain bg-center bg-no-repeat"
   ></div>
-
-  <div class="inline-flex items-center gap-2">
-    <app-button-darkmode></app-button-darkmode>
-  </div>
 </div>
 
 <router-outlet></router-outlet>
@@ -24,5 +20,4 @@
   styleClass="p-button-rounded p-button-primary p-button-lg fixed right-5 bottom-5 animate-bounce"
 ></p-button>
 
-
-<p-toast [breakpoints]="{'500px': {width: '90%'}}"></p-toast>
+<p-toast [breakpoints]="{ '500px': { width: '90%' } }"></p-toast>

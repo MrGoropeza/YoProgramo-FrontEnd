@@ -5,6 +5,7 @@ import { Terminal, TerminalService } from 'primeng/terminal';
 import { map } from 'rxjs';
 import { Command } from 'src/app/project/models/Command.model';
 import { StateService } from 'src/app/project/services/state.service';
+import { ThemeService } from 'src/core/services/theme.service';
 import { TerminalComponent } from '../terminal.component';
 
 import * as terminalActions from './terminal.actions';
@@ -14,7 +15,6 @@ export class TerminalEffects {
   private dialogRef!: DynamicDialogRef;
   private terminal!: Terminal;
   private terminalService!: TerminalService;
-  private interactiveCommandRunning = false;
 
   openTerminal$ = createEffect(
     () => {
@@ -96,7 +96,7 @@ export class TerminalEffects {
     { dispatch: false }
   );
 
-  clearCommand$ = createEffect(
+  themeCommand = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(terminalActions.TerminalClearCommand),
@@ -108,6 +108,23 @@ export class TerminalEffects {
     },
     { dispatch: false }
   );
+
+  themeCommand$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(terminalActions.TerminalThemeCommand),
+        map(() => {
+          if (this.themeService.theme === "dark") {
+            this.themeService.setLightTheme()
+          }else{
+            this.themeService.setDarkTheme()
+          }
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
 
   commands: Command[] = [
     {
@@ -121,29 +138,24 @@ export class TerminalEffects {
       action: terminalActions.TerminalClearCommand(),
     },
     {
+      name: 'theme',
+      desc: 'Cambia el tema de la página',
+      action: terminalActions.TerminalThemeCommand()
+    },
+    {
       name: 'exit',
       desc: 'Salir de la terminal',
       action: terminalActions.TerminalExitCommand(),
     },
     {
-      name: 'places',
-      desc: 'Abre el ABM de lugares',
-      action: this.stateService.getState('Place').actions.openCrudDialog(),
-    },
-    {
-      name: 'techtypes',
-      desc: 'Abre ABM de tipos de tecnología',
-      action: this.stateService.getState('TechType').actions.openCrudDialog(),
-    },
-    {
-      name: 'techs',
-      desc: 'Abre ABM de tecnologías',
-      action: this.stateService.getState('Tech').actions.openCrudDialog(),
-    },
-    {
       name: 'about',
       desc: 'Abre Formulario para editar datos personales',
       action: this.stateService.getState('About').actions.openCrudForm({}),
+    },
+    {
+      name: 'places',
+      desc: 'Abre el ABM de lugares',
+      action: this.stateService.getState('Place').actions.openCrudDialog(),
     },
     {
       name: 'exp',
@@ -154,6 +166,16 @@ export class TerminalEffects {
       name: 'education',
       desc: 'Abre ABM de educaciones',
       action: this.stateService.getState('Education').actions.openCrudDialog(),
+    },
+    {
+      name: 'techtypes',
+      desc: 'Abre ABM de tipos de tecnología',
+      action: this.stateService.getState('TechType').actions.openCrudDialog(),
+    },
+    {
+      name: 'techs',
+      desc: 'Abre ABM de tecnologías',
+      action: this.stateService.getState('Tech').actions.openCrudDialog(),
     },
     {
       name: 'skill',
@@ -175,6 +197,7 @@ export class TerminalEffects {
   constructor(
     private actions$: Actions,
     private dialogService: DialogService,
-    private stateService: StateService
+    private stateService: StateService,
+    private themeService: ThemeService
   ) {}
 }
