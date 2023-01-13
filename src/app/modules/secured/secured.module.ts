@@ -6,6 +6,7 @@ import { PlaceCrudModule } from './place-crud/place-crud.module';
 import { ExpCrudModule } from './exp-crud/exp-crud.module';
 import { EducationCrudModule } from './education-crud/education-crud.module';
 import { SkillCrudModule } from './skill-crud/skill-crud.module';
+import { PersonCrudModule } from './person-crud/person-crud.module';
 
 
 
@@ -17,7 +18,8 @@ import { SkillCrudModule } from './skill-crud/skill-crud.module';
     PlaceCrudModule,
     ExpCrudModule,
     EducationCrudModule,
-    SkillCrudModule
+    SkillCrudModule,
+    PersonCrudModule,
   ],
 })
 export class SecuredModule { }

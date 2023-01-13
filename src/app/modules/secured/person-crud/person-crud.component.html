@@ -1,0 +1,19 @@
+<app-ui-dynamic-table
+    tableTitle="Persona"
+    [cols]="cols"
+    defaultSortField="id"
+    [defaultSortOrder]="1"
+
+    [values]="(values$ | async)!"
+    [loading]="(valuesLoading$ | async)!"
+    [totalRecords]="(totalRecords$ | async)!"
+    (lazyLoadAction)="lazyLoadEvent($event)"
+
+    (newClick)="openForm()"
+    (editClick)="openForm($event)"
+    (deleteConfirmed)="delete($event)"
+
+    confirmationHeader="Persona"
+    confirmationValue="name"
+    confirmationMessage="¿Seguro de borrar esta persona?"
+></app-ui-dynamic-table>

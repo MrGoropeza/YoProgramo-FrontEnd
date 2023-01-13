@@ -17,7 +17,8 @@ export type appStateTypes =
   | Person
   | Experience
   | Education
-  | Skill;
+  | Skill
+  | Person;
 export type appStateNames =
   | 'Tech'
   | 'TechType'
@@ -25,13 +26,14 @@ export type appStateNames =
   | 'About'
   | 'Experience'
   | 'Education'
-  | 'Skill';
+  | 'Skill'
+  | 'Person';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StateService {
-  appStates: CrudState<appStateTypes>[] = [
+  private appStates: CrudState<appStateTypes>[] = [
     new CrudState<appStateTypes>('TechType'),
     new CrudState<appStateTypes>('Tech'),
     new CrudState<appStateTypes>('Place'),
@@ -39,6 +41,7 @@ export class StateService {
     new CrudState<appStateTypes>('Experience'),
     new CrudState<appStateTypes>('Education'),
     new CrudState<appStateTypes>('Skill'),
+    new CrudState<appStateTypes>('Person'),
   ];
 
   constructor(private store: Store) {
