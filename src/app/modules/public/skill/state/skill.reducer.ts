@@ -14,7 +14,7 @@ export interface SkillState {
 export const initialState: SkillState = {
   skills: [],
   skillsLoading: false,
-  skillsError: undefined
+  skillsError: undefined,
 };
 
 export const reducer = createReducer(
@@ -25,10 +25,18 @@ export const reducer = createReducer(
   ),
   on(
     actions.loadSkillsSuccess,
-    (state, action): SkillState => ({ ...state, skills: action.data, skillsLoading: false })
+    (state, action): SkillState => ({
+      ...state,
+      skills: action.data,
+      skillsLoading: false,
+    })
   ),
   on(
     actions.loadSkillsFailure,
-    (state, action): SkillState => ({ ...state, skillsError: action.error, skillsLoading: false })
+    (state, action): SkillState => ({
+      ...state,
+      skillsError: action.error,
+      skillsLoading: false,
+    })
   )
 );
