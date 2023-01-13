@@ -22,6 +22,7 @@ import { CrudErrorMessagePipe } from 'src/core/pipes/crud-error-message.pipe';
 import { UiFormButtonsComponent } from './ui-form-buttons/ui-form-buttons.component';
 import { UiFileUploadComponent } from './ui-file-upload/ui-file-upload.component';
 import { NgBytesPipeModule } from 'src/core/pipes/math/bytes.pipe';
+import { UiKnobComponent } from './ui-knob/ui-knob.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NgBytesPipeModule } from 'src/core/pipes/math/bytes.pipe';
     ListPipe,
     ObjectPipe,
     NullablePipe,
-    CrudErrorMessagePipe
+    CrudErrorMessagePipe,
+    UiKnobComponent
   ],
   exports: [
     OverlayTerminalComponent,
@@ -58,6 +60,7 @@ import { NgBytesPipeModule } from 'src/core/pipes/math/bytes.pipe';
     UiTextareaComponent,
     UiFormButtonsComponent,
     UiFileUploadComponent,
+    UiKnobComponent,
     ListPipe,
     ObjectPipe,
     NullablePipe,

@@ -22,6 +22,7 @@ import { ToastModule } from 'primeng/toast';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { TabViewModule } from 'primeng/tabview';
+import {KnobModule} from 'primeng/knob';
 
 @NgModule({
   exports: [
@@ -47,6 +48,7 @@ import { TabViewModule } from 'primeng/tabview';
     FileUploadModule,
     ImageModule,
     TabViewModule,
+    KnobModule,
   ],
 })
 export class PrimeComponentsModule {}

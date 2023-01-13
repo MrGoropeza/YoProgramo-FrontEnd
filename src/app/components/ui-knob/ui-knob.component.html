@@ -1,0 +1,14 @@
+<div class="flex flex-col items-center">
+  <p-knob
+    [ngModel]="group ? group.get(control)?.value : value"
+    (ngModelChange)="group ? group.get(control)?.setValue($event) : valueChange.emit($event)"
+    [readonly]="readonly"
+    [min]="min"
+    [max]="max"
+    [textColor]="textColor"
+    [rangeColor]="rangeColor"
+    [valueColor]="valueColor"
+  ></p-knob>
+
+  <label class="font-bold text-lg">{{ label }}</label>
+</div>
