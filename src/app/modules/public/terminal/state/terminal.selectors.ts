@@ -5,17 +5,7 @@ export const selectTerminalState = createFeatureSelector<fromTerminal.TerminalSt
   fromTerminal.terminalFeatureKey
 );
 
-export const selectTerminalWelcomeMessage = createSelector(
-  selectTerminalState,
-  state => state.welcomeMessage
-);
-
 export const selectTerminalActualUser = createSelector(
   selectTerminalState,
   state => state.actualUser
-);
-
-export const selectTerminalInteractiveFlag = createSelector(
-  selectTerminalState,
-  state => state.interactiveCommandRunning
 );

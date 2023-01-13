@@ -2,7 +2,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Terminal, TerminalService } from 'primeng/terminal';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import * as TerminalSelectors from './state/terminal.selectors';
 import * as TerminalActions from './state/terminal.actions';
 
@@ -17,9 +17,8 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
 
   suscriptions$ = new Subscription();
 
-  welcomeMessage$!: Observable<string>;
+  welcomeMessage = `Bienvenido a la consola de mi portfolio.\nEscribí 'help' para ver los comandos disponibles.`;
 
-  interactiveCommandRunning = false;
   actualUser = {
     name: 'invitado',
     path: '',
@@ -44,9 +43,6 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
 
     this.suscriptions$.add(
       this.terminalService.commandHandler.subscribe((command) => {
-        if (this.interactiveCommandRunning) {
-          return;
-        }
         this.commandHistory.push(command);
         this.actualIndex = this.commandHistory.length;
         this.store.dispatch(TerminalActions.TerminalSendCommand({ command }));
@@ -64,17 +60,6 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
       })
     );
 
-    const interactive$ = this.store.select(
-      TerminalSelectors.selectTerminalInteractiveFlag
-    );
-    this.suscriptions$.add(
-      interactive$.subscribe((value) => {
-        this.interactiveCommandRunning = value;
-      })
-    );
-    this.welcomeMessage$ = this.store.select(
-      TerminalSelectors.selectTerminalWelcomeMessage
-    );
     this.stylePrompts();
   }
 
