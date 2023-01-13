@@ -24,14 +24,14 @@ export class SkillEffects {
 
   saveSkillSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(this.stateService.getState('Education').actions.saveValueSuccess),
+      ofType(this.stateService.getState('Skill').actions.saveValueSuccess),
       map(() => actions.loadSkills())
     );
   });
 
   deleteSkillSuccess = createEffect(() => {
     return this.actions$.pipe(
-      ofType(this.stateService.getState('Education').actions.deleteValueSuccess),
+      ofType(this.stateService.getState('Skill').actions.deleteValueSuccess),
       map(() => actions.loadSkills())
     );
   });
