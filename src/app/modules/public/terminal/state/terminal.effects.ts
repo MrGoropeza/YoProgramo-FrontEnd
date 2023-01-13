@@ -155,6 +155,11 @@ export class TerminalEffects {
       desc: 'Abre ABM de educaciones',
       action: this.stateService.getState('Education').actions.openCrudDialog(),
     },
+    {
+      name: 'skill',
+      desc: 'Abre ABM de habilidades',
+      action: this.stateService.getState('Skill').actions.openCrudDialog(),
+    },
     // {
     //   name: 'login',
     //   desc: 'Iniciar sesión',

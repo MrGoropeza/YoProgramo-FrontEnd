@@ -1,0 +1,23 @@
+<form [formGroup]="form">
+  <app-ui-input-text
+    [group]="form"
+    control="name"
+    label="Nombre"
+  ></app-ui-input-text>
+
+  <app-ui-input-number
+    [group]="form"
+    control="value"
+    label="Valor"
+    [min]="0"
+    [max]="100"
+  ></app-ui-input-number>
+</form>
+
+<app-ui-form-buttons
+  [cargando]="cargando"
+  (cancelarClick)="cancelar()"
+  (guardarClick)="guardar()"
+></app-ui-form-buttons>
+
+<!-- <pre>{{ form.getRawValue() | json }}</pre> -->
