@@ -32,7 +32,7 @@ export class CrudState<Model> {
     valueOperationState: '',
     valueSaveError: undefined,
     valueDeleteError: undefined,
-    formData: undefined,
+    formData: {},
     formDataError: undefined
   };
 
