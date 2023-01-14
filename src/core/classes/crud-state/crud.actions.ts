@@ -20,6 +20,21 @@ export class CrudActions<Model> {
     props<{ value?: Model }>()
   );
 
+  // Load CRUD Form Data
+  public loadCrudFormData = createAction(
+    `[${this.modelName}] Load ${this.modelName} Form Data`,
+  );
+
+  public loadCrudFormDataSuccess = createAction(
+    `[${this.modelName}] Load ${this.modelName} Form Data`,
+    props<{ data?: any }>()
+  );
+
+  public loadCrudFormDataFailure = createAction(
+    `[${this.modelName}] Load ${this.modelName} Form Data`,
+    props<{ error: any }>()
+  );
+
   // Load CRUD Values
   public loadValues = createAction(
     `[${this.modelName}] Load ${this.modelName}s`,

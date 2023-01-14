@@ -19,7 +19,6 @@ export class CrudEffects<Model> {
     private modelService: CrudService<Model>
   ) {
     console.log(`${modelName} - Creando instancia de Effects`);
-
   }
 
   openCrudDialog$ = createEffect(
@@ -54,6 +53,16 @@ export class CrudEffects<Model> {
     { dispatch: false }
   );
 
+  loadCrudFormData$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.crudActions.openCrudForm),
+      map(() => this.crudActions.loadCrudFormDataSuccess({})),
+      catchError((error) =>
+        of(this.crudActions.loadCrudFormDataFailure({ error }))
+      )
+    );
+  });
+
   lastQuery!: LazyLoadEvent;
 
   loadValues$ = createEffect(() => {
@@ -64,8 +73,8 @@ export class CrudEffects<Model> {
           this.lastQuery = action.query;
         }
 
-        let query = "";
-        if(this.lastQuery){
+        let query = '';
+        if (this.lastQuery) {
           query = window.btoa(JSON.stringify(this.lastQuery));
         }
 

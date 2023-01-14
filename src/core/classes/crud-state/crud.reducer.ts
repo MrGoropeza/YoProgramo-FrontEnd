@@ -11,6 +11,8 @@ export interface modelState<Model> {
   valueOperationState: string;
   valueSaveError: any;
   valueDeleteError: any;
+  formData: any;
+  formDataError: any;
 }
 
 export class CrudState<Model> {
@@ -30,6 +32,8 @@ export class CrudState<Model> {
     valueOperationState: '',
     valueSaveError: undefined,
     valueDeleteError: undefined,
+    formData: undefined,
+    formDataError: undefined
   };
 
   public modelReducer = createReducer(
@@ -52,6 +56,20 @@ export class CrudState<Model> {
         ...state,
         valuesError: action.error,
         valuesLoading: false,
+      })
+    ),
+    on(
+      this.actions.loadCrudFormDataSuccess,
+      (state, action): modelState<Model> => ({
+        ...state,
+        formData: action.data,
+      })
+    ),
+    on(
+      this.actions.loadCrudFormDataFailure,
+      (state, action): modelState<Model> => ({
+        ...state,
+        formDataError: action.error,
       })
     ),
     on(
