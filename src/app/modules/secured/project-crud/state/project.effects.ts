@@ -52,8 +52,6 @@ export class ProjectEffects extends CrudEffects<appStateTypes> {
         const persons = await firstValueFrom(this.personService.getAll());
         const techs = await firstValueFrom(this.techService.getAll());
         const data = { places, persons, techs: getSelectItemGroup(techs) };
-        console.log(data);
-
         return this.state.actions.loadCrudFormDataSuccess({ data });
       }),
       catchError((error) =>
