@@ -26,12 +26,12 @@ export class CrudActions<Model> {
   );
 
   public loadCrudFormDataSuccess = createAction(
-    `[${this.modelName}] Load ${this.modelName} Form Data`,
+    `[${this.modelName}] Load ${this.modelName} Form Data Success`,
     props<{ data?: any }>()
   );
 
   public loadCrudFormDataFailure = createAction(
-    `[${this.modelName}] Load ${this.modelName} Form Data`,
+    `[${this.modelName}] Load ${this.modelName} Form Data Failure`,
     props<{ error: any }>()
   );
 
