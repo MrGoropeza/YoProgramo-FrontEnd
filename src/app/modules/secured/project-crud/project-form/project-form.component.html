@@ -15,6 +15,8 @@
     [group]="form"
     control="collab"
     label="Colaboradores"
+    [options]="(persons | async)!"
+    optionLabel="name"
   ></app-ui-dropdown>
 
   <app-ui-multiselect
@@ -23,12 +25,14 @@
     label="Tecnologías usadas"
     selectedItemsLabel="{0} tecnologías seleccionadas"
     [withGrouping]="true"
+    [options]="(techs | async)!"
   ></app-ui-multiselect>
 
   <app-ui-dropdown
     [group]="form"
     control="place"
     label="Lugar"
+    [options]="(places | async)!"
   ></app-ui-dropdown>
 </form>
 

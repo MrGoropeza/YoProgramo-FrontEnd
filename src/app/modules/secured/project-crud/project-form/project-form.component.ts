@@ -1,7 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { SelectItemGroup } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { map, Observable } from 'rxjs';
+import { Person } from 'src/app/project/models/Person.model';
+import { Place } from 'src/app/project/models/Place.model';
 import { Project } from 'src/app/project/models/Project.model';
 import { appStateTypes, StateService } from 'src/app/project/services/state.service';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
@@ -34,8 +38,29 @@ export class ProjectFormComponent
     });
   }
 
+  persons!: Observable<Person[]>;
+  techs!: Observable<SelectItemGroup[]>;
+  places!: Observable<Place[]>;
+
   ngOnInit(): void {
     this.init();
+    this.store.dispatch(this.state.actions.loadCrudFormData());
+    const data = this.store.select(this.state.selectors.selectFormData);
+    this.persons = data.pipe(
+      map(
+        (value) => value.persons
+      )
+    );
+    this.techs = data.pipe(
+      map(
+        (value) => value.techs
+      )
+    );
+    this.places = data.pipe(
+      map(
+        (value) => value.places
+      )
+    );
   }
 
   ngOnDestroy(): void {
