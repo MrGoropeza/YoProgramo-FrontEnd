@@ -187,6 +187,11 @@ export class TerminalEffects {
       desc: 'Abre ABM de personas',
       action: this.stateService.getState('Person').actions.openCrudDialog(),
     },
+    {
+      name: 'project',
+      desc: 'Abre ABM de proyectos',
+      action: this.stateService.getState('Project').actions.openCrudDialog(),
+    },
     // {
     //   name: 'login',
     //   desc: 'Iniciar sesión',
