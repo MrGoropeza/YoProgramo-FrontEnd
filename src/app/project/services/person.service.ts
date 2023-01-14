@@ -18,6 +18,19 @@ export class PersonService extends CrudService<appStateTypes> {
     super('Person', serviceElementsFactory);
   }
 
+  override getAll(): Observable<Person[]> {
+    return this.http
+      .get<MultipleRecordsResponse<Person>>(
+        `${this.apiUrl}/${this.entityName.toLowerCase()}s/`,
+      )
+      .pipe(
+        map((value) => {
+          this.totalRecords = value.totalRecords;
+          return value.data;
+        })
+      );
+  }
+
   override getWithQuery(query: string): Observable<Person[]> {
     return this.http
       .get<MultipleRecordsResponse<Person>>(
