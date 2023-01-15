@@ -23,6 +23,7 @@ import { UiFormButtonsComponent } from './ui-form-buttons/ui-form-buttons.compon
 import { UiFileUploadComponent } from './ui-file-upload/ui-file-upload.component';
 import { NgBytesPipeModule } from 'src/core/pipes/math/bytes.pipe';
 import { UiKnobComponent } from './ui-knob/ui-knob.component';
+import { SafePipe } from 'src/core/pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -39,11 +40,12 @@ import { UiKnobComponent } from './ui-knob/ui-knob.component';
     UiTextareaComponent,
     UiFormButtonsComponent,
     UiFileUploadComponent,
+    UiKnobComponent,
     ListPipe,
     ObjectPipe,
     NullablePipe,
     CrudErrorMessagePipe,
-    UiKnobComponent
+    SafePipe,
   ],
   exports: [
     OverlayTerminalComponent,
@@ -65,6 +67,7 @@ import { UiKnobComponent } from './ui-knob/ui-knob.component';
     ObjectPipe,
     NullablePipe,
     CrudErrorMessagePipe,
+    SafePipe,
   ],
   imports: [
     CommonModule,
