@@ -1,12 +1,16 @@
 <form [formGroup]="form">
+  <div class="flex gap-1">
+    <app-ui-dropdown
+      class="flex-1"
+      [group]="form"
+      control="place"
+      label="Lugar"
+      [options]="(places | async)!"
+      optionLabel="name"
+    ></app-ui-dropdown>
 
-  <app-ui-dropdown
-    [group]="form"
-    control="place"
-    label="Lugar"
-    [options]="places"
-    optionLabel="name"
-  ></app-ui-dropdown>
+    <p-button icon="pi pi-plus" class="mt-8" (onClick)="addPlace()"></p-button>
+  </div>
 
   <app-ui-input-text
     [group]="form"
@@ -20,24 +24,25 @@
     label="Descripción"
   ></app-ui-textarea>
 
-  <div class="flex gap-3 mt-4">
+  <div class="mt-4 flex gap-3">
     <p>¿Es la educación Actual?</p>
-    <p-inputSwitch
-      formControlName="actualEducation"
-    ></p-inputSwitch>
-    <p>{{ form.controls['actualEducation'].value ? "Sí" : "No" }}</p>
+    <p-inputSwitch formControlName="actualEducation"></p-inputSwitch>
+    <p>{{ form.controls["actualEducation"].value ? "Sí" : "No" }}</p>
   </div>
 
   <app-ui-calendar-input
     [group]="form"
     control="timeRange"
     [label]="
-      form.controls['actualEducation'].value ? 'Fecha de Inicio' : 'Rango de Fechas'
+      form.controls['actualEducation'].value
+        ? 'Fecha de Inicio'
+        : 'Rango de Fechas'
     "
     [selectionMode]="dateSelectionMode"
-    [customErrors]="[{errorKey: 'endDateRequired', errorMessage: 'Fecha de Fin Requerida.'}]"
+    [customErrors]="[
+      { errorKey: 'endDateRequired', errorMessage: 'Fecha de Fin Requerida.' }
+    ]"
   ></app-ui-calendar-input>
-
 </form>
 
 <app-ui-form-buttons

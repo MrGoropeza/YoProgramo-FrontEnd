@@ -1,8 +1,9 @@
+/* eslint-disable @ngrx/prefer-action-creator-in-of-type */
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { firstValueFrom, mergeMap } from 'rxjs';
+import { catchError, firstValueFrom, map, mergeMap, of } from 'rxjs';
 import { Experience } from 'src/app/project/models/Experience.model';
 import { ExperienceService } from 'src/app/project/services/experience.service';
 import { PlaceService } from 'src/app/project/services/place.service';
@@ -39,19 +40,47 @@ export class ExpCrudEffects extends CrudEffects<appStateTypes> {
     );
   }
 
+  override loadCrudFormData$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.state.actions.loadCrudFormData),
+      mergeMap(async () => {
+        const places = await firstValueFrom(this.placeService.getAll());
+        const data = { places };
+        return this.state.actions.loadCrudFormDataSuccess({ data });
+      }),
+      catchError((error) =>
+        of(this.state.actions.loadCrudFormDataFailure({ error }))
+      )
+    );
+  });
+
+  // Place effects
+  savePlaceSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('Place').actions.saveValueSuccess),
+      map(() => this.state.actions.loadCrudFormData())
+    );
+  });
+
+  deletePlaceSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('Place').actions.deleteValueSuccess),
+      map(() => this.state.actions.loadCrudFormData())
+    );
+  });
+
   override openCrudForm$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(this.state.actions.openCrudForm),
         mergeMap(async (action) => {
-          let places = await firstValueFrom(this.placeService.getAll());
           this.dialogService.open(ExpFormComponent, {
             header: action.value
               ? `Editar ${this.state.modelName} "${
                   (action.value as Experience).place.name
                 }"`
               : `Agregar ${this.state.modelName}`,
-            data: { value: action.value, places },
+            data: { value: action.value },
           });
         })
       );

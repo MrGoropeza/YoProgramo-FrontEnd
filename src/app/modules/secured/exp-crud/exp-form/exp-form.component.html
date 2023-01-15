@@ -1,11 +1,16 @@
 <form [formGroup]="form">
-  <app-ui-dropdown
-    [group]="form"
-    control="place"
-    label="Lugar"
-    [options]="places"
-    optionLabel="name"
-  ></app-ui-dropdown>
+  <div class="flex gap-1">
+    <app-ui-dropdown
+      class="flex-1"
+      [group]="form"
+      control="place"
+      label="Lugar"
+      [options]="(places | async)!"
+      optionLabel="name"
+    ></app-ui-dropdown>
+
+    <p-button icon="pi pi-plus" class="mt-8" (onClick)="addPlace()"></p-button>
+  </div>
 
   <app-ui-input-text
     [group]="form"

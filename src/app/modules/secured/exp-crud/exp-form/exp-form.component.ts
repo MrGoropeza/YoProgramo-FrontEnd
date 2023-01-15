@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { startWith } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { DateSelectionMode } from 'src/app/components/ui-calendar-input/ui-calendar-input.component';
 import { Experience } from 'src/app/project/models/Experience.model';
 import { Place } from 'src/app/project/models/Place.model';
@@ -42,13 +42,15 @@ export class ExpFormComponent
     });
   }
 
-  places: Place[] = [];
+  places!: Observable<Place[]>;
   dateSelectionMode: DateSelectionMode = "range";
 
   ngOnInit(): void {
     this.init();
+    this.store.dispatch(this.state.actions.loadCrudFormData());
+    const data = this.store.select(this.state.selectors.selectFormData);
+    this.places = data.pipe(map((value) => value.places));
     if (this.config.data) {
-      this.places = this.config.data.places;
       if(this.config.data.value){
         const exp: Experience = this.config.data.value;
 
@@ -77,6 +79,12 @@ export class ExpFormComponent
 
   ngOnDestroy(): void {
     this.destroy();
+  }
+
+  addPlace(){
+    this.store.dispatch(
+      this.stateService.getState('Place').actions.openCrudForm({})
+    );
   }
 
   guardar() {

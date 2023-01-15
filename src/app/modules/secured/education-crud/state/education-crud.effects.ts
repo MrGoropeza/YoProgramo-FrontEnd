@@ -1,8 +1,9 @@
+/* eslint-disable @ngrx/prefer-action-creator-in-of-type */
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { firstValueFrom, mergeMap } from 'rxjs';
+import { catchError, firstValueFrom, map, mergeMap, of } from 'rxjs';
 import { Education } from 'src/app/project/models/Education.model';
 import { EducationService } from 'src/app/project/services/education.service';
 import { PlaceService } from 'src/app/project/services/place.service';
@@ -37,6 +38,35 @@ export class EducationCrudEffects extends CrudEffects<appStateTypes>  {
       educationService
     );
   }
+
+  override loadCrudFormData$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.state.actions.loadCrudFormData),
+      mergeMap(async () => {
+        const places = await firstValueFrom(this.placeService.getAll());
+        const data = { places };
+        return this.state.actions.loadCrudFormDataSuccess({ data });
+      }),
+      catchError((error) =>
+        of(this.state.actions.loadCrudFormDataFailure({ error }))
+      )
+    );
+  });
+
+  // Place effects
+  savePlaceSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('Place').actions.saveValueSuccess),
+      map(() => this.state.actions.loadCrudFormData())
+    );
+  });
+
+  deletePlaceSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('Place').actions.deleteValueSuccess),
+      map(() => this.state.actions.loadCrudFormData())
+    );
+  });
 
   override openCrudForm$ = createEffect(
     () => {
