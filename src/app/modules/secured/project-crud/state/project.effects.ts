@@ -64,14 +64,30 @@ export class ProjectEffects extends CrudEffects<appStateTypes> {
   savePlaceSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Place').actions.saveValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
   deletePlaceSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Place').actions.deleteValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
@@ -79,14 +95,30 @@ export class ProjectEffects extends CrudEffects<appStateTypes> {
   saveTechSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Tech').actions.saveValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
   deleteTechSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Tech').actions.deleteValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
@@ -94,14 +126,30 @@ export class ProjectEffects extends CrudEffects<appStateTypes> {
   savePersonSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Person').actions.saveValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
   deletePersonSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Person').actions.deleteValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 }

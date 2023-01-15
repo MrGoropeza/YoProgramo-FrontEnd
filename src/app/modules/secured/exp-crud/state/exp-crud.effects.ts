@@ -4,7 +4,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, firstValueFrom, map, mergeMap, of } from 'rxjs';
-import { Experience } from 'src/app/project/models/Experience.model';
 import { ExperienceService } from 'src/app/project/services/experience.service';
 import { PlaceService } from 'src/app/project/services/place.service';
 import {
@@ -58,33 +57,30 @@ export class ExpCrudEffects extends CrudEffects<appStateTypes> {
   savePlaceSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Place').actions.saveValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
   deletePlaceSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Place').actions.deleteValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
-
-  override openCrudForm$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(this.state.actions.openCrudForm),
-        mergeMap(async (action) => {
-          this.dialogService.open(ExpFormComponent, {
-            header: action.value
-              ? `Editar ${this.state.modelName} "${
-                  (action.value as Experience).place.name
-                }"`
-              : `Agregar ${this.state.modelName}`,
-            data: { value: action.value },
-          });
-        })
-      );
-    },
-    { dispatch: false }
-  );
 }

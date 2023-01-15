@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { catchError, firstValueFrom, map, mergeMap, of } from 'rxjs';
+import { catchError, firstValueFrom, map, mergeMap, of, take } from 'rxjs';
 import { Person } from 'src/app/project/models/Person.model';
 import { AboutService } from 'src/app/project/services/about.service';
 import {
@@ -60,10 +60,17 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
         ofType(this.state.actions.openCrudForm),
         mergeMap(async () => {
           let myInfo = await firstValueFrom(this.aboutService.getMyInfo());
-          this.dialogService.open(AboutCrudComponent, {
-            header: 'Editar Información Personal',
-            data: { value: myInfo },
-          });
+          this.isFormDialogOpen = true;
+          this.dialogService
+            .open(AboutCrudComponent, {
+              header: 'Editar Información Personal',
+              data: { value: myInfo },
+            })
+            .onClose.pipe(
+              take(1),
+              map(() => (this.isFormDialogOpen = false))
+            )
+            .subscribe();
         })
       );
     },
@@ -74,14 +81,30 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
   saveTechSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Tech').actions.saveValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
   deleteTechSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Tech').actions.deleteValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
@@ -91,7 +114,9 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
       mergeMap((action) => {
         return this.aboutService.saveMyInfo(action.value as Person).pipe(
           map(() => this.state.actions.saveValueSuccess()),
-          catchError((error) => of(this.state.actions.saveValueFailure({error})))
+          catchError((error) =>
+            of(this.state.actions.saveValueFailure({ error }))
+          )
         );
       })
     );

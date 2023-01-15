@@ -54,35 +54,34 @@ export class TechEffects extends CrudEffects<appStateTypes> {
     );
   });
 
-  override openCrudForm$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(this.state.actions.openCrudForm),
-        mergeMap(async (action) => {
-          this.dialogService.open(TechFormComponent, {
-            header: action.value
-              ? `Editar Tecnología "${(action.value as Tech).name}"`
-              : 'Agregar Tecnología',
-            data: { value: action.value },
-          });
-        })
-      );
-    },
-    { dispatch: false }
-  );
-
   // TechType effects
   saveTechSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('TechType').actions.saveValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 
   deleteTechSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('TechType').actions.deleteValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'About Dialog not Open',
+          });
+        }
+      })
     );
   });
 

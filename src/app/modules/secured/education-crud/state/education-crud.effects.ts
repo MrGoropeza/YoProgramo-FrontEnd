@@ -4,19 +4,19 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, firstValueFrom, map, mergeMap, of } from 'rxjs';
-import { Education } from 'src/app/project/models/Education.model';
 import { EducationService } from 'src/app/project/services/education.service';
 import { PlaceService } from 'src/app/project/services/place.service';
-import { appStateTypes, StateService } from 'src/app/project/services/state.service';
+import {
+  appStateTypes,
+  StateService,
+} from 'src/app/project/services/state.service';
 import { CrudEffects } from 'src/core/classes/crud-state/crud.effects';
 import { CrudState } from 'src/core/classes/crud-state/crud.reducer';
 import { EducationCrudComponent } from '../education-crud.component';
 import { EducationFormComponent } from '../education-form/education-form.component';
 
-
-
 @Injectable()
-export class EducationCrudEffects extends CrudEffects<appStateTypes>  {
+export class EducationCrudEffects extends CrudEffects<appStateTypes> {
   state: CrudState<appStateTypes> = this.stateService.getState('Education');
 
   constructor(
@@ -57,34 +57,30 @@ export class EducationCrudEffects extends CrudEffects<appStateTypes>  {
   savePlaceSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Place').actions.saveValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'Education Form Dialog not Open',
+          });
+        }
+      })
     );
   });
 
   deletePlaceSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(this.stateService.getState('Place').actions.deleteValueSuccess),
-      map(() => this.state.actions.loadCrudFormData())
+      map(() => {
+        if (this.isFormDialogOpen) {
+          return this.state.actions.loadCrudFormData();
+        } else {
+          return this.state.actions.loadCrudFormDataFailure({
+            error: 'Education Form Dialog not Open',
+          });
+        }
+      })
     );
   });
-
-  override openCrudForm$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(this.state.actions.openCrudForm),
-        mergeMap(async (action) => {
-          let places = await firstValueFrom(this.placeService.getAll());
-          this.dialogService.open(EducationFormComponent, {
-            header: action.value
-              ? `Editar ${this.state.modelName} "${
-                  (action.value as Education).place.name
-                }"`
-              : `Agregar ${this.state.modelName}`,
-            data: { value: action.value, places },
-          });
-        })
-      );
-    },
-    { dispatch: false }
-  );
 }

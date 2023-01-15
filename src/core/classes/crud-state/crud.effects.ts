@@ -2,7 +2,7 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
+import { catchError, concatMap, map, mergeMap, of, take } from 'rxjs';
 import { appStateNames } from 'src/app/project/services/state.service';
 import { CrudActions } from './crud.actions';
 import { CrudService } from './crud.service';
@@ -21,15 +21,25 @@ export class CrudEffects<Model> {
     console.log(`${modelName} - Creando instancia de Effects`);
   }
 
+  protected isCrudDialogOpen = false;
+  protected isFormDialogOpen = false;
+
   openCrudDialog$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(this.crudActions.openCrudDialog),
         map(() => {
-          this.dialogService.open(this.crudComponent, {
-            header: `CRUD ${this.modelName}s`,
-            styleClass: 'w-full lg:w-11/12',
-          });
+          this.isCrudDialogOpen = true;
+          this.dialogService
+            .open(this.crudComponent, {
+              header: `CRUD ${this.modelName}s`,
+              styleClass: 'w-full lg:w-11/12',
+            })
+            .onClose.pipe(
+              take(1),
+              map(() => (this.isCrudDialogOpen = false))
+            )
+            .subscribe();
         })
       );
     },
@@ -41,12 +51,19 @@ export class CrudEffects<Model> {
       return this.actions$.pipe(
         ofType(this.crudActions.openCrudForm),
         map((action) => {
-          this.dialogService.open(this.crudFormComponent, {
-            header: action.value
-              ? `Editar ${this.modelName} "${(action.value as any).name}"`
-              : `Agregar ${this.modelName}`,
-            data: { value: action.value },
-          });
+          this.isFormDialogOpen = true;
+          this.dialogService
+            .open(this.crudFormComponent, {
+              header: action.value
+                ? `Editar ${this.modelName} "${(action.value as any).name}"`
+                : `Agregar ${this.modelName}`,
+              data: { value: action.value },
+            })
+            .onClose.pipe(
+              take(1),
+              map(() => (this.isFormDialogOpen = false))
+            )
+            .subscribe();
         })
       );
     },
@@ -118,7 +135,13 @@ export class CrudEffects<Model> {
           summary: 'Éxito',
           detail: `${this.modelName} guardado con éxito.`,
         });
-        return this.crudActions.loadValues({});
+        if (this.isCrudDialogOpen) {
+          return this.crudActions.loadValues({});
+        } else {
+          return this.crudActions.loadValuesFailure({
+            error: `${this.modelName} CRUD Dialog not open`,
+          });
+        }
       })
     );
   });
@@ -162,7 +185,13 @@ export class CrudEffects<Model> {
           summary: 'Éxito',
           detail: `${this.modelName} eliminada con éxito.`,
         });
-        return this.crudActions.loadValues({});
+        if (this.isCrudDialogOpen) {
+          return this.crudActions.loadValues({});
+        } else {
+          return this.crudActions.loadValuesFailure({
+            error: `${this.modelName} CRUD Dialog not open`,
+          });
+        }
       })
     );
   });
