@@ -1,3 +1,4 @@
+/* eslint-disable @ngrx/prefer-action-creator-in-of-type */
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
@@ -10,6 +11,7 @@ import {
   StateService,
 } from 'src/app/project/services/state.service';
 import { TechService } from 'src/app/project/services/tech.service';
+import { getSelectItemGroup } from 'src/app/project/utils/utils';
 import { CrudEffects } from 'src/core/classes/crud-state/crud.effects';
 import { CrudState } from 'src/core/classes/crud-state/crud.reducer';
 import { AboutCrudComponent } from '../about-crud.component';
@@ -38,13 +40,19 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
     );
   }
 
-  override deleteValue$!: never;
-  override deleteValueFailure$!: never;
-  override deleteValueSuccess$!: never;
-
-  override loadValues$!: never;
-
-  override openCrudDialog$!: never;
+  override loadCrudFormData$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.state.actions.loadCrudFormData),
+      mergeMap(async () => {
+        const techs = await firstValueFrom(this.techService.getAll());
+        const data = { techs: getSelectItemGroup(techs) };
+        return this.state.actions.loadCrudFormDataSuccess({ data });
+      }),
+      catchError((error) =>
+        of(this.state.actions.loadCrudFormDataFailure({ error }))
+      )
+    );
+  });
 
   override openCrudForm$ = createEffect(
     () => {
@@ -52,16 +60,30 @@ export class AboutEffects extends CrudEffects<appStateTypes> {
         ofType(this.state.actions.openCrudForm),
         mergeMap(async () => {
           let myInfo = await firstValueFrom(this.aboutService.getMyInfo());
-          let techs = await firstValueFrom(this.techService.getAll());
           this.dialogService.open(AboutCrudComponent, {
             header: 'Editar Información Personal',
-            data: { value: myInfo, techs },
+            data: { value: myInfo },
           });
         })
       );
     },
     { dispatch: false }
   );
+
+  // Tech effects
+  saveTechSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('Tech').actions.saveValueSuccess),
+      map(() => this.state.actions.loadCrudFormData())
+    );
+  });
+
+  deleteTechSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('Tech').actions.deleteValueSuccess),
+      map(() => this.state.actions.loadCrudFormData())
+    );
+  });
 
   override saveValue$ = createEffect(() => {
     return this.actions$.pipe(

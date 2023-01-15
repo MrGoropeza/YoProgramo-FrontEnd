@@ -17,14 +17,19 @@
     label="Link"
   ></app-ui-input-text>
 
-  <app-ui-multiselect
-    [group]="form"
-    control="techs"
-    label="Tecnologías del Portfolio"
-    selectedItemsLabel="{0} tecnologías seleccionadas"
-    [withGrouping]="true"
-    [options]="techs"
-  ></app-ui-multiselect>
+  <div class="flex gap-1">
+    <app-ui-multiselect
+      class="flex-1"
+      [group]="form"
+      control="techs"
+      label="Tecnologías usadas"
+      selectedItemsLabel="{0} tecnologías seleccionadas"
+      [withGrouping]="true"
+      [options]="(techs | async)!"
+    ></app-ui-multiselect>
+
+    <p-button icon="pi pi-plus" class="mt-8" (onClick)="addTech()"></p-button>
+  </div>
 
   <div class="mt-4 flex flex-col items-center">
     <p class="">Foto de Perfil Actual</p>

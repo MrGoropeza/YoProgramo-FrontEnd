@@ -3,13 +3,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { SelectItemGroup } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { map, Observable } from 'rxjs';
 import { Person } from 'src/app/project/models/Person.model';
-import { Tech } from 'src/app/project/models/Tech.model';
 import {
   appStateTypes,
   StateService,
 } from 'src/app/project/services/state.service';
-import { getSelectItemGroup } from 'src/app/project/utils/utils';
 import { CrudFormComponent } from 'src/core/classes/crud-form-component';
 
 @Component({
@@ -44,19 +43,23 @@ export class AboutCrudComponent
 
   files: File[] = [];
 
-  techs: SelectItemGroup[] = [];
+  techs!: Observable<SelectItemGroup[]>;
 
   ngOnInit(): void {
     this.init();
-    if (this.config.data) {
-      const responseTechs = this.config.data.techs as Tech[];
-
-      this.techs = getSelectItemGroup(responseTechs);
-    }
+    this.store.dispatch(this.state.actions.loadCrudFormData());
+    const data = this.store.select(this.state.selectors.selectFormData);
+    this.techs = data.pipe(map((value) => value.techs));
   }
 
   ngOnDestroy(): void {
     this.destroy();
+  }
+
+  addTech() {
+    this.store.dispatch(
+      this.stateService.getState('Tech').actions.openCrudForm({})
+    );
   }
 
   guardar() {
