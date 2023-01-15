@@ -10,15 +10,68 @@
   class="m-4 flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-yellow-500 p-4 dark:border-blue-300"
 >
   <div
-    class="flex items-center justify-center gap-3"
+    class="flex flex-col items-center justify-center gap-3 max-w-full"
     *ngFor="let value of (values | async)!"
   >
+    <div class="flex items-center justify-center gap-3" *ngIf="value.place">
+      <p-image
+        [src]="value.place.imageUrl"
+        [alt]="value.place.name"
+        imageClass="aspect-square h-full w-20 max-w-none rounded-full"
+      ></p-image>
+      <div class="flex flex-col">
+        <div class="flex items-center gap-3">
+          <p class="text-2xl font-bold">{{ value.name }}</p>
+          <a
+            [href]="value.url | safe"
+            class="pi pi-external-link"
+            target="_blank"
+          ></a>
+        </div>
+        <p>{{ value.description }}</p>
+      </div>
+    </div>
 
+    <div *ngIf="value.collab" class="text-xl font-bold">
+      <p class="text-center">Colaboradores</p>
+      <div
+        *ngFor="let person of value.collab"
+        class="flex items-center justify-center gap-3"
+      >
+        <p-image
+          [src]="person.imageUrl"
+          [alt]="person.name"
+          imageClass="aspect-square h-full w-20 max-w-none rounded-full"
+        ></p-image>
+        <div>
+          <p class="text-2xl">{{ person.name }}</p>
+          <p class="text-lg font-normal italic">{{ person.title }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="value.techs" class="text-xl font-bold max-w-full">
+      <p class="text-center">Tecnologías Usadas</p>
+      <div class="mx-auto flex max-w-max items-end overflow-x-auto">
+        <div *ngFor="let tech of value.techs">
+          <img
+            [src]="tech.imageUrl"
+            alt="{{ tech.name }}-Logo"
+            class="w-24 max-w-none animate-float py-4 px-1"
+          />
+          <p
+            class="cursor-help text-center text-lg font-bold"
+            [pTooltip]="tech.description"
+            tooltipPosition="top"
+          >
+            {{ tech.name }}
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
   <div
-    *ngIf="
-      (values | async)!.length === 0 && !(valuesLoading | async)!
-    "
+    *ngIf="(values | async)!.length === 0 && !(valuesLoading | async)!"
     class="text-xl font-bold"
   >
     No tengo proyectos... :c
@@ -30,11 +83,6 @@
     >
       <p-skeleton shape="circle" size="5rem"></p-skeleton>
       <div>
-        <div class="flex items-center gap-2">
-          <p-skeleton width="5rem"></p-skeleton>
-          -
-          <p-skeleton width="5rem"></p-skeleton>
-        </div>
         <p-skeleton
           width="12rem"
           height="1.5rem"
