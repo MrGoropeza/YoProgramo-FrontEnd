@@ -49,6 +49,14 @@ const routes: Routes = [
             (m) => m.SkillModule
           ),
       },
+      {
+        path: 'proyectos',
+        title: 'Proyectos',
+        loadChildren: () =>
+          import('./project/project.module').then(
+            (m) => m.ProjectModule
+          ),
+      },
     ],
   },
   {
