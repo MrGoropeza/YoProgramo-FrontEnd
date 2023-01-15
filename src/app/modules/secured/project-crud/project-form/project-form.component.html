@@ -12,14 +12,14 @@
   ></app-ui-input-text>
 
   <div class="flex gap-1">
-    <app-ui-dropdown
+    <app-ui-multiselect
       class="flex-1"
       [group]="form"
       control="collab"
       label="Colaboradores"
       [options]="(persons | async)!"
       optionLabel="name"
-    ></app-ui-dropdown>
+    ></app-ui-multiselect>
 
     <p-button icon="pi pi-plus" class="mt-8" (onClick)="addPerson()"></p-button>
   </div>
