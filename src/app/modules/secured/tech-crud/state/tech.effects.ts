@@ -96,7 +96,7 @@ export class TechEffects extends CrudEffects<appStateTypes> {
 
         const query = window.btoa(JSON.stringify(this.lastQuery));
 
-        return this.techService.getWithQueryCustom('', query).pipe(
+        return this.techService.getWithQueryCustom('', this.lastQuery ? query : '').pipe(
           map((data) =>
             this.state.actions.loadValuesSuccess({
               data: {

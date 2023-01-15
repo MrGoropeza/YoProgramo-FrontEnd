@@ -36,10 +36,11 @@ export class TechService extends CrudService<appStateTypes> {
     query: string
   ): Observable<Tech[]> {
     let params = {};
-    if (techTypeName === '') {
-      params = { query };
-    } else {
-      params = { techTypeName, query };
+    if (techTypeName) {
+      params = {...params, techTypeName};
+    }
+    if (query) {
+      params = {...params, query};
     }
     return this.http
       .get<MultipleRecordsResponse<Tech>>(
