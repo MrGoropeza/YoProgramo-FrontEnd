@@ -34,6 +34,7 @@ export class ProjectFormComponent
     this.form = this.fb.group({
       id: [null],
       name: [null, Validators.required],
+      description: [null, Validators.required],
       url: [null, Validators.required],
       collab: [null],
       techs: [null],
