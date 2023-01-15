@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Tech } from 'src/app/project/models/Tech.model';
 import { TechType } from 'src/app/project/models/TechType.model';
 import {
@@ -46,9 +46,9 @@ export class TechFormComponent
     if (this.form.controls['imageUrl'].value) {
       this.form.controls['isLink'].setValue(true);
     }
-    if(this.config.data){
-      this.tipos = this.config.data.techTypes;
-    }
+    this.store.dispatch(this.state.actions.loadCrudFormData());
+    const data = this.store.select(this.state.selectors.selectFormData);
+    this.tipos = data.pipe(map((value) => value.techTypes));
   }
 
   ngOnDestroy(): void {
@@ -56,6 +56,12 @@ export class TechFormComponent
   }
 
   tipos!: Observable<TechType[]>;
+
+  addTechType() {
+    this.store.dispatch(
+      this.stateService.getState('TechType').actions.openCrudForm({})
+    );
+  }
 
   guardar() {
     this.cargando = true;

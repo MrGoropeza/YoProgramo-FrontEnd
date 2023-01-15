@@ -12,14 +12,24 @@
     [autoResize]="true"
   ></app-ui-textarea>
 
-  <app-ui-dropdown
-    [group]="form"
-    control="tipo"
-    label="Tipo"
-    [filter]="true"
-    [options]="(tipos | async)!"
-    optionLabel="name"
-  ></app-ui-dropdown>
+  <div class="flex gap-1">
+    <app-ui-dropdown
+      class="flex-1"
+      [group]="form"
+      control="tipo"
+      label="Tipo"
+      [filter]="true"
+      [options]="(tipos | async)!"
+      optionLabel="name"
+    ></app-ui-dropdown>
+
+    <p-button
+      icon="pi pi-plus"
+      class="mt-8"
+      (onClick)="addTechType()"
+    ></p-button>
+  </div>
+
 
   <div class="mt-4 flex items-center gap-2">
     <label>Archivo</label>

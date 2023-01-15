@@ -1,8 +1,9 @@
+/* eslint-disable @ngrx/prefer-action-creator-in-of-type */
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
+import { catchError, concatMap, firstValueFrom, map, mergeMap, of } from 'rxjs';
 import { Tech } from 'src/app/project/models/Tech.model';
 import {
   appStateTypes,
@@ -39,23 +40,51 @@ export class TechEffects extends CrudEffects<appStateTypes> {
     );
   }
 
+  override loadCrudFormData$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.state.actions.loadCrudFormData),
+      mergeMap(async () => {
+        const techTypes = await firstValueFrom(this.techTypeService.getAll());
+        const data = { techTypes };
+        return this.state.actions.loadCrudFormDataSuccess({ data });
+      }),
+      catchError((error) =>
+        of(this.state.actions.loadCrudFormDataFailure({ error }))
+      )
+    );
+  });
+
   override openCrudForm$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(this.state.actions.openCrudForm),
         mergeMap(async (action) => {
-          const techTypes = this.techTypeService.getAll();
           this.dialogService.open(TechFormComponent, {
             header: action.value
               ? `Editar Tecnología "${(action.value as Tech).name}"`
               : 'Agregar Tecnología',
-            data: { value: action.value, techTypes },
+            data: { value: action.value },
           });
         })
       );
     },
     { dispatch: false }
   );
+
+  // TechType effects
+  saveTechSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('TechType').actions.saveValueSuccess),
+      map(() => this.state.actions.loadCrudFormData())
+    );
+  });
+
+  deleteTechSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.stateService.getState('TechType').actions.deleteValueSuccess),
+      map(() => this.state.actions.loadCrudFormData())
+    );
+  });
 
   override loadValues$ = createEffect(() => {
     return this.actions$.pipe(
