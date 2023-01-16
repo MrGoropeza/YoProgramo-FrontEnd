@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { Command } from 'src/app/project/models/Command.model';
 import { StateService } from 'src/app/project/services/state.service';
 import { ThemeService } from 'src/core/services/theme.service';
+import { LoginComponent } from '../../login/login.component';
 import { TerminalComponent } from '../terminal.component';
 
 import * as terminalActions from './terminal.actions';
@@ -125,6 +126,20 @@ export class TerminalEffects {
     { dispatch: false }
   );
 
+  loginCommand$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(terminalActions.TerminalLoginCommand),
+        map(() => {
+          this.dialogService.open(LoginComponent, {
+            header: "Iniciar Sesión"
+          });
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
 
   commands: Command[] = [
     {
@@ -192,11 +207,11 @@ export class TerminalEffects {
       desc: 'Abre ABM de proyectos',
       action: this.stateService.getState('Project').actions.openCrudDialog(),
     },
-    // {
-    //   name: 'login',
-    //   desc: 'Iniciar sesión',
-    //   action: terminalActions.TerminalLoginCommand(),
-    // },
+    {
+      name: 'login',
+      desc: 'Iniciar sesión',
+      action: terminalActions.TerminalLoginCommand(),
+    },
     // {
     //   name: 'logout',
     //   desc: 'Cerrar sesión',

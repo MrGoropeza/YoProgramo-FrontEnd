@@ -25,6 +25,10 @@ export const TerminalClearCommand = createAction('[Terminal] Clear Command');
 
 export const TerminalLoginCommand = createAction('[Terminal] Login Command');
 
+export const LoginSuccess = createAction('[Login] Login Success');
+
+export const LoginFailure = createAction('[Login] Login Failure');
+
 export const TerminalLogoutCommand = createAction('[Terminal] Logout Command');
 
 export const TerminalThemeCommand = createAction('[Terminal] Theme Command');

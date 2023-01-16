@@ -1,0 +1,22 @@
+<form [formGroup]="form">
+  <app-ui-input-text
+    [group]="form"
+    control="name"
+    label="Nombre"
+  ></app-ui-input-text>
+
+  <app-ui-input-text
+    [group]="form"
+    control="password"
+    label="Contraseña"
+    type="password"
+  ></app-ui-input-text>
+</form>
+
+<div class="mt-4 flex justify-end">
+  <p-button
+    label="Iniciar Sesión"
+    [loading]="cargando"
+    (onClick)="login()"
+  ></p-button>
+</div>
