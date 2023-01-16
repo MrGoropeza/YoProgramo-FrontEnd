@@ -17,4 +17,6 @@ export class UiInputTextComponent {
   @Input() control!: string
   @Input() group!: FormGroup
 
+  @Input() type = "text";
+
 }
