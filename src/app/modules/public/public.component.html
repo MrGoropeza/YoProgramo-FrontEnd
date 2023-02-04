@@ -7,9 +7,28 @@
     styleClass="max-w-min"
   ></p-tabMenu>
 
-  <div
-    class="mr-3 h-16 w-80 bg-yo-programo bg-contain bg-center bg-no-repeat"
-  ></div>
+  <div class="flex items-center">
+    <p-button
+      *ngIf="!authService.getToken()"
+      icon="pi pi-sign-in"
+      styleClass="p-button-rounded p-button-success"
+      pTooltip="Iniciar Sesión"
+      tooltipPosition="bottom"
+      (onClick)="signin()"
+    ></p-button>
+    <p-button
+      *ngIf="authService.getToken()"
+      icon="pi pi-sign-out"
+      styleClass="p-button-rounded p-button-danger"
+      pTooltip="Iniciar Sesión"
+      tooltipPosition="bottom"
+      (onClick)="signout()"
+    ></p-button>
+
+    <div
+      class="mr-3 h-16 w-80 bg-yo-programo bg-contain bg-center bg-no-repeat"
+    ></div>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
@@ -21,3 +40,4 @@
 ></p-button>
 
 <p-toast [breakpoints]="{ '500px': { width: '90%' } }"></p-toast>
+<p-confirmDialog></p-confirmDialog>

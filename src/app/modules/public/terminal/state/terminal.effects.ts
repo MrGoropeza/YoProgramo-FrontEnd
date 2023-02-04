@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Terminal, TerminalService } from 'primeng/terminal';
 import { map } from 'rxjs';
 import { Command } from 'src/app/project/models/Command.model';
+import { AuthService } from 'src/app/project/services/auth.service';
 import { StateService } from 'src/app/project/services/state.service';
 import { ThemeService } from 'src/core/services/theme.service';
 import { LoginComponent } from '../../login/login.component';
@@ -27,7 +29,7 @@ export class TerminalEffects {
             modal: false,
             position: 'bottom-right',
             styleClass: 'w-full sm:w-auto',
-            style: {margin: 0}
+            style: { margin: 0 },
           });
         })
       );
@@ -115,10 +117,10 @@ export class TerminalEffects {
       return this.actions$.pipe(
         ofType(terminalActions.TerminalThemeCommand),
         map(() => {
-          if (this.themeService.theme === "dark") {
-            this.themeService.setLightTheme()
-          }else{
-            this.themeService.setDarkTheme()
+          if (this.themeService.theme === 'dark') {
+            this.themeService.setLightTheme();
+          } else {
+            this.themeService.setDarkTheme();
           }
         })
       );
@@ -132,7 +134,7 @@ export class TerminalEffects {
         ofType(terminalActions.TerminalLoginCommand),
         map(() => {
           this.dialogService.open(LoginComponent, {
-            header: "Iniciar Sesión"
+            header: 'Iniciar Sesión',
           });
         })
       );
@@ -140,6 +142,28 @@ export class TerminalEffects {
     { dispatch: false }
   );
 
+  logoutCommand$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(terminalActions.TerminalLogoutCommand),
+        map(() => {
+          this.confirmationService.confirm({
+            header: 'Cerrar Sesión',
+            message: '¿Seguro que querés cerrar sesión?',
+            accept: () => {
+              this.authService.logout();
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Éxito',
+                detail: `Sesión cerrada con éxito.`,
+              });
+            },
+          });
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
   commands: Command[] = [
     {
@@ -155,7 +179,7 @@ export class TerminalEffects {
     {
       name: 'theme',
       desc: 'Cambia el tema de la página',
-      action: terminalActions.TerminalThemeCommand()
+      action: terminalActions.TerminalThemeCommand(),
     },
     {
       name: 'exit',
@@ -212,17 +236,20 @@ export class TerminalEffects {
       desc: 'Iniciar sesión',
       action: terminalActions.TerminalLoginCommand(),
     },
-    // {
-    //   name: 'logout',
-    //   desc: 'Cerrar sesión',
-    //   action: terminalActions.TerminalLogoutCommand(),
-    // },
+    {
+      name: 'logout',
+      desc: 'Cerrar sesión',
+      action: terminalActions.TerminalLogoutCommand(),
+    },
   ];
 
   constructor(
     private actions$: Actions,
     private dialogService: DialogService,
     private stateService: StateService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
 }

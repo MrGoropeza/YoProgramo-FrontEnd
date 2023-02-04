@@ -4,7 +4,6 @@ import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { User } from 'src/app/project/models/User.model';
-import { AboutService } from 'src/app/project/services/about.service';
 import { AuthService } from 'src/app/project/services/auth.service';
 import {
   appStateTypes,
@@ -23,7 +22,6 @@ export class LoginEffects extends CrudEffects<appStateTypes> {
     dialogService: DialogService,
     messageService: MessageService,
     private stateService: StateService,
-    private aboutService: AboutService,
     private authService: AuthService
   ) {
     super(
@@ -34,7 +32,7 @@ export class LoginEffects extends CrudEffects<appStateTypes> {
       stateService.getState('Auth').actions,
       LoginComponent,
       LoginComponent,
-      aboutService
+      authService
     );
   }
 
@@ -44,9 +42,9 @@ export class LoginEffects extends CrudEffects<appStateTypes> {
       switchMap((action) => {
         return this.authService.login(action.value as User).pipe(
           map((headers) => {
-            const token = headers.get("Authorization")?.replace("Bearer ", "");
+            const token = headers.get('Authorization')?.replace('Bearer ', '');
             if (token) {
-              localStorage.setItem("token", token);
+              localStorage.setItem('token', token);
               return this.state.actions.saveValueSuccess();
             } else {
               return this.state.actions.saveValueFailure({
@@ -54,24 +52,39 @@ export class LoginEffects extends CrudEffects<appStateTypes> {
               });
             }
           }),
-          catchError(error => of(this.state.actions.saveValueFailure({error})))
+          catchError((error) =>
+            of(this.state.actions.saveValueFailure({ error }))
+          )
         );
       })
     );
   });
 
-  // loginSuccess$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(this.state.actions.saveValueSuccess),
-  //     map(() => {
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Éxito',
-  //         detail: `Sesión iniciada con éxito.`,
-  //       });
-  //     })
-  //   );
-  // }, {dispatch: false});
+  override saveValueSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.state.actions.saveValueSuccess),
+      map(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Éxito',
+          detail: `Sesión iniciada con éxito. En la terminal abajo a la derecha podés abrir todas las funcionalidades CRUD.`,
+          life: 6000,
+        });
+        return this.state.actions.loadValues({});
+      })
+    );
+  });
+
+  override loadValues$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(this.state.actions.loadValues),
+      map(() =>
+        this.state.actions.loadValuesSuccess({
+          data: { data: [], totalRecords: 0 },
+        })
+      )
+    );
+  });
 
   override saveValueFailure$ = createEffect(
     () => {
