@@ -30,7 +30,15 @@ export class AuthService extends CrudService<appStateTypes> {
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return null;
+    }
+    const expTime: number = JSON.parse(window.atob(token.split('.')[1])).exp;
+    if (Date.now() >= expTime * 1000) {
+      return null;
+    }
+    return token;
   }
 
   logout() {
