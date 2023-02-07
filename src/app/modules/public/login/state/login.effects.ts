@@ -67,7 +67,7 @@ export class LoginEffects extends CrudEffects<appStateTypes> {
         this.messageService.add({
           severity: 'success',
           summary: 'Éxito',
-          detail: `Sesión iniciada con éxito. En la terminal abajo a la derecha podés abrir todas las funcionalidades CRUD.`,
+          detail: `Sesión iniciada con éxito. Con el botón abajo a la derecha podés acceder a todas las funcionalidades CRUD.`,
           life: 6000,
         });
         return this.state.actions.loadValues({});

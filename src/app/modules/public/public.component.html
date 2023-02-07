@@ -20,7 +20,7 @@
       *ngIf="authService.getToken()"
       icon="pi pi-sign-out"
       styleClass="p-button-rounded p-button-danger"
-      pTooltip="Iniciar Sesión"
+      pTooltip="Cerrar Sesión"
       tooltipPosition="bottom"
       (onClick)="signout()"
     ></p-button>
@@ -33,11 +33,20 @@
 
 <router-outlet></router-outlet>
 
-<p-button
-  icon="bi bi-terminal-fill"
-  (onClick)="openTerminal()"
-  styleClass="p-button-rounded p-button-primary p-button-lg fixed right-5 bottom-5 animate-bounce"
-></p-button>
+<!-- <p-button
+    icon="bi bi-terminal-fill"
+    (onClick)="openTerminal()"
+    styleClass="p-button-rounded p-button-primary p-button-lg fixed right-5 bottom-5 animate-bounce"
+    ></p-button> -->
+
+<p-speedDial
+  *ngIf="authService.getToken()"
+  showIcon="pi pi-pencil"
+  [rotateAnimation]="false"
+  direction="up"
+  buttonClassName="p-button-primary w-8 rounded-full"
+  [model]="dialItems"
+></p-speedDial>
 
 <p-toast [breakpoints]="{ '500px': { width: '90%' } }"></p-toast>
 <p-confirmDialog></p-confirmDialog>

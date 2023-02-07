@@ -7,6 +7,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { TerminalModule } from './terminal/terminal.module';
 import { SecuredModule } from '../secured/secured.module';
 import { LoginModule } from './login/login.module';
+import { PrimeComponentsModule } from 'src/app/prime-components.module';
 
 const routes: Routes = [
   {
@@ -72,6 +73,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ComponentsModule,
+    PrimeComponentsModule,
     TerminalModule,
     SecuredModule,
     LoginModule
