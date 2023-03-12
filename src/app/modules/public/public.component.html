@@ -52,7 +52,7 @@
 ></p-button>
 
 <p-speedDial
-  *ngIf="!pro && authService.getToken()"
+  *ngIf="!pro"
   showIcon="pi pi-pencil"
   [rotateAnimation]="false"
   direction="up"
@@ -61,3 +61,4 @@
 ></p-speedDial>
 
 <p-toast [breakpoints]="{ '500px': { width: '90%' } }"></p-toast>
+<p-confirmDialog key="logout"></p-confirmDialog>

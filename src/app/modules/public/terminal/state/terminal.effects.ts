@@ -148,6 +148,7 @@ export class TerminalEffects {
         ofType(terminalActions.TerminalLogoutCommand),
         map(() => {
           this.confirmationService.confirm({
+            key: 'logout',
             header: 'Cerrar Sesión',
             message: '¿Seguro que querés cerrar sesión?',
             accept: () => {
