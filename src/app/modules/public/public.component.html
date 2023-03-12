@@ -7,9 +7,20 @@
     styleClass="max-w-min"
   ></p-tabMenu>
 
-  <div class="flex items-center">
+  <div class="flex items-center gap-2">
+    <div class="flex items-end gap-4 rounded-md bg-blue-800 p-2">
+      <p-inputSwitch
+        (onChange)="pro = !pro"
+        pTooltip="Modo"
+        tooltipPosition="bottom"
+      ></p-inputSwitch>
+
+      <i *ngIf="pro" class="bi bi-emoji-sunglasses-fill text-2xl"></i>
+      <i *ngIf="!pro" class="bi bi-emoji-neutral-fill text-2xl"></i>
+    </div>
+
     <p-button
-      *ngIf="!authService.getToken()"
+      *ngIf="!pro && !authService.getToken()"
       icon="pi pi-sign-in"
       styleClass="p-button-rounded p-button-success"
       pTooltip="Iniciar Sesión"
@@ -17,7 +28,7 @@
       (onClick)="signin()"
     ></p-button>
     <p-button
-      *ngIf="authService.getToken()"
+      *ngIf="!pro && authService.getToken()"
       icon="pi pi-sign-out"
       styleClass="p-button-rounded p-button-danger"
       pTooltip="Cerrar Sesión"
@@ -33,14 +44,15 @@
 
 <router-outlet></router-outlet>
 
-<!-- <p-button
-    icon="bi bi-terminal-fill"
-    (onClick)="openTerminal()"
-    styleClass="p-button-rounded p-button-primary p-button-lg fixed right-5 bottom-5 animate-bounce"
-    ></p-button> -->
+<p-button
+  *ngIf="pro"
+  icon="bi bi-terminal-fill"
+  (onClick)="openTerminal()"
+  styleClass="p-button-rounded p-button-primary p-button-lg fixed right-5 bottom-5 animate-bounce"
+></p-button>
 
 <p-speedDial
-  *ngIf="authService.getToken()"
+  *ngIf="!pro && authService.getToken()"
   showIcon="pi pi-pencil"
   [rotateAnimation]="false"
   direction="up"
@@ -49,4 +61,3 @@
 ></p-speedDial>
 
 <p-toast [breakpoints]="{ '500px': { width: '90%' } }"></p-toast>
-<p-confirmDialog></p-confirmDialog>

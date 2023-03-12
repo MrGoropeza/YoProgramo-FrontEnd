@@ -1,3 +1,7 @@
 :host ::ng-deep .p-speeddial {
   @apply fixed bottom-5 right-5;
 }
+
+:host ::ng-deep .p-inputswitch {
+  @apply block;
+}

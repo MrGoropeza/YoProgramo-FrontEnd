@@ -140,6 +140,8 @@ export class PublicComponent {
     },
   ];
 
+  pro = false;
+
   constructor(
     private store: Store,
     protected authService: AuthService,
