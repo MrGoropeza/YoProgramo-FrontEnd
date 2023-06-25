@@ -2,14 +2,9 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// export const environment = {
-//   production: false,
-//   apiUrl: "http://localhost:8080"
-// };
-
 export const environment = {
   production: false,
-  apiUrl: 'https://yoprogramo-backend-production-a632.up.railway.app',
+  apiUrl: 'http://localhost:8080',
 };
 
 /*
