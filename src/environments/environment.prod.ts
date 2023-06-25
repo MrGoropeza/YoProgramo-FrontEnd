@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "https://portfolio-backend-mrgoropeza.koyeb.app"
+  apiUrl: 'yoprogramo-backend-production-a632.up.railway.app',
 };
